@@ -1,0 +1,17 @@
+image {
+  height: 100%;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center; 
+}
+
+.header{
+  width: 100%;
+  float: left;
+}
+
+.footer{
+  width: 100%;
+  float: left;
+  background-color: #272727;
+}

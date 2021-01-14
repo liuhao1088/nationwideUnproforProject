@@ -1,0 +1,31 @@
+
+@import './style/weui.wxss';
+@import './style/main.wxss';
+@import './style/icon.wxss';
+page{
+  height: 100%;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+}
+
+
+.column{
+  display: flex;
+  flex-direction: column;
+}
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+} 
