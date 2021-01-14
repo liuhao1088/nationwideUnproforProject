@@ -1,6 +1,9 @@
 {
   "pages":[
+    "pages/activated/activated",
+    "pages/inactivated/inactivated",
     "pages/index/index"
+    
   ],
   "window":{
     "backgroundTextStyle":"light",

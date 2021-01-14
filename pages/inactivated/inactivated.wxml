@@ -1,0 +1,168 @@
+<view class="inactivatedContainer column justify-center align-center">
+  <view class="header  column justify-center align-center">
+    <view class="user-item container">
+      <view class="user-wrap">
+        <view class="img-item">
+          <image style="border-radius: 50%;" src=""></image>
+        </view>
+        <view class="name-item">
+          <text>尊敬的会员</text><text style="margin-left: 10rpx;">XXX</text>
+        </view>
+      </view>
+      <view class="user-wrap" style="color: rgb(172, 172, 172);font-size: 14px;">会员码：VC1165F165322</view>
+    </view>
+  </view>
+
+  <view class="title-item">延保服务</view>
+
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">延保套餐</view>
+      </view>
+      <view class="menu-msgItem">
+        <radio-group class="height: 100%;width: 100%;display: flex;" bindchange="handleChange">
+          <view class="yes-item" bindtap="showModal" data-target="meal">
+            <radio value="true" checked="{{checked}}"></radio>
+            <view class="yes-msg" checked="{{checked}}">选择延保套餐</view>
+          </view>
+          <view class="yes-item" style="margin-left: 20rpx;">
+            <radio value="false"></radio>
+            <view class="yes-msg">暂不购买</view>
+          </view>
+        
+        </radio-group>
+
+      </view>
+
+    </view>
+  </view>
+
+  <view class="title-item">产品信息</view>
+
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">购买门店</view>
+      </view>
+      <view class="menu-msgItem">
+        <input type="text" placeholder="请选择购入门店" />
+      </view>
+      <view class="menu-rightItem">
+        <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
+      </view>
+    </view>
+  </view>
+
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">装车照片</view>
+      </view>
+      <view class="grid grid-square flex-sub" style="height:100%; padding-left: 100rpx;">
+          <view class="solids" bindtap="ChooseImage" style="display:{{img.length === 0?'block':'none'}};">
+            <text class="cuIcon-cameraadd" style="color: #8799a3;"></text>
+          </view>
+          <view class="solids" bindtap="ViewImage" style="display:{{img.length === 1?'block':'none'}};">
+            <image wx:for="{{img}}" wx:key="id" src="{{item}}" />
+            <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+              <text class="cuIcon-close" style="color:#f92643;"></text>
+            </view>
+          </view>
+        </view>
+    </view>
+  </view>
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">安装车型</view>
+      </view>
+      <view class="menu-msgItem">请选择您的汽车车型</view>
+      <view class="menu-rightItem">
+        <text class="iconfont iconweibiaoti34"></text>
+      </view>
+    </view>
+  </view>
+
+  <view class="title-item">个人信息</view>
+
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">车主姓名</view>
+      </view>
+      <view class="menu-msgItem">
+        <input type="text" placeholder="请输入您的姓名" />
+      </view>
+    </view>
+  </view>
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">联系电话</view>
+      </view>
+      <view class="menu-msgItem">
+        <input type="text" placeholder="请输入您的联系电话" />
+      </view>
+
+    </view>
+  </view>
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">所在地区</view>
+      </view>
+      <view class="menu-msgItem">
+        <input type="text" placeholder="广东省,广州市，海珠区" />
+      </view>
+      <view class="menu-rightItem">
+        <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
+      </view>
+    </view>
+  </view>
+  <view class="menu-item" bindtap="">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">详细地址</view>
+      </view>
+      <view class="menu-msgItem">
+        <input type="text" placeholder="请输入上门维修地址" />
+      </view>
+    </view>
+  </view>
+
+  <view class="but-item  column justify-center align-center">
+    <button style="width: 80%;line-height: 80rpx;">马上激活</button>
+  </view>
+
+  <!-- 延保套餐 -->
+  <view class="cu-modal {{modalName=='meal'?'show':''}}" catchtouchmove="ture">
+  <view class="cu-dialog">
+    <view class="bg-img">
+      <image mode="widthFix"
+        src="">
+      </image>
+      <view bindtap="hideModal">关闭</view>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</view>

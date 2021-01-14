@@ -131,7 +131,7 @@ checkbox::before {
 	font-family: "cuIcon";
 	content: "\e645";
 	position: absolute;
-	color: var(--white) !important;
+	color: white;
 	top: 50%;
 	margin-top: -8px;
 	right: 5px;
