@@ -103,52 +103,52 @@
 
 
   <view class="title-item">个人信息</view>
-<view class="menu-item">
-  <view class="menu-wrap">
-    <view class="menu-leftItem">
-      <view class="menu-tagItem">车主姓名</view>
-    </view>
-    <view class="menu-msgItem">
-      <input type="text" placeholder="请选择购入门店" />
-    </view>
-  </view>
-</view>
-
-<view class="menu-item">
-  <view class="menu-wrap">
-    <view class="menu-leftItem">
-      <view class="menu-tagItem">联系电话</view>
-    </view>
-    <view class="menu-msgItem">
-      <input type="number" placeholder="请选择购入门店" />
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">车主姓名</view>
+      </view>
+      <view class="menu-msgItem">
+        <input type="text" placeholder="请输入您的姓名" id="name" bindinput="handleInput" value="{{name}}" />
+      </view>
     </view>
   </view>
-</view>
 
-<view class="menu-item">
-  <view class="menu-wrap">
-    <view class="menu-leftItem">
-      <view class="menu-tagItem">所在地区</view>
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">联系电话</view>
+      </view>
+      <view class="menu-msgItem">
+        <input type="number" placeholder="请输入您的联系电话" id="phone" bindinput="handleInput" value="{{phone}}" />
+      </view>
     </view>
-    <view class="menu-msgItem">
-      <input type="text" placeholder="请选择购入门店" />
-    </view>
-    <view class="menu-rightItem">
+  </view>
+
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">所在地区</view>
+      </view>
+      <view class="menu-msgItem">
+        <input type="text" placeholder="广东省,广州市，海珠区" id="area" bindinput="handleInput" value="{{area}}" />
+      </view>
+      <view class="menu-rightItem">
         <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
       </view>
+    </view>
   </view>
-</view>
 
-<view class="menu-item">
-  <view class="menu-wrap">
-    <view class="menu-leftItem">
-      <view class="menu-tagItem">详细地址</view>
-    </view>
-    <view class="menu-msgItem">
-      <input type="text" placeholder="请选择购入门店" />
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">详细地址</view>
+      </view>
+      <view class="menu-msgItem">
+        <input type="text" placeholder="请输入上门维修地址" id="address" bindinput="handleInput" value="{{address}}" />
+      </view>
     </view>
   </view>
-</view>
 </view>
 
 
@@ -156,5 +156,5 @@
 
 
 <view class="but-item  column justify-center align-center">
-  <button style="width: 80%;line-height: 80rpx;">修改信息</button>
+  <button bindtap="update" style="width: 80%;line-height: 80rpx;">修改信息</button>
 </view>

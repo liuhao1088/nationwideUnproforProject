@@ -1,6 +1,6 @@
 <view class="inactivatedContainer column justify-center align-center">
   <view class="header  column justify-center align-center">
-    <view class="user-item container">
+    <view class="user-item">
       <view class="user-wrap">
         <view class="img-item">
           <image style="border-radius: 50%;" src=""></image>
@@ -10,10 +10,18 @@
         </view>
       </view>
       <view class="user-wrap" style="color: rgb(172, 172, 172);font-size: 14px;">会员码：VC1165F165322</view>
+      <view class="user-wrap" style="color: rgb(172, 172, 172);font-size: 14px;">
+        <view class="user-tagItem">适用范围：中国大陆</view>
+        <view class="user-butItem">
+          <view class="user-but">
+            <button style="width: 100%;line-height: 68rpx;" bindtap="showModal" data-target="meal">购买延保</button>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 
-  <view class="title-item">延保服务</view>
+  <!-- <view class="title-item">延保服务</view>
 
   <view class="menu-item">
     <view class="menu-wrap">
@@ -36,9 +44,50 @@
       </view>
 
     </view>
-  </view>
+  </view> -->
 
   <view class="title-item">产品信息</view>
+
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">产品名称</view>
+      </view>
+      <view class="menu-msgItem">
+        产品名称A
+      </view>
+    </view>
+  </view>
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">产品型号</view>
+      </view>
+      <view class="menu-msgItem">
+        A01
+      </view>
+    </view>
+  </view>
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">序列号</view>
+      </view>
+      <view class="menu-msgItem">
+        A01022021010000001
+      </view>
+    </view>
+  </view>
+  <view class="menu-item">
+    <view class="menu-wrap">
+      <view class="menu-leftItem">
+        <view class="menu-tagItem">保修时间</view>
+      </view>
+      <view class="menu-msgItem">
+        2018.12.25-2020.12.25
+      </view>
+    </view>
+  </view>
 
   <view class="menu-item">
     <view class="menu-wrap">

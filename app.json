@@ -1,8 +1,9 @@
 {
   "pages":[
-    "pages/activated/activated",
+    "pages/index/index",
     "pages/inactivated/inactivated",
-    "pages/index/index"
+    "pages/activated/activated"
+    
     
   ],
   "window":{

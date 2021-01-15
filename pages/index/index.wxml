@@ -1,4 +1,15 @@
-<!--index.wxml-->
 <view class="container">
-  
+    <view class="search column justify-center align-center">
+      <view class="search-wrap">
+        <view class="input-item">
+          <input type="text" placeholder="输入序列号或拍照上传" value="{{result}}"/>
+        </view>
+        <view class="icon-item" bindtap="getScancode">
+          <text class="iconfont iconsaoma" style="font-size: 50rpx;color: rgba(23, 100, 152, 0.5);"></text>
+        </view>
+        <view class="but-item">
+          <button style="width: 100%;line-height: 60rpx;">查询或激活</button>
+        </view>
+      </view>
+    </view>
 </view>

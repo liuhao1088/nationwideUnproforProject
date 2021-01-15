@@ -5,9 +5,54 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    name:'测试',
+    phone:'测试',
+    area:'测试',
+    address:'测试'
+  },
+  handleInput(even) {
+    let type = even.currentTarget.id;
+    console.log(type, even.detail.value);
+    this.setData({
+      [type]: even.detail.value,
+    })
   },
 
+
+  update(e){
+    if(!this.data.name){
+      wx.showToast({
+        title: '请填写姓名',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if(!this.data.phone){
+      wx.showToast({
+        title: '请填写联系电话',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if(!this.data.area){
+      wx.showToast({
+        title: '请填写所在地区',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+    if(!this.data.address){
+      wx.showToast({
+        title: '请填写详细地址',
+        icon: 'none',
+        duration: 2000
+      })
+      return;
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */

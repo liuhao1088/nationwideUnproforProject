@@ -5,18 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-    checked:false,
+    // checked:false,
     img:[]
   },
 
-  handleChange(e) {
-    console.log(e)
-    let value = e.detail.value;
-    if(value === 'true'){
+  // handleChange(e) {
+  //   console.log(e)
+  //   let value = e.detail.value;
+  //   if(value === 'true'){
       
-    }
+  //   }
     
-  },
+  // },
    //弹窗
    showModal(e) {
     let that = this;
