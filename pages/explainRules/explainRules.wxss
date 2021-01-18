@@ -1,0 +1,19 @@
+page {
+  background-color: #f0f0f0;
+}
+
+.main-ruleItem {
+  width: 90%;
+  border: 0rpx solid red;
+  white-space: pre-wrap;
+  color: rgb(136, 136, 136);
+  font-size: 26rpx;
+  margin-top: 30rpx;
+  padding-bottom: 40rpx;
+}
+
+.rule-title {
+  color: rgb(75, 75, 75);
+  font-size: 28rpx;
+  font-weight: bold;
+}
