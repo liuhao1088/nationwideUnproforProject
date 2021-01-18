@@ -19,6 +19,16 @@ Page({
       }
     })
   },
+  getInactivated(){
+    wx.navigateTo({
+      url: '/pages/inactivated/inactivated',
+    })
+  },
+  getActivated(){
+    wx.navigateTo({
+      url: '/pages/activated/activated',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面加载
