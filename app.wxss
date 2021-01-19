@@ -29,4 +29,14 @@ page{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-} 
+}
+
+@font-face {
+  font-family: 'renogare';
+  src: url('https://7761-warranty-9gxawjnlc654b1c4-1304801139.tcb.qcloud.la/%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6/RENOGARE-1.TTF?sign=9c0326c912376f4ef78355fc85616557&t=1611025674');
+}
+
+@font-face {
+  font-family: 'regular';
+  src: url('https://7761-warranty-9gxawjnlc654b1c4-1304801139.tcb.qcloud.la/%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6/Montserrat-Regular-8.otf?sign=ebcdaac63c6bf4848eed60af9c8b5b89&t=1611025965');
+}

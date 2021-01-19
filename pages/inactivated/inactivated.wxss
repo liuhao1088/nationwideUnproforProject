@@ -25,73 +25,108 @@ button::after {
 
 .header {
   width: 90%;
-  height: 340rpx;
   border: 0rpx solid red;
-  border-radius: 30rpx;
-  background-color: rgb(193, 193, 193);
   margin: 20rpx 0;
+  position: relative;
 }
 
 .user-item {
-  height: 80%;
+  height: 70%;
   width: 90%;
+  border: 0rpx solid red;
+  padding-left: 40rpx;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+}
+
+.user-wrapper {
+  width: 100%;
+  height: 85%;
   border: 0rpx solid red;
   display: flex;
   justify-content: space-between;
+  flex-direction: column;
   flex-wrap: wrap;
-
 }
 
 .user-wrap {
-  height: 68rpx;
-  line-height: 68rpx;
+  height: 120rpx;
+  line-height: 120rpx;
   width: 100%;
   border: 0rpx solid black;
   display: flex;
 }
 
-.user-tagItem {
-  height: 100%;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 28rpx;
+.user-name {
+  height: 74rpx;
+  width: 100%;
+  line-height: 74rpx;
+  font-size: 46rpx;
+  text-shadow: 0 -2rpx 0 rgba(255, 255, 255, .4);
+  font-family: 'renogare';
 }
 
-.user-butItem {
-  flex: 1;
+.user-tagItem {
+  height: 100%;
+  float: left;
   border: 0rpx solid red;
 }
 
-.user-but {
-  width: 200rpx;
-  height: 100%;
-  float: right;
+.user-butItem {
+  width: 100%;
+  height: 60rpx;
+  border: 0rpx solid red;
+  padding-left: 40rpx;
+  position: absolute;
+  bottom: 28rpx;
 }
 
-.user-but button {
-  width: 100%;
+.but {
   height: 100%;
-  line-height: 68rpx;
-  background-color: rgb(255, 255, 255);
-  border: 2rpx solid rgb(23, 100, 152);
-  color: rgb(23, 100, 152);
-  font-size: 24rpx;
+  width: 180rpx;
+  float: right;
+  margin-right: 44rpx;
+}
+
+.but button {
+  height: 100%;
+  line-height: 60rpx;
+  border-radius: 30rpx;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  font-size: 28rpx;
   padding: 0;
 }
 
+.chinese-item {
+  line-height: 40rpx;
+  font-size: 24rpx;
+  color: #666;
+}
 
+.english-item{
+  line-height: 20rpx;
+  font-size: 18rpx;
+  color: #505050;
+  font-family: 'regular';
+}
 
 .img-item {
   height: 100%;
-  width: 68rpx;
-  background-color: red;
-  border-radius: 50%;
-  font-size: 28rpx;
+  width: 120rpx;
 }
 
 .name-item {
   flex: 1;
   border: 0rpx solid red;
   padding-left: 20rpx;
+  color: rgb(219, 161, 106);
+  font-size: 40rpx;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* 表单 */
@@ -222,14 +257,115 @@ radio::before {
 }
 
 /* 延保套餐 */
-.padding-xl {
-  padding: 0rpx 60rpx;
-  padding-bottom: 40rpx;
+.cu-dialog {
+  width: 90%;
 }
 
-.cu-dialog {
+.modal-titleItem{
   width: 100%;
-  height: 1000rpx;
-  border: 0rpx solid;
-  /* background-color: unset; */
+  height: 66rpx;
+  line-height: 66rpx;
+  border: 0rpx solid red;
+  text-align: center;
+  font-size: 40rpx;
+  margin-top: 52rpx;
+  margin-bottom: 20rpx;
 }
+
+.modal-titleWrap{
+  height: 100%;
+  border: 0rpx solid red;
+  display: flex;
+}
+
+.modal-main{
+  width: 85%;
+  height: 320rpx;
+  border: 0rpx solid red;
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+}
+
+.modal-menuItem{
+  width: 240rpx;
+  height: 100%;
+  border-radius: 30rpx;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #5b5b5b;
+}
+
+.modal-butItem{
+  width: 100%;
+  height: 110rpx;
+  margin-top: 40rpx;
+  display: flex;
+  border-top: 2rpx solid #ECECED;
+}
+
+.modal-but{
+  width: 50%;
+  height: 100%;
+}
+
+.modal-but button{
+  height: 100%;
+  line-height: 110rpx;
+  padding: 0;
+  font-weight: 400;
+}
+
+.modal-menuWrap{
+  height: 75%;
+  width: 140rpx;
+  border: 0rpx solid red;
+  text-align: center;
+  
+}
+
+.modal-iconWrap{
+  flex: 1;
+  border: 0rpx solid black;
+  line-height: 40rpx;
+}
+
+.modal-iconItem{
+  height: 80rpx;
+  width: 100%;
+  line-height: 80rpx;
+  border: 0rpx solid black;
+}
+
+.modal-title{
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  margin-top: 16rpx;
+  font-size: 28rpx;
+}
+
+.modal-price{
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 40rpx;
+  font-weight: bold;
+}
+
+.modal-tag{
+  width: 100%;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 22rpx;
+  color: rgba(91,91,91,0.5);
+}
+
+.menuWrap-class{
+  border: 2rpx solid rgb(23, 100, 152);
+  color: rgb(23, 100, 152);
+}
+
+.tag-class{
+  color: rgba(23, 100, 152, 0.6);
+}
+

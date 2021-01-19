@@ -5,20 +5,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // checked:false,
-    img:[]
+    img:[],
+    serviceList: [
+      {
+        "icon": "iconaixin--xian",
+        "selectedIcon":"iconaixin--kuai",
+        "title": "尊享体验",
+        "price": "9.9",
+        "tag":"质保延长1年",
+        "flag":true
+      },
+      {
+        "icon": "iconhuiyuanxianxing",
+        "selectedIcon":"iconhuiyuan",
+        "title": "至臻体验",
+        "price": "19.9",
+        "tag":"质保延长2年",
+        "flag":false
+      }
+    ],
+  },
+  toExplainRules(){
+    wx.navigateTo({
+      url: '/pages/explainRules/explainRules',
+    })
   },
 
-  // handleChange(e) {
-  //   console.log(e)
-  //   let value = e.detail.value;
-  //   if(value === 'true'){
-      
-  //   }
-    
-  // },
    //弹窗
-   showModal(e) {
+   getMeal(e) {
     let that = this;
     let target = e.currentTarget.dataset.target;
       that.setData({
@@ -67,6 +81,18 @@ Page({
         }
       }
     })
+  },
+  select(e){
+    let serviceList = this.data.serviceList;
+    let index = e.currentTarget.dataset.index;
+    console.log(index);
+    for (let i in serviceList) serviceList[i].flag = false
+    serviceList[index].flag = true;
+    this.setData({
+      serviceList
+    })
+   
+    console.log(this.data.serviceList);
   },
   /**
    * 生命周期函数--监听页面加载

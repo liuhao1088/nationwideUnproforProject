@@ -14,20 +14,6 @@
     </view>
   </view>
 
-  <view class="title-item">延保服务</view>
-
-  <view class="menu-item">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">延保套餐</view>
-      </view>
-      <view class="menu-msgItem">
-        无
-      </view>
-      <view class="msg-item">现在购买即可再续1年~</view>
-    </view>
-  </view>
-
   <view class="title-item">产品信息</view>
   <view class="menu-item">
     <view class="menu-wrap">
