@@ -38,7 +38,7 @@
         <view class="english-item">Scope of application: Chinese mainland</view> -->
         <!-- 已激活已延保 -->
         <view class="chinese-item" style="color:#f1d08e;">适用范围：中国大陆，非港澳台</view>
-        <view class="english-item" style="color:#eac16f;">Scope of application: Chinese mainland</view>
+        <view class="english-item" style="color:#f1d08e;">Scope of application: Chinese mainland</view>
       </view>
       <view class="but">
         <button style="width: 100%;font-weight: 400;" bindtap="getMeal" data-target="meal">续购延保</button>

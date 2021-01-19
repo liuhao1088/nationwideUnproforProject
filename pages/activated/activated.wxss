@@ -104,14 +104,14 @@ button::after {
   line-height: 40rpx;
   font-size: 24rpx;
   color: #a4a4a4;
-  text-shadow: 0px 2rpx 0px rgba(0, 0, 0, 0.54);
+  /* text-shadow: 0px 2rpx 0px rgba(0, 0, 0, 0.54); */
 }
 
 .english-item{
   line-height: 20rpx;
   font-size: 18rpx;
   color: #b0b0b0;
-  text-shadow: 0px 2rpx 0px rgba(0, 0, 0, 0.54);
+  /* text-shadow: 0px 2rpx 0px rgba(0, 0, 0, 0.54); */
   font-family: 'regular';
 }
 
