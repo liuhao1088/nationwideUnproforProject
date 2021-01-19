@@ -1,17 +1,37 @@
 <view class="activatedContainer column justify-center align-center">
   <!-- 头部 -->
-  <view class="header  column justify-center align-center">
-    <view class="user-item container">
-      <view class="user-wrap">
-        <view class="img-item">
-          <image style="border-radius: 50%;" src=""></image>
+  <view class="header">
+    <image style="border-radius: 20rpx;"
+      src="https://img14.360buyimg.com/ddimg/jfs/t1/161186/3/3491/385122/60068cdfE6207c5f1/cd4141f763f74f66.png"
+      mode="widthFix"></image>
+    <view class="user-item column justify-center align-center">
+      <view class="user-wrapper">
+        <view class="user-wrap">
+          <view class="img-item column justify-center align-center">
+            <image 
+              src="https://img10.360buyimg.com/ddimg/jfs/t1/154382/16/15411/2671/60063feaE9ff401fc/fcf3ae10bfd9a987.png">
+            </image>
+            <view class="user-tag">未延保</view>
+          </view>
+          <view class="name-item">
+            <text>尊敬的</text><text style="margin-left: 10rpx;">XXX撒旦发上帝发誓的撒法飒飒士大夫士大夫士大夫撒旦发阿萨斯的地方撒旦发阿斯蒂芬撒旦发</text>
+          </view>
         </view>
-        <view class="name-item">
-          <text>尊敬的会员</text><text style="margin-left: 10rpx;">XXX</text>
-        </view>
+
+        <view class="user-name">NO.235 485 7454</view>
       </view>
-      <view class="user-wrap" style="color: rgb(172, 172, 172);font-size: 14px;">会员码：VC1165F165322</view>
     </view>
+
+    <view class="user-butItem">
+      <view class="user-tagItem">
+        <view class="chinese-item">适用范围：中国大陆，非港澳台</view>
+        <view class="english-item">Scope of application: Chinese mainland</view>
+      </view>
+      <view class="but">
+        <button style="width: 100%;font-weight: 400;" bindtap="getMeal" data-target="meal">续购延保</button>
+      </view>
+    </view>
+
   </view>
 
   <view class="title-item">产品信息</view>
@@ -138,9 +158,53 @@
 </view>
 
 
-
-
-
 <view class="but-item  column justify-center align-center">
   <button bindtap="update" style="width: 80%;line-height: 80rpx;">修改信息</button>
 </view>
+
+
+ <!-- 延保套餐 -->
+ <view class="cu-modal {{modalName=='meal'?'show':''}}" catchtouchmove="ture">
+    <view class="cu-dialog">
+      <view class="modal-titleItem column justify-center align-center">
+        <view class="modal-titleWrap">
+          <view>选择延保服务</view>
+          <view class="modal-iconWrap">
+            <text class="iconfont iconwenti" style="margin-left: 10rpx;" bindtap="toExplainRules"></text>
+          </view>
+        </view>
+
+      </view>
+
+      <view class="modal-main">
+        <view class="modal-menuItem  column justify-center align-center {{item.flag?'menuWrap-class' : ''}}"
+          wx:for="{{serviceList}}" wx:key="id" bindtap="select" data-index="{{index}}">
+
+          <view class="modal-menuWrap">
+            <view class="modal-iconItem">
+              <text class="iconfont {{item.flag?item.selectedIcon : item.icon}}" style="font-size: 72rpx;"></text>
+            </view>
+
+            <view class="modal-title">{{item.title}}</view>
+            <view class="modal-price">{{item.price}}元</view>
+            <view class="modal-tag {{item.flag?'tag-class' : ''}}">{{item.tag}}</view>
+            <view class="modal-tag {{item.flag?'tag-class' : ''}}">专属卡面、头像框</view>
+            <view class="modal-tag {{item.flag?'tag-class' : ''}}">专属客户服务</view>
+            
+          </view>
+
+        </view>
+
+      </view>
+
+      <view class="modal-butItem">
+        <view class="modal-but">
+          <button style="width: 100%;" bindtap="hideModal">取消</button>
+        </view>
+        <view class="modal-but" style="border-left: 2rpx solid #ECECED;">
+          <button style="width: 100%;color: rgb(23, 100, 152);">去付款</button>
+        </view>
+      </view>
+    </view>
+  </view>
+

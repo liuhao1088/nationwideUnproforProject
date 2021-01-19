@@ -1,18 +1,19 @@
 <view class="inactivatedContainer column justify-center align-center">
   <view class="header">
     <image style="border-radius: 20rpx;"
-      src="https://img12.360buyimg.com/ddimg/jfs/t1/157417/15/4009/299729/60064802Ec7dd1a6a/ff48325297083b6c.png"
+      src="https://img10.360buyimg.com/ddimg/jfs/t1/167164/7/2541/68543/60069d54Eb986aa9f/48309a85dcf797e1.png"
       mode="widthFix"></image>
     <view class="user-item column justify-center align-center">
       <view class="user-wrapper">
         <view class="user-wrap">
-          <view class="img-item">
-            <image style="border-radius: 50%;"
+          <view class="img-item column justify-center align-center" >
+            <image
               src="https://img10.360buyimg.com/ddimg/jfs/t1/154382/16/15411/2671/60063feaE9ff401fc/fcf3ae10bfd9a987.png">
             </image>
+            <view class="user-tag">待激活</view>
           </view>
           <view class="name-item">
-            <text>尊敬的会员</text><text style="margin-left: 10rpx;">XXX撒旦发上帝发誓的撒法飒飒士大夫士大夫士大夫撒旦发阿萨斯的地方撒旦发阿斯蒂芬撒旦发</text>
+            <text style="margin-left: 10rpx;">XXX撒旦发上帝发誓的撒法飒飒士大夫士大夫士大夫撒旦发阿萨斯的地方撒旦发阿斯蒂芬撒旦发</text>
           </view>
         </view>
 
@@ -26,7 +27,7 @@
         <view class="english-item">Scope of application: Chinese mainland</view>
       </view>
       <view class="but">
-        <button style="width: 100%;font-weight: 400;" bindtap="getMeal" data-target="meal">续购延保</button>
+        <button style="width: 100%;font-weight: 400;" bindtap="getMeal" data-target="meal">购买延保</button>
       </view>
     </view>
 
@@ -173,7 +174,6 @@
   <!-- 延保套餐 -->
   <view class="cu-modal {{modalName=='meal'?'show':''}}" catchtouchmove="ture">
     <view class="cu-dialog">
-      <!-- 选择延保服务 -->
       <view class="modal-titleItem column justify-center align-center">
         <view class="modal-titleWrap">
           <view>选择延保服务</view>
@@ -196,6 +196,9 @@
             <view class="modal-title">{{item.title}}</view>
             <view class="modal-price">{{item.price}}元</view>
             <view class="modal-tag {{item.flag?'tag-class' : ''}}">{{item.tag}}</view>
+            <view class="modal-tag {{item.flag?'tag-class' : ''}}">专属卡面、头像框</view>
+            <view class="modal-tag {{item.flag?'tag-class' : ''}}">专属客户服务</view>
+            
           </view>
 
         </view>

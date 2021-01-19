@@ -1,4 +1,4 @@
-page{
+page {
   background-color: #f0f0f0;
 }
 
@@ -30,6 +30,19 @@ image {
   width: 100%;
   height: 550rpx;
   border: 0rpx solid red;
+  position: relative;
+}
+
+.header-titleItem{
+  width: 100%;
+  height: 64rpx;
+  line-height: 64rpx;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  font-size: 46rpx;
+  font-weight: bold;
+  position: absolute;
+  top: 25%;
 }
 
 .wrap {

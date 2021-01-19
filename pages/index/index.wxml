@@ -2,8 +2,9 @@
   <!-- 头部 -->
   <view class="wrapper">
     <view class="header">
-      <image src="https://img12.360buyimg.com/ddimg/jfs/t1/170081/28/3206/29968/6004f853E4757c886/8909b9d3cc49445b.png"
+      <image src="https://img13.360buyimg.com/ddimg/jfs/t1/152672/3/15058/57171/6006a805E47ecb3bf/04b5ac1bd76602ec.png"
         mode="widthFix"></image>
+        <view class="header-titleItem">质保查询</view>
     </view>
     <view class="wrap">
       <!-- 搜索 -->
@@ -24,7 +25,7 @@
       <!-- 质保卡 -->
       <view class="warranty-cardItem" bindtap="getActivated">
         <image
-          src="https://img13.360buyimg.com/ddimg/jfs/t1/161594/21/3220/393107/6004fcd3E671eb135/70c07596b5e2e0a3.png"
+          src="https://img13.360buyimg.com/ddimg/jfs/t1/166647/24/3246/805160/6006a82dE84feb90e/1923bce057437114.png"
           mode="widthFix"></image>
         <!-- 内容 -->
         <view class="card-wrap">
@@ -36,15 +37,9 @@
             </view>
             <view class="name-item">微信昵称</view>
           </view>
-          <view class="card-tagItem">
-            <view class="tag-one">质保卡</view>
-            <view class="tag-two">*电子质保卡，非实物卡片</view>
-          </view>
         </view>
       </view>
-
     </view>
-
   </view>
 
   <!-- 内容 -->
