@@ -2,13 +2,13 @@
   <!-- 头部 -->
   <view class="header">
     <!-- 已激活未延保 -->
-    <!-- <image style="border-radius: 20rpx;"
-      src="https://img11.360buyimg.com/ddimg/jfs/t1/164318/14/3741/245107/6006aa19E1cc97d05/89afd59c71cc07a7.png"
-      mode="widthFix"></image> -->
-    <!-- 已激活已延保 -->
     <image style="border-radius: 20rpx;"
-      src="https://img14.360buyimg.com/ddimg/jfs/t1/171366/33/3443/388891/6006acbeEffa9eaae/be9ea99f0f5bdd96.png"
+      src="https://img11.360buyimg.com/ddimg/jfs/t1/164318/14/3741/245107/6006aa19E1cc97d05/89afd59c71cc07a7.png"
       mode="widthFix"></image>
+    <!-- 已激活已延保 -->
+    <!-- <image style="border-radius: 20rpx;"
+      src="https://img14.360buyimg.com/ddimg/jfs/t1/171366/33/3443/388891/6006acbeEffa9eaae/be9ea99f0f5bdd96.png"
+      mode="widthFix"></image> -->
     <view class="user-item column justify-center align-center">
       <view class="user-wrapper">
         <view class="user-wrap">
@@ -17,10 +17,10 @@
               src="https://img10.360buyimg.com/ddimg/jfs/t1/154382/16/15411/2671/60063feaE9ff401fc/fcf3ae10bfd9a987.png">
             </image>
             <!-- 已激活未延保 -->
-            <!-- <view class="user-tag">未延保</view> -->
+            <view class="user-tag">未延保</view>
             <!-- 已激活已延保 -->
-            <view class="user-tag" style=" background-image: linear-gradient(#f7dc9c,#d38e5b,#f7dc9c);color: #fff;">至尊会员
-            </view>
+            <!-- <view class="user-tag" style=" background-image: linear-gradient(#f7dc9c,#d38e5b,#f7dc9c);color: #fff;">至尊会员
+            </view> -->
           </view>
           <view class="name-item">
             <text>尊敬的</text><text style="margin-left: 10rpx;">XXX撒旦发上帝发誓的撒法飒飒士大夫士大夫士大夫撒旦发阿萨斯的地方撒旦发阿斯蒂芬撒旦发</text>
@@ -34,11 +34,11 @@
     <view class="user-butItem">
       <view class="user-tagItem">
         <!-- 已激活未延保 -->
-        <!-- <view class="chinese-item">适用范围：中国大陆，非港澳台</view>
-        <view class="english-item">Scope of application: Chinese mainland</view> -->
+        <view class="chinese-item">适用范围：中国大陆，非港澳台</view>
+        <view class="english-item">Scope of application: Chinese mainland</view>
         <!-- 已激活已延保 -->
-        <view class="chinese-item" style="color:#f1d08e;">适用范围：中国大陆，非港澳台</view>
-        <view class="english-item" style="color:#f1d08e;">Scope of application: Chinese mainland</view>
+        <!-- <view class="chinese-item" style="color:#f1d08e;">适用范围：中国大陆，非港澳台</view>
+        <view class="english-item" style="color:#f1d08e;">Scope of application: Chinese mainland</view> -->
       </view>
       <view class="but">
         <button style="width: 100%;font-weight: 400;" bindtap="getMeal" data-target="meal">续购延保</button>
@@ -171,7 +171,7 @@
 </view>
 
 
-<view class="but-item  column justify-center align-center">
+<view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '68rpx' : '0rpx'}};">
   <button bindtap="update" style="width: 80%;line-height: 80rpx;">修改信息</button>
 </view>
 
