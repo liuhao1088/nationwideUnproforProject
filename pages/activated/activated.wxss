@@ -63,7 +63,8 @@ button::after {
   width: 100%;
   line-height: 74rpx;
   font-size: 46rpx;
-  text-shadow: 0 -2rpx 0 rgba(255, 255, 255, .4);
+  color: rgb(255, 255, 255);
+  text-shadow: 0px 2rpx 0px rgba(0, 0, 0, 0.4);
   font-family: 'renogare';
 }
 
@@ -93,8 +94,8 @@ button::after {
   height: 100%;
   line-height: 60rpx;
   border-radius: 30rpx;
-  background-image: linear-gradient(90deg, #d38e5b, #f7dc9c);
-  color: #000;
+  background-image: linear-gradient(-117deg, rgb(106,157,191) 0%, rgb(43,110,154) 100%);
+  color: #fff;
   font-size: 28rpx;
   padding: 0;
 }
@@ -117,14 +118,16 @@ button::after {
 .img-item {
   height: 100%;
   width: 120rpx;
+  border-radius: 50%;
+  position: relative;
 }
 
 .user-tag {
   width: 60%;
   height: 24rpx;
   line-height: 24rpx;
-  background-image: linear-gradient(#b7b7b7, #a4a4a4, #b7b7b7);
-  color: rgb(255, 255, 255);
+  background-color: #fff;
+  color: rgb(23, 100, 152);
   border-radius: 8rpx;
   font-size: 14rpx;
   font-weight: bold;
@@ -134,15 +137,9 @@ button::after {
   left: 0;
   right: 0;
   bottom: 0;
+ 
 }
 
-.img-item {
-  height: 100%;
-  width: 120rpx;
-  background-color: #b7b7b7;
-  border-radius: 50%;
-  position: relative;
-}
 
 .img-item image {
   width: 110rpx;
@@ -153,7 +150,7 @@ button::after {
   flex: 1;
   border: 0rpx solid red;
   padding-left: 20rpx;
-  color: rgb(219, 161, 106);
+  color: #fff;
   font-size: 40rpx;
   display: block;
   white-space: nowrap;
@@ -240,7 +237,7 @@ button::after {
   background-color: #fff;
   position: fixed;
   bottom: 0;
-  z-index: 1;
+  z-index: 100;
 }
 
 .but-item button {
