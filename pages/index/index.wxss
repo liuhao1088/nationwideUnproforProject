@@ -191,7 +191,7 @@ image {
   width: 90%;
   border: 0rpx solid red;
   margin-top: 30rpx;
-  padding-bottom: 66rpx;
+  padding-bottom: 106rpx;
 }
 
 .rule-item {

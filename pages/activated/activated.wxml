@@ -171,7 +171,7 @@
 </view>
 
 
-<view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '68rpx' : '20rpx'}};">
+<view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '66rpx' : '20rpx'}};">
   <button bindtap="update" style="width: 80%;line-height: 80rpx;">修改信息</button>
 </view>
 
