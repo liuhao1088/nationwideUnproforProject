@@ -20,7 +20,7 @@ button::after {
 }
 
 .activatedContainer {
-  padding-bottom: 220rpx;
+  padding-bottom: 180rpx;
 }
 
 .header {
