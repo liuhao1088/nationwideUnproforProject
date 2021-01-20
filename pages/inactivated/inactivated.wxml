@@ -167,7 +167,7 @@
     </view>
   </view>
 
-  <view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '68rpx' : '0rpx'}};">
+  <view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '68rpx' : '20rpx'}};">
     <button style="width: 80%;line-height: 80rpx;">马上激活</button>
   </view>
 
