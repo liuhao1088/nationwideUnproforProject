@@ -14,7 +14,7 @@
             <text class="iconfont iconsaoma" style="font-size: 60rpx;color: #0078e7;"></text>
           </view>
           <view class="input-item">
-            <input type="text" placeholder="输入序列号或拍照上传" value="{{result}}" />
+            <input type="text" placeholder="输入序列号或扫码" value="{{result}}" />
           </view>
           <view class="but-item">
             <button style="width: 100%;line-height: 80rpx;" bindtap="getInactivated">查询或激活</button>
