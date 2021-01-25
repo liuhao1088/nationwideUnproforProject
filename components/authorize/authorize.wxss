@@ -1,0 +1,89 @@
+/* components/authorize/authorize.wxss */
+@import "../../app.wxss";
+.cu-dialog {
+  height: 400px;
+  background: white;
+}
+
+.text-black {
+  font-size: 28px;
+  position: relative;
+  right: 10px;
+  top: 5px;
+}
+
+.modal-title {
+  position: absolute;
+  left: 5%;
+  top: 60px;
+  width: 90%;
+  font-size: 20px;
+  font-weight: 700;
+  color: black;
+  letter-spacing: 1.5px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.modal-describe {
+  position: absolute;
+  left: 5%;
+  top: 105px;
+  width: 90%;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgb(156, 156, 156);
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.modal-detail {
+  position: absolute;
+  left: 5%;
+  top: 140px;
+  width: 90%;
+  font-size: 12px;
+  color: rgb(175, 170, 170);
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.modal-detail .txt {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.modal-detail .txt-clr {
+  color: #ebae5e;
+}
+
+.btn1 {
+  width: 80%;
+  margin-top: 20rpx;
+  background-color: #ebae5e;
+  color: white;
+  border-radius: 98rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.btnImg {
+  margin-right: 8rpx;
+  width: 46rpx;
+  height: 46rpx;
+}
+
+.btn1::after {
+  border-radius: 98rpx;
+  border: 0;
+}
+
+.btn-box {
+  position: absolute;
+  bottom: 50px;
+  width: 100%;
+}

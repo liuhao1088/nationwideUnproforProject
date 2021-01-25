@@ -1,3 +1,4 @@
+<wxs src="../../utils/util.wxs" module="utils" />
 <view class="inactivatedContainer column justify-center align-center">
   <view class="header">
     <image style="border-radius: 20rpx;"
@@ -7,17 +8,16 @@
       <view class="user-wrapper">
         <view class="user-wrap">
           <view class="img-item column justify-center align-center" >
-            <image
-              src="https://img10.360buyimg.com/ddimg/jfs/t1/154382/16/15411/2671/60063feaE9ff401fc/fcf3ae10bfd9a987.png">
+            <image src="{{avatarUrl}}" style="border-radius: 50%;">
             </image>
-            <view class="user-tag">待激活</view>
+            <view class="user-tag">{{activation?'未延保':'待激活'}}</view>
           </view>
           <view class="name-item">
-            <text style="margin-left: 10rpx;">XXX撒旦发上帝发誓的撒法飒飒士大夫士大夫士大夫撒旦发阿萨斯的地方撒旦发阿斯蒂芬撒旦发</text>
+            <text style="margin-left: 10rpx;">{{nickName}}</text>
           </view>
         </view>
 
-        <view class="user-name">NO.235 485 7454</view>
+        <view class="user-name">NO.{{card}}</view>
       </view>
     </view>
 
@@ -41,7 +41,7 @@
         <view class="menu-tagItem">产品名称</view>
       </view>
       <view class="menu-msgItem">
-        产品名称A
+        {{data.brand_name}} {{data.category_name}} {{data.model_name}}
       </view>
     </view>
   </view>
@@ -51,7 +51,7 @@
         <view class="menu-tagItem">产品型号</view>
       </view>
       <view class="menu-msgItem">
-        A01
+        {{data.brand_code}}{{data.category_code}}{{data.model_code}}
       </view>
     </view>
   </view>
@@ -61,7 +61,7 @@
         <view class="menu-tagItem">序列号</view>
       </view>
       <view class="menu-msgItem">
-        A01022021010000001
+        {{data.res_code}}
       </view>
     </view>
   </view>
@@ -71,7 +71,7 @@
         <view class="menu-tagItem">保修时间</view>
       </view>
       <view class="menu-msgItem">
-        2018.12.25-2020.12.25
+        {{utils.sub(data.res_code)}} - {{utils.next(data.res_code)}}
       </view>
     </view>
   </view>
@@ -81,8 +81,11 @@
       <view class="menu-leftItem">
         <view class="menu-tagItem">购买门店</view>
       </view>
-      <view class="menu-msgItem">
-        <input type="text" placeholder="请选择购入门店" />
+      <view class="menu-msgItem" wx:if="{{activation}}">
+        {{shop}}
+      </view>
+      <view class="menu-msgItem" wx:else>
+        <input type="text" value="{{shop}}" bindinput="inputShop" placeholder="请选择购入门店" />
       </view>
       <view class="menu-rightItem">
         <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
@@ -101,7 +104,7 @@
         </view>
         <view class="solids" bindtap="ViewImage" style="display:{{img.length === 1?'block':'none'}};">
           <image wx:for="{{img}}" wx:key="id" src="{{item}}" />
-          <view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+          <view class="cu-tag bg-red" catchtap="DelImg" wx:if="{{activation==false}}" data-index="{{index}}">
             <text class="cuIcon-close" style="color:#f92643;"></text>
           </view>
         </view>
@@ -114,7 +117,7 @@
         <view class="menu-tagItem">安装车型</view>
       </view>
       <view class="menu-msgItem">请选择您的汽车车型</view>
-      <view class="menu-rightItem">
+      <view class="menu-rightItem" wx:if="{{activation==false}}">
         <text class="iconfont iconweibiaoti34"></text>
       </view>
     </view>
@@ -128,7 +131,7 @@
         <view class="menu-tagItem">车主姓名</view>
       </view>
       <view class="menu-msgItem">
-        <input type="text" placeholder="请输入您的姓名" />
+        <input type="text" value="{{name}}" bindinput="inputName" placeholder="请输入您的姓名" />
       </view>
     </view>
   </view>
@@ -138,7 +141,7 @@
         <view class="menu-tagItem">联系电话</view>
       </view>
       <view class="menu-msgItem">
-        <input type="text" placeholder="请输入您的联系电话" />
+        <input type="text" value="{{phone}}" bindinput="inputPhone" placeholder="请输入您的联系电话" />
       </view>
 
     </view>
@@ -149,7 +152,7 @@
         <view class="menu-tagItem">所在地区</view>
       </view>
       <view class="menu-msgItem">
-        <input type="text" placeholder="广东省,广州市，海珠区" />
+        <input type="text" value="{{area}}" bindinput="inputArea" placeholder="广东省,广州市，海珠区" />
       </view>
       <view class="menu-rightItem">
         <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
@@ -162,13 +165,14 @@
         <view class="menu-tagItem">详细地址</view>
       </view>
       <view class="menu-msgItem">
-        <input type="text" placeholder="请输入上门维修地址" />
+        <input type="text" value="{{address}}" bindinput="inputAddress" placeholder="请输入上门维修地址" />
       </view>
     </view>
   </view>
 
   <view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '66rpx' : '20rpx'}};">
-    <button style="width: 80%;line-height: 80rpx;">马上激活</button>
+    <button style="width: 80%;line-height: 80rpx;" wx:if="{{activation}}" bindtap="modify">修改信息</button>
+    <button style="width: 80%;line-height: 80rpx;" wx:else bindtap="activation">马上激活</button>
   </view>
 
   <!-- 延保套餐 -->

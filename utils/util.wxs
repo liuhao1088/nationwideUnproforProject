@@ -1,0 +1,28 @@
+
+function sub(data){
+  return data.substring(5,9)+'.'+data.substring(9,11)
+}
+
+function next(data){
+  var year=data.substring(5,9)
+  var nextyear=parseInt(year)+1
+  return nextyear+'.'+data.substring(9,11)
+}
+
+function cn(data){
+  var mon=data.substring(5,7)
+  var day=data.substring(8,10)
+  return mon+"月"+day+"日"
+}
+
+function hor(data){
+  var res=data.substring(11)
+  return res
+}
+
+module.exports = {
+  sub:sub,
+  next:next,
+  cn:cn,
+  hor:hor
+}

@@ -1,4 +1,7 @@
 // pages/inactivated/inactivated.js
+var app=getApp()
+var util=require('../../utils/util.js')
+let timer;
 Page({
 
   /**
@@ -24,6 +27,16 @@ Page({
         "flag":false
       }
     ],
+    data:'',
+    shop:'',
+    name:'',
+    phone:'',
+    area:'',
+    address:'',
+    activation:false,
+    avatarUrl:'https://img10.360buyimg.com/ddimg/jfs/t1/164224/33/3176/1736/6005080bE0d9ade5b/c768fb7219e855f9.png',
+    nickName:'用户昵称',
+    card:'XXX XXX XXXX'
   },
   toExplainRules(){
     wx.navigateTo({
@@ -103,8 +116,150 @@ Page({
     this.setData({
       isIphoneX
     })
+    if(wx.getStorageSync('userInfo')){
+      let userInfo=wx.getStorageSync('userInfo')
+      this.setData({
+        avatarUrl:userInfo.avatarUrl,
+        nickName:userInfo.nickName
+      })
+    }
+    if(options.data){
+      let data=JSON.parse(options.data)
+      console.log(data)
+      setTimeout(()=>{
+        this.setData({data:data})
+      },200)
+      if(wx.getStorageSync('warranty')){
+        let list=wx.getStorageSync('warranty');
+        this.setData({
+          activation:true,
+          shop:list.warranty_shop,
+          img:list.warranty_img,
+          name:list.warranty_name,
+          phone:list.warranty_phone,
+          area:list.warranty_area,
+          address:list.warranty_address,
+          card:list.warranty_card.substring(0,3)+" "+list.warranty_card.substring(3,6)+" "+list.warranty_card.substring(6)
+        })
+      }
+    }
   },
-
+  inputShop:function(e){
+    this.setData({
+      shop:e.detail.value
+    })
+  },
+  inputName:function(e){
+    this.setData({
+      name:e.detail.value
+    })
+  },
+  inputPhone:function(e){
+    this.setData({
+      phone:e.detail.value
+    })
+  },
+  inputArea:function(e){
+    this.setData({
+      area:e.detail.value
+    })
+  },
+  inputAddress:function(e){
+    this.setData({
+      address:e.detail.value
+    })
+  },
+  async activation(){
+    var that=this;
+    wx.showLoading({
+      title: '激活中',
+    })
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(async res => {
+      let arr=[]
+      if (that.data.img !== []) await util.uploadimg(0, that.data.img, 'entrucking', arr).then(res=>{ arr=res })
+      that.insert(arr);
+    }, 500)      
+  },
+  insert:function(image){
+    var that=this;
+    wx.showLoading({
+      title: '激活中',
+    })
+    let code=''
+    for (let e = 0; e < 10; e++) {
+      code += Math.floor(Math.random() * 10)
+    }  
+    let info = {
+      creation_date: util.formatTime(new Date()),
+      creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
+      _openid: app.globalData.openid,
+      warranty_name: that.data.name,
+      warranty_card: code,
+      warranty_code:that.data.data.res_code,
+      warranty_product:that.data.data.brand_name+' '+that.data.data.category_name+' '+that.data.data.model_name,
+      warranty_shop: that.data.shop,
+      warranty_phone: that.data.phone,
+      warranty_area: that.data.area,
+      warranty_address: that.data.address,
+      warranty_img: image,
+      extend:false
+    };
+    wx.cloud.callFunction({
+      name: 'recordAdd',
+      data: {
+        collection: 'warranty_activation',
+        addData: info
+      }
+    }).then(res => {
+      wx.hideLoading({
+        success: (res) => {},
+      })
+      wx.setStorageSync('warranty', info)
+      wx.setStorageSync('distinguish', that.data.data)
+      that.setData({
+        activation:true,
+        card:code.substring(0,3)+" "+code.substring(3,6)+" "+code.substring(6)
+      })
+      wx.showToast({
+        title: '激活成功',
+        icon:'success',
+        duration:2000
+      })
+    })
+  },
+  modify:function(){
+    var that=this;
+    wx.showLoading({
+      title: '修改中',
+    })
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(async res => {
+      wx.cloud.callFunction({
+        name:'recordUpdate',
+        data:{
+          collection:'warranty_activation',
+          where:{_openid:app.globalData.openid},
+          updateData:{
+            warranty_address:that.data.address,
+            warranty_area:that.data.area,
+            warranty_name:that.data.name,
+            warranty_phone:that.data.phone
+          }
+        }
+      }).then(res=>{
+        wx.hideLoading({
+          success: (res) => {},
+        })
+        wx.showToast({
+          title: '修改成功',
+          icon:'success',
+          duration:2000
+        })
+      })  
+    }, 500)    
+    
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

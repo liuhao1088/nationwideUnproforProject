@@ -11,6 +11,9 @@
     "navigationBarTitleText": "全国联保",
     "navigationBarTextStyle":"black"
   },
+  "usingComponents": {
+    "authorize": "components/authorize/authorize"
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

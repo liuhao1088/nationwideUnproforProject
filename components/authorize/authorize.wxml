@@ -1,0 +1,23 @@
+<!--components/authorize/authorize.wxml-->
+<view class="cu-modal bottom-modal {{modalName=='bottomModal'?'show':''}}" style="z-index:1000;">
+  <view class="cu-dialog" style="border-top-left-radius:10px;border-top-right-radius: 10px;">
+    <view class="cu-bar bg-white">
+      <view class="action text-green"></view>
+      <view class="action text-black" style="font-size:20px;" bindtap="hideModal">✖</view>
+    </view>
+    <view class="bg-white">
+      <view class="modal-title">欢迎登录品牌联保服务</view>
+      <view class="modal-describe">登录后可以体验全部功能，享受更好的服务</view>
+      <view class="modal-detail">点击登录品牌联保服务，即表示已阅读并同意
+        <text class="txt-clr" bindtap="gotoPrivacy">《品牌联保服务隐私政策》</text>
+      </view>
+      <view class="btn-box" style="">
+        <button class='btn1 justify-center' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo"
+          style="width:80%;">
+          <image class='btnImg' src='../../images/weixin.png'></image>
+          <view>微信一键登录</view>
+        </button>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,3 +1,4 @@
+<authorize id="authorize" />
 <view class="container">
   <!-- 头部 -->
   <view class="wrapper">
@@ -14,7 +15,7 @@
             <text class="iconfont iconsaoma" style="font-size: 60rpx;color: #0078e7;"></text>
           </view>
           <view class="input-item">
-            <input type="text" placeholder="输入序列号或扫码" value="{{result}}" />
+            <input type="text" placeholder="输入序列号或扫码" value="{{result}}" bindinput="inputResult" />
           </view>
           <view class="but-item">
             <button style="width: 100%;line-height: 80rpx;" bindtap="getInactivated">查询或激活</button>
@@ -31,11 +32,9 @@
         <view class="card-wrap">
           <view class="card-userItem">
             <view class="img-item">
-              <image
-                src="https://img10.360buyimg.com/ddimg/jfs/t1/164224/33/3176/1736/6005080bE0d9ade5b/c768fb7219e855f9.png"
-                style="border-radius: 50%;"></image>
+              <image src="{{avatarUrl}}" style="border-radius: 50%;"></image>
             </view>
-            <view class="name-item">微信昵称</view>
+            <view class="name-item">{{nickName}}</view>
           </view>
         </view>
       </view>
