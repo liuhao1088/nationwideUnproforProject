@@ -90,6 +90,7 @@ Page({
         }
       }
     })
+    wx.removeStorageSync('warranty')
     if(wx.getStorageSync('openid')){
       let openid=wx.getStorageSync('openid')
       that.check(openid)

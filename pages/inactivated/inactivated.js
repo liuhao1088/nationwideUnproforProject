@@ -251,6 +251,12 @@ Page({
         wx.hideLoading({
           success: (res) => {},
         })
+        let warranty=wx.getStorageSync('warranty')
+        warranty.warranty_address=that.data.address
+        warranty.warranty_area=that.data.area
+        warranty.warranty_name=that.data.name
+        warranty.warranty_phone=that.data.phone
+        wx.setStorageSync('warranty', warranty)
         wx.showToast({
           title: '修改成功',
           icon:'success',
