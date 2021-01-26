@@ -7,18 +7,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-    result: '',activation:false,
-    avatarUrl:'https://img10.360buyimg.com/ddimg/jfs/t1/164224/33/3176/1736/6005080bE0d9ade5b/c768fb7219e855f9.png',
-    nickName:'用户昵称'
+    result: '',
+    activation: false,
+    avatarUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/164224/33/3176/1736/6005080bE0d9ade5b/c768fb7219e855f9.png',
+    nickName: '用户昵称'
   },
   getScancode(e) {
     var _this = this;
-    switch(_this.data.activation){
+    switch (_this.data.activation) {
       case true:
         wx.showToast({
           title: '您已经激活过质保卡',
-          icon:'none',
-          duration:2000
+          icon: 'none',
+          duration: 2000
         })
         break;
       default:
@@ -30,33 +31,33 @@ Page({
             setTimeout(() => {
               _this.ifactive(result)
             }, 200)
-    
+
           }
         })
     }
   },
   getInactivated() {
-    switch(this.data.activation){
+    switch (this.data.activation) {
       case true:
         wx.showToast({
           title: '您已经激活过质保卡',
-          icon:'none',
-          duration:2000
+          icon: 'none',
+          duration: 2000
         })
         break;
       default:
-        let result=this.data.result;
+        let result = this.data.result;
         this.ifactive(result)
     }
   },
   getActivated() {
-    var that=this;
-    switch(that.data.activation){
+    var that = this;
+    switch (that.data.activation) {
       case true:
-        if(!wx.getStorageSync('distinguish')){
+        if (!wx.getStorageSync('distinguish')) {
           that.distinguish(code)
-        }else{
-          let dis=wx.getStorageSync('distinguish')
+        } else {
+          let dis = wx.getStorageSync('distinguish')
           wx.navigateTo({
             url: '../inactivated/inactivated?data=' + JSON.stringify(dis),
           })
@@ -65,8 +66,8 @@ Page({
       default:
         wx.showToast({
           title: '您还未激活质保卡',
-          icon:'none',
-          duration:2000
+          icon: 'none',
+          duration: 2000
         })
     }
   },
@@ -75,7 +76,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that=this;
+    var that = this;
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -91,41 +92,47 @@ Page({
       }
     })
     wx.removeStorageSync('warranty')
-    if(wx.getStorageSync('openid')){
-      let openid=wx.getStorageSync('openid')
+    if (wx.getStorageSync('openid')) {
+      let openid = wx.getStorageSync('openid')
       that.check(openid)
-    }else{
+    } else {
       wx.cloud.callFunction({
         name: 'login'
-      }).then(res =>{
-        let openid=res.result.openid;
+      }).then(res => {
+        let openid = res.result.openid;
         that.check(openid)
       })
     }
     if (wx.getStorageSync('userInfo')) {
-      let userInfo=wx.getStorageSync('userInfo')
+      let userInfo = wx.getStorageSync('userInfo')
       that.setData({
-        avatarUrl:userInfo.avatarUrl,
-        nickName:userInfo.nickName
+        avatarUrl: userInfo.avatarUrl,
+        nickName: userInfo.nickName
       })
     }
   },
-  check:function(openid){
-    var that=this;
-    if(!wx.getStorageSync('warranty')){
-      wx.cloud.database().collection('warranty_activation').where({_openid:openid}).get().then(res=>{
-        let data=res.data;
+  check: function (openid) {
+    var that = this;
+    if (!wx.getStorageSync('warranty')) {
+      wx.cloud.database().collection('warranty_activation').where({
+        _openid: openid
+      }).get().then(res => {
+        let data = res.data;
         console.log(res)
-        if(data.length==1){
+        if (data.length == 1) {
           wx.setStorageSync('warranty', data[0])
-          code=data[0].warranty_code;
-          that.setData({activation:true})
+          code = data[0].warranty_code;
+          that.setData({
+            activation: true
+          })
         }
       })
-    }else{
-      let warranty=wx.getStorageSync('warranty')
-      code=warranty.warranty_code;
-      that.setData({activation:true})
+    } else {
+      let warranty = wx.getStorageSync('warranty')
+      code = warranty.warranty_code;
+      that.setData({
+        activation: true
+      })
     }
   },
   /**
@@ -134,30 +141,34 @@ Page({
   onReady: function () {
 
   },
-  inputResult:function(e){
-    this.setData({result:e.detail.value})
+  inputResult: function (e) {
+    this.setData({
+      result: e.detail.value
+    })
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if(wx.getStorageSync('warranty')){
-      this.setData({activation:true})
+    if (wx.getStorageSync('warranty')) {
+      this.setData({
+        activation: true
+      })
     }
   },
 
-  ifactive:function(result){
-    var that=this;
+  ifactive: function (result) {
+    var that = this;
     wx.cloud.database().collection('warranty_activation').where({
-      warranty_code:result
-    }).get().then(res=>{
-      if(res.data.length==0){
+      warranty_code: result
+    }).get().then(res => {
+      if (res.data.length == 0) {
         that.distinguish(result)
-      }else{
+      } else {
         wx.showToast({
           title: '该产品已被激活过',
-          icon:'none',
-          duration:2000
+          icon: 'none',
+          duration: 2000
         })
       }
     })
@@ -265,18 +276,18 @@ Page({
           })
         }
       })*/
-    }    
-      
-    
+    }
+
+
   },
   async retrieval() {
     var that = this;
     let timing = setInterval(async () => {
       if (wx.getStorageSync('userInfo')) {
-        let userInfo=wx.getStorageSync('userInfo')
+        let userInfo = wx.getStorageSync('userInfo')
         that.setData({
-          avatarUrl:userInfo.avatarUrl,
-          nickName:userInfo.nickName
+          avatarUrl: userInfo.avatarUrl,
+          nickName: userInfo.nickName
         })
         setTimeout(() => {
           clearInterval(timing);
