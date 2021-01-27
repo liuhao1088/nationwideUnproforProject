@@ -14,41 +14,25 @@ Page({
   },
   getScancode(e) {
     var _this = this;
-    switch (_this.data.activation) {
-      case true:
-        wx.showToast({
-          title: '您已经激活过质保卡',
-          icon: 'none',
-          duration: 2000
-        })
-        break;
-      default:
-        // 允许从相机和相册扫码
-        wx.scanCode({
-          success: (res) => {
-            console.log(res)
-            var result = res.result;
-            setTimeout(() => {
-              _this.ifactive(result)
-            }, 200)
+    // 允许从相机和相册扫码
+    wx.scanCode({
+      success: (res) => {
+        console.log(res)
+        var result = res.result;
+        if(result.length>16){
+          result=result.substring(result.length-16)
+        }
+        setTimeout(() => {
+          _this.distinguish(result)
+        }, 200)
 
-          }
-        })
-    }
+      }
+    })    
+  
   },
   getInactivated() {
-    switch (this.data.activation) {
-      case true:
-        wx.showToast({
-          title: '您已经激活过质保卡',
-          icon: 'none',
-          duration: 2000
-        })
-        break;
-      default:
-        let result = this.data.result;
-        this.ifactive(result)
-    }
+    let result=this.data.result;
+    this.distinguish(result)
   },
   getActivated() {
     var that = this;
@@ -157,26 +141,9 @@ Page({
     }
   },
 
-  ifactive: function (result) {
-    var that = this;
-    wx.cloud.database().collection('warranty_activation').where({
-      warranty_code: result
-    }).get().then(res => {
-      if (res.data.length == 0) {
-        that.distinguish(result)
-      } else {
-        wx.showToast({
-          title: '该产品已被激活过',
-          icon: 'none',
-          duration: 2000
-        })
-      }
-    })
-  },
-
   distinguish: function (result) {
     var isletter = (/[a-z]/i).test(result.substring(0, 1));
-    var isnum = /^\d+$/.test(result.substring(1));
+    var isnum = /^\d+$/.test(result.substring(5));
     if (isletter == false || isnum == false || result.length !== 16) {
       wx.showModal({
         title: '序列号格式不正确',
