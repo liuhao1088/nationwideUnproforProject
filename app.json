@@ -1,9 +1,10 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/explainRules/explainRules",
     "pages/activated/activated",
-    "pages/inactivated/inactivated",
-    "pages/explainRules/explainRules"
+    "pages/inactivated/inactivated"
+   
   ],
   "window":{
     "backgroundTextStyle":"light",
