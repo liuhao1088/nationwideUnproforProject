@@ -37,7 +37,8 @@ function uploadimg(i, parse, content, arr) {
   })
 }
 
-function getRandomCode() {
+function getRandomCode(num) {
+  if(num==''||num==undefined) num=6
   let code = "";
   const array = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e',
     'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
@@ -45,7 +46,7 @@ function getRandomCode() {
     'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
   ];
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < num; i++) {
     let id = Math.round(Math.random() * 61);
     code += array[id];
   }
@@ -54,5 +55,6 @@ function getRandomCode() {
 
 module.exports = {
   formatTime,
+  getRandomCode,
   uploadimg
 }

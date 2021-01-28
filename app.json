@@ -1,16 +1,15 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/explainRules/explainRules",
     "pages/activated/activated",
     "pages/inactivated/inactivated"
-   
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "全国联保",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "usingComponents": {
     "authorize": "components/authorize/authorize"

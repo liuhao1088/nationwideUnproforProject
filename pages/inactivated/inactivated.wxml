@@ -86,7 +86,7 @@
         {{shop}}
       </view>
       <view class="menu-msgItem" wx:else>
-        <input type="text" value="{{shop}}" bindinput="inputShop" placeholder="请选择购入门店" />
+        <input type="text" value="{{shop}}" bindinput="inputShop" placeholder="请输入购入门店" />
       </view>
       <view class="menu-rightItem" style="display:none">
         <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
@@ -153,9 +153,9 @@
         <view class="menu-tagItem">所在地区</view>
       </view>
       <view class="menu-msgItem">
-        <input type="text" value="{{area}}" bindinput="inputArea" placeholder="广东省,广州市，海珠区" />
+        <picker mode="region" bindchange="bindRegionChange" value="{{area}}" style="color:{{area=='选择所在地区'?'gray':'black'}};">{{area}}</picker>
       </view>
-      <view class="menu-rightItem">
+      <view class="menu-rightItem" style="display:none">
         <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
       </view>
     </view>
@@ -215,7 +215,7 @@
           <button style="width: 100%;" bindtap="hideModal">取消</button>
         </view>
         <view class="modal-but" style="border-left: 2rpx solid #ECECED;">
-          <button style="width: 100%;color: rgb(23, 100, 152);">去付款</button>
+          <button style="width: 100%;color: rgb(23, 100, 152);" bindtap="payfee">去付款</button>
         </view>
       </view>
     </view>
