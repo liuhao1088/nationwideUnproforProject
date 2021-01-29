@@ -1,0 +1,21 @@
+/* miniprogram/pages/toFormWarranty/chooseCar/chooseCar.wxss */
+@import "../../../style/icon.wxss";
+@import "../../../style/main.wxss";
+.city{
+  height:70rpx;background: white;display: flex;justify-content: center;align-items: center;padding-left:8px;padding-right:8px;margin-left:7%;margin-top:15px;border:1px solid #d9d9d9;width:86%;
+ }
+ .city-tag{
+   font-size:14px;color:black;width:80%;height:100%;
+ }
+ .letter{
+   width:100%;height:20px;padding-left: 15px;background:#ecebeb;color:gray;margin-top:10px;font-size: 28rpx;
+ }
+ .toTop{
+   width:30px;height:30px;
+ }
+ .toTop-box{
+   position: absolute;bottom:5%;right:45rpx;z-index: 5;display: flex;flex-direction: column;justify-content: center;
+ }
+ .index{
+   position: fixed;right:0rpx;display:flex;flex-direction: column;z-index: 6;width:60rpx;
+ }

@@ -1,0 +1,52 @@
+<!--miniprogram/pages/toFormWarranty/chooseCar/chooseCar.wxml-->
+<view class="cu-bar bg-black search" style="height:50px;background:black;">
+  <view class='search-form radius' style="background:white;">
+    <text class="icon-search" style="margin-left:2%;"></text>
+    <input type="text" style="margin-left:2%;" placeholder="搜索汽车品牌名称" confirm-type="search" bindinput='search' value="{{search}}"></input>
+  </view>
+</view>
+<scroll-view class="index align-center" style='font-size:26rpx;color:black;height:{{inH}}px;-webkit-overflow-scrolling: touch;z-index:100;top:{{inTop}}px;'>
+    <view wx:for="{{letter}}" style="height:{{inH/26}}px" class="justify-center align-center" wx:key data-index="{{index}}" bindtouchmove="touchmoveLetter" bindtouchend="touchend" bindtap='touchLette'>
+      <view class="" style='margin-top:0rpx;font-weight:{{letterWeight[index]}};'>
+        <view class=''>{{item}}</view>
+      </view>
+    </view>
+</scroll-view>
+<!--<view class='toTop-box'><image class='toTop' src="/images/huidingbu.png" bindtap='toTop' /><view class="text"></view></view>-->
+<scroll-view scroll-y="{{scrolly}}" style="height:{{scrollHev}}px;background:white;position:relative;z-index:3;" bindscroll="scrollview" scroll-into-view="{{toView}}" scroll-top="{{toTop}}">
+  <!--<view class='letter' style=''> 热门品牌</view>
+  <view style='display:flex;flex-direction:row;flex-wrap:wrap'>
+    <view wx:for="{{hot}}" wx:key data-index="{{index}}" bindtap='selectC'>
+      <view class="city" style=''>
+        <view class='city-tag'>{{item.name}}</view>
+      </view>
+    </view>
+  </view>-->
+
+  <view class='letter' style="display:{{search==''?'none':'flex'}}"> 搜索结果</view>
+  <view wx:for="{{searchList}}" wx:key data-index="{{index}}">
+    <view class="city" style=''>
+      <view class='city-tag justify-center align-center' data-index="{{index}}" bindtap='chooseSearchbrand'>{{item.car_name}}</view>
+    </view>
+  </view>
+  <!--<view class='letter' style=''> 字母索引</view>
+  <view style='display:flex;flex-direction:row;flex-wrap:wrap'>
+    <view wx:for="{{letter}}" wx:key data-index="{{index}}" bindtap='touchLetter'>
+      <view class="city" style=''>
+        <view class='city-tag'>{{item}}</view>
+      </view>
+    </view>
+  </view>-->
+
+  <view wx:for="{{letter}}" wx:for-item="f" wx:key>
+    <view class='letter' id="{{f}}" style=''> {{f}}</view>
+    <view style='display:flex;flex-direction:column;'>
+      <view wx:for="{{list}}" wx:for-item="c" wx:key data-index="{{index}}">
+        <view class="city" style='' wx:if="{{c.bfirstletter==f}}">
+          <view class='city-tag justify-center align-center' data-index="{{index}}" bindtap='chooseBrand'>{{c.car_name}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view id="hs" style='height:10px'></view>
+</scroll-view>

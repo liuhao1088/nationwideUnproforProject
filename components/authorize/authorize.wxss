@@ -56,13 +56,13 @@
 }
 
 .modal-detail .txt-clr {
-  color: #ebae5e;
+  color: #0178C1;
 }
 
 .btn1 {
   width: 80%;
   margin-top: 20rpx;
-  background-color: #ebae5e;
+  background-color: #0178C1;
   color: white;
   border-radius: 98rpx;
   display: flex;

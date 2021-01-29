@@ -22,12 +22,12 @@
       </view>
     </view>
 
-    <view class="user-butItem" wx:if="{{isOwner}}">
+    <view class="user-butItem">
       <view class="user-tagItem">
         <view class="chinese-item">适用范围：中国大陆，非港澳台</view>
         <view class="english-item">Scope of application: Chinese mainland</view>
       </view>
-      <view class="but">
+      <view class="but" wx:if="{{isOwner}}">
         <button style="width: 100%;font-weight: 400;" bindtap="getMeal" data-target="meal">购买延保</button>
       </view>
     </view>
@@ -112,13 +112,13 @@
       </view>
     </view>
   </view>
-  <view class="menu-item">
+  <view class="menu-item" bindtap="toChoose">
     <view class="menu-wrap">
       <view class="menu-leftItem">
         <view class="menu-tagItem">安装车型</view>
       </view>
-      <view class="menu-msgItem">请选择您的汽车车型</view>
-      <view class="menu-rightItem" wx:if="{{activation==false}}">
+      <view class="menu-msgItem">{{brand==''?'请选择您的汽车车型':brand+' '+model}}</view>
+      <view class="menu-rightItem" wx:if="{{activation==false&&brand==''}}">
         <text class="iconfont iconweibiaoti34"></text>
       </view>
     </view>
@@ -141,8 +141,9 @@
       <view class="menu-leftItem">
         <view class="menu-tagItem">联系电话</view>
       </view>
-      <view class="menu-msgItem">
-        <input type="text" value="{{phone}}" bindinput="inputPhone" placeholder="请输入您的联系电话" />
+      <view class="menu-msgItem" hidden="{{modalName=='phoneModal'}}">
+        <input type="text" value="{{phone}}" bindinput="inputPhone" bindtap="phoneModal"
+          disabled="{{whetherEmpower=='yes'}}" focus="{{whetherEmpower=='no'}}" bindblur="changeEmpower" placeholder="请输入您的联系电话" />
       </view>
 
     </view>
@@ -222,6 +223,55 @@
   </view>
 
 
+
+<view class="cu-modal {{modalName=='phoneModal'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">获取手机号</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close" style="color:#f92643;"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <button class='btn1 justify-center' wx:if="{{whetherEmpower=='yes'}}" open-type="getPhoneNumber"
+        bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
+        <image class='btnImg' src='../../images/weixin.png'></image>
+        <view>微信授权手机号</view>
+      </button>
+      <view style="color:gray;margin-top:10px;">或者</view>
+      <view style="color:gray;margin-top:10px;" wx:if="{{whetherEmpower=='yes'}}" bindtap="changeInput">手动填写</view>
+    </view>
+
+  </view>
+</view>
+
+
+<view class="cu-modal {{modalName=='brandConfirm'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">品牌信息</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close" style="color:#f92643;"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="row align-center" style="margin-bottom:7px;height:20px;">
+        <view style="font-weight:700;">品牌</view><input style="width:80%;margin:0px 10px;" value="{{brand}}"
+          bindinput="inputBrand" placeholder="请输入品牌" />
+      </view>
+      <view class="row align-center" style="margin-bottom:7px;height:20px;">
+        <view style="font-weight:700;">车型</view><input style="width:80%;margin:0px 10px;" value="{{model}}"
+          bindinput="inputModel" placeholder="请输入车型" />
+      </view>
+    </view>
+    <view class="cu-bar bg-white justify-end">
+      <view class="action" style="color: #fff;">
+        <button class="cu-btn margin-left" style="width:180rpx;background-color:#0178C1;color:white;" bindtap="hideModal">确定</button>
+
+      </view>
+    </view>
+  </view>
+</view>
 
 
 

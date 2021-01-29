@@ -37,7 +37,11 @@ Page({
     nickName: '用户昵称',
     card: 'xxx xxx xxxx',
     isOwner: true,
-    payfee: 990
+    payfee: 990,
+    z:-1,
+    whetherEmpower: 'yes',
+    brand:'',
+    model:''
   },
   toExplainRules() {
     wx.navigateTo({
@@ -56,6 +60,7 @@ Page({
   hideModal(e) {
     this.setData({
       modalName: null,
+      z:-1,
       checked: false
     })
   },
@@ -200,6 +205,7 @@ Page({
             activation: true,
             card: data[0].warranty_card.substring(0, 3) + " " + data[0].warranty_card.substring(3, 6) + " " + data[0].warranty_card.substring(6),
             shop: data[0].warranty_shop,
+            brand: data[0].warranty_car,
             img: data[0].warranty_img,
             name: data[0].warranty_name,
             phone: data[0].warranty_phone,
@@ -255,6 +261,16 @@ Page({
       address: e.detail.value
     })
   },
+  inputBrand:function(e){
+    this.setData({
+      brand: e.detail.value
+    })
+  },
+  inputModel:function(e){
+    this.setData({
+      model: e.detail.value
+    })
+  },
   bindRegionChange: function (e) {
     var region = e.detail.value;
     this.setData({
@@ -303,6 +319,7 @@ Page({
       warranty_category: that.data.data.category_name,
       warranty_model: that.data.data.model_name,
       warranty_shop: that.data.shop,
+      warranty_car: that.data.brand+' '+that.data.model,
       warranty_phone: that.data.phone,
       warranty_area: that.data.area,
       warranty_address: that.data.address,
@@ -373,6 +390,69 @@ Page({
       })
     }, 500)
 
+  },
+  getPhoneNumber: function (e) {
+    var that = this;
+    //console.log(e)
+    if (e.detail.errMsg == "getPhoneNumber:ok") {
+      wx.showLoading({
+        title: '授权中',
+      })
+      wx.cloud.callFunction({
+        name: 'decode',
+        data: {
+          weRunData: wx.cloud.CloudID(e.detail.cloudID),
+        }
+      }).then(res => {
+        that.setData({
+          phone: res.result,
+        })
+        wx.hideLoading()
+        that.hideModal();
+        wx.showToast({
+          title: '授权成功',
+          icon: 'success'
+        })
+      }).catch(error => {
+        console.log(error);
+        wx.hideLoading()
+        wx.showToast({
+          title: '授权失败',
+          icon: 'none'
+        })
+      })
+
+    }
+  },
+  phoneModal: function () {
+    this.setData({
+      modalName: 'phoneModal',
+      z: 200
+    })
+  },
+  changeInput: function () {
+    var _this = this;
+    this.hideModal()
+    setTimeout(res => {
+      _this.setData({
+        whetherEmpower: 'no'
+      })
+    })
+  },
+  changeEmpower: function () {
+    this.setData({
+      whetherEmpower: 'yes'
+    })
+  },
+  phoneConfirm: function (e) {
+    this.setData({
+      phone: e.detail.value
+    })
+  },
+  toChoose:function(){
+    wx.navigateTo({
+      url: './chooseBrand/chooseBrand',
+    })
   },
   payfee:function(){
     var that=this;
@@ -455,6 +535,41 @@ Page({
         area: area.province + '，' + area.city + '，' + area.area
       })
       wx.removeStorageSync('area')
+    }
+    if (wx.getStorageSync('chooseBrand')) {
+      let brand = wx.getStorageSync('chooseBrand')
+      this.setData({
+        brand:brand,
+        modalName:'brandConfirm',
+        z:200
+      })
+      wx.removeStorageSync('chooseBrand')
+    }
+    if(!wx.getStorageSync('brandList')){
+      var that=this;
+      wx.cloud.callFunction({
+        name:'getRecord',
+        data:{
+          collection:'car_name',
+          where:{},
+          ordername:'id',order:'asc',
+          skip:0
+        }
+      }).then(res=>{
+        let data=res.result.data;
+        wx.cloud.callFunction({
+          name:'getRecord',
+          data:{
+            collection:'car_name',
+            where:{},
+            ordername:'id',order:'asc',
+            skip:100
+          }
+        }).then(res=>{
+          data=data.concat(res.result.data)
+          wx.setStorageSync('brandList', data)
+        })
+      })
     }
   },
 
