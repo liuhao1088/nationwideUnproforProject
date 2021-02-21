@@ -483,7 +483,7 @@ Page({
           str : str,
           body:"蜂鸟创客（深圳）技术有限公司-延保支付",
           No : "LB" + stamp +util.getRandomCode(),
-          totalFee : 1,//that.data.payfee
+          totalFee : that.data.payfee
         },
         success(res){
           console.log(res)
