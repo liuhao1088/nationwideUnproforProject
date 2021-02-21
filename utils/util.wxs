@@ -3,9 +3,9 @@ function sub(data){
   return data.substring(5,9)+'.'+data.substring(9,11)
 }
 
-function next(data){
+function next(data,number){
   var year=data.substring(5,9)
-  var nextyear=parseInt(year)+1
+  var nextyear=parseInt(year)+1+number
   return nextyear+'.'+data.substring(9,11)
 }
 

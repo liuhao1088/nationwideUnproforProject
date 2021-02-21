@@ -65,12 +65,12 @@ Page({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
           if (!wx.getStorageSync('userInfo')) {
-            this.selectComponent("#authorize").showModal();
+            this.selectComponent("#authorize").showModal("#ebae5e");
             this.retrieval()
           }
         } else {
           //打开授权登录页
-          this.selectComponent("#authorize").showModal();
+          this.selectComponent("#authorize").showModal("#ebae5e");
           this.retrieval()
         }
       }
@@ -134,6 +134,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    wx.removeStorageSync('userInfo')
     if (wx.getStorageSync('warranty')) {
       this.setData({
         activation: true

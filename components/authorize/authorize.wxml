@@ -9,11 +9,11 @@
       <view class="modal-title">欢迎登录品牌联保服务</view>
       <view class="modal-describe">登录后可以体验全部功能，享受更好的服务</view>
       <view class="modal-detail">点击登录品牌联保服务，即表示已阅读并同意
-        <text class="txt-clr" bindtap="gotoPrivacy">《品牌联保服务隐私政策》</text>
+        <text class="txt-clr" bindtap="gotoPrivacy" style="color:{{theme}}">《品牌联保服务隐私政策》</text>
       </view>
       <view class="btn-box" style="">
         <button class='btn1 justify-center' open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo"
-          style="width:80%;">
+          style="width:80%;background-color:{{theme}};">
           <image class='btnImg' src='../../images/weixin.png'></image>
           <view>微信一键登录</view>
         </button>

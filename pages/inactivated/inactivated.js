@@ -37,6 +37,8 @@ Page({
     nickName: '用户昵称',
     card: 'xxx xxx xxxx',
     isOwner: true,
+    extend: false,
+    year:0,
     payfee: 990,
     z:-1,
     whetherEmpower: 'yes',
@@ -125,7 +127,7 @@ Page({
       isIphoneX
     })
     if (!wx.getStorageSync('userInfo')) {
-      this.selectComponent("#authorize").showModal();
+      this.selectComponent("#authorize").showModal("#0178C1");
       this.retrieval()
     }
     if (options) {
@@ -195,12 +197,19 @@ Page({
               that.setData({
                 isOwner: true
               })
+              wx.setNavigationBarTitle({
+                title: "我的质保卡"
+              })
             } else {
               that.setData({
                 isOwner: false
               })
             }
           })
+          let year=0;
+          if(data[0].extend_year){
+            year=data[0].extend_year
+          }
           that.setData({
             activation: true,
             card: data[0].warranty_card.substring(0, 3) + " " + data[0].warranty_card.substring(3, 6) + " " + data[0].warranty_card.substring(6),
@@ -212,25 +221,20 @@ Page({
             area: data[0].warranty_area,
             address: data[0].warranty_address,
             nickName: data[0].nickName,
-            avatarUrl: data[0].avatarUrl
+            avatarUrl: data[0].avatarUrl,
+            extend: data[0].extend,
+            year: year
           })
         } else {
           that.setData({
             isOwner: true,
           })
-          wx.setNavigationBarTitle({
-            title: "质保卡"
-          })
+          //暂只能激活一卡
           if (wx.getStorageSync('warranty')) {
             that.setData({
               isOwner: false
             })
           }
-        }
-        if (that.data.isOwner == false) {
-          wx.setNavigationBarTitle({
-            title: "质保卡"
-          })
         }
       })
 
@@ -283,16 +287,25 @@ Page({
       wx.showLoading({
         title: '激活中',
       })
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(async res => {
-        let arr = []
-        if (that.data.img !== []) await util.uploadimg(0, that.data.img, 'entrucking', arr).then(res => {
-          arr = res
-        })
-        that.insert(arr);
-      }, 500)
+      wx.cloud.database().collection('activition').where({warranty_code:that.data.res_code}).get().then(res=>{
+        if(res.data.length==0){
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(async res => {
+            let arr = []
+            if (that.data.img !== []) await util.uploadimg(0, that.data.img, 'entrucking', arr).then(res => {
+              arr = res
+            })
+            that.insert(arr);
+          }, 500)
+        }else{
+          wx.showToast({
+            title: '该卡已被激活',
+            icon:'none'
+          })
+        }
+      })
     } else {
-      this.selectComponent("#authorize").showModal();
+      this.selectComponent("#authorize").showModal("#0178C1");
       this.retrieval()
     }
   },
@@ -450,28 +463,44 @@ Page({
     })
   },
   toChoose:function(){
-    wx.navigateTo({
-      url: './chooseBrand/chooseBrand',
-    })
+    if(this.data.activation==false){
+      wx.navigateTo({
+        url: './chooseBrand/chooseBrand',
+      })
+    }
   },
   payfee:function(){
     var that=this;
-    var stamp=Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
-    var str=util.getRandomCode(12)
-    wx.cloud.callFunction({
-      name:'payment',
-      data:{
-        str : str,
-        body:"蜂鸟创客（深圳）技术有限公司-延保支付",
-        No : "LB" + stamp +util.getRandomCode(),
-        totalFee : 1,//that.data.payfee
-      },
-      success(res){
-        console.log(res)
-        that.pay(res.result.payment)
-      },
-      fail:console.error,
-    })
+    if(that.data.activation){
+      var stamp=Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
+      var str=util.getRandomCode(12)
+      wx.showLoading({
+        title: '支付中',
+      })
+      wx.cloud.callFunction({
+        name:'payment',
+        data:{
+          str : str,
+          body:"蜂鸟创客（深圳）技术有限公司-延保支付",
+          No : "LB" + stamp +util.getRandomCode(),
+          totalFee : 1,//that.data.payfee
+        },
+        success(res){
+          console.log(res)
+          that.pay(res.result.payment)
+          wx.hideLoading()
+        },
+        fail(error){
+          wx.hideLoading()
+          console.log(error)
+        },
+      })
+    }else{
+      wx.showToast({
+        title: '该卡还未激活',
+        icon:'none'
+      })
+    }
   },
   pay(payData) {
     var py=this;
@@ -483,18 +512,37 @@ Page({
       signType: 'MD5',
       success(res) {
         console.log(res)
-        py.setData({modalName:null})
+        let year=1
+        if(py.data.payfee==1990){
+          year=2
+        }
+        py.setData({
+          modalName:null,
+          extend:true,
+          year:year
+        })
         wx.showToast({
           title: '支付成功',
           icon: 'success',
           duration: 2000
+        })
+        wx.cloud.callFunction({
+          name:'recordUpdate',
+          data:{
+            collection:'warranty_activation',
+            where:{warranty_code:py.data.data.res_code},
+            updateData:{
+              extend:true,
+              extend_year:year
+            }
+          }
         })
       },
       fail(res) {
         console.log(res)
         wx.showToast({
           title: '支付未成功',
-          duration: 1500,
+          duration: 1000,
           image: "none",
         })
       }
@@ -504,11 +552,6 @@ Page({
     var that = this;
     let timing = setInterval(async () => {
       if (wx.getStorageSync('userInfo')) {
-        let userInfo = wx.getStorageSync('userInfo')
-        that.setData({
-          avatarUrl: userInfo.avatarUrl,
-          nickName: userInfo.nickName
-        })
         setTimeout(() => {
           clearInterval(timing);
         }, 900);

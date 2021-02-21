@@ -20,8 +20,9 @@ Component({
    */
   methods: {
     //弹出登录模态窗
-    showModal(e) {
+    showModal(theme) {
       this.setData({
+        theme: theme,
         modalName: "bottomModal"
       })
 
