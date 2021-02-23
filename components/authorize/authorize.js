@@ -59,7 +59,10 @@ Component({
               wx.getUserInfo({
                 success: res => {
                   let userInfo = res.userInfo;
+                  let creation_date=util.formatTime(new Date())
                   userInfo._openid=app.globalData.openid;
+                  userInfo.creation_date=creation_date;
+                  userInfo.creation_timestamp=Date.parse(creation_date.replace(/-/g, '/')) / 1000;
                   wx.cloud.database().collection('user').where({_openid:userInfo._openid}).get().then(res=>{
                     if(res.data.length==0){
                       wx.cloud.callFunction({

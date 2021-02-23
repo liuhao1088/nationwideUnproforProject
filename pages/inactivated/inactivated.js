@@ -38,12 +38,12 @@ Page({
     card: 'xxx xxx xxxx',
     isOwner: true,
     extend: false,
-    year:0,
+    year: 0,
     payfee: 990,
-    z:-1,
+    z: -1,
     whetherEmpower: 'yes',
-    brand:'',
-    model:''
+    brand: '',
+    model: ''
   },
   toExplainRules() {
     wx.navigateTo({
@@ -62,7 +62,7 @@ Page({
   hideModal(e) {
     this.setData({
       modalName: null,
-      z:-1,
+      z: -1,
       checked: false
     })
   },
@@ -111,10 +111,11 @@ Page({
     serviceList[index].flag = true;
     this.setData({
       serviceList,
-      payfee:Math.round(serviceList[index].price*100)
+      payfee: Math.round(serviceList[index].price * 100),
+      payInd: index
     })
 
-    console.log(this.data.serviceList);
+    //console.log(this.data.serviceList);
   },
   /**
    * 生命周期函数--监听页面加载
@@ -136,50 +137,82 @@ Page({
       if (options.data) {
         let data = JSON.parse(options.data)
         code = data.res_code;
+        console.log(data)
+        let insurance = that.data.serviceList;
+        insurance[0].price = data.extend_one;
+        insurance[1].price = data.extend_two;
         setTimeout(() => {
           this.setData({
-            data: data
+            data: data,
+            serviceList: insurance,
+            payfee: data.extend_one * 100
           })
         }, 200)
       } else {
         code = options.q.substring(options.q.length - 16)
         console.log(code)
         wx.cloud.callFunction({
-          name: 'multQuery',
+          name: 'recordQuery',
           data: {
             collection: 'warranty_model',
-            match: {
+            where: {
               brand_code: code.substring(0, 1),
               category_code: code.substring(1, 3),
               model_code: code.substring(3, 5)
             },
-            or: [{}],
-            and: [{}],
-            lookup: {
-              from: 'warranty_brand',
-              localField: 'brand_code',
-              foreignField: 'brand_code',
-              as: 'brand',
+            from: 'warranty_brand',
+            let: {
+              brand_code: '$brand_code',
             },
-            lookup2: {
-              from: 'warranty_category',
-              localField: 'category_code',
-              foreignField: 'category_code',
-              as: 'category',
+            match: ['$brand_code', '$$brand_code'],
+            matchs: ['', ''],
+            project: {
+              brand_code: 0
             },
+            as: 'brand',
+            from2: 'warranty_category',
+            let2: {
+              category_code: '$category_code',
+              brand_code: '$brand_code'
+            },
+            match2: ['$category_code', '$$category_code'],
+            matchs2: ['$brand_code', '$$brand_code'],
+            project2: {
+              category_code: 0
+            },
+            as2: 'category',
             sort: {
-              creation_date: -1
+              creation_timestamp: -1
             },
             skip: 0,
             limit: 10
           }
         }).then(res => {
+          console.log(res)
           let list = res.result.list
+          if (list.length == 0 || list[0].brand_code == 'B') {
+            wx.showModal({
+              title: '暂无该产品信息',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  wx.redirectTo({
+                    url: '../index/index',
+                  })
+                }
+              }
+            })
+          }
           list[0].res_code = code;
           list[0].brand_name = list[0].brand[0].brand_name
           list[0].category_name = list[0].category[0].category_name
+          let insurance = that.data.serviceList;
+          insurance[0].price = list[0].extend_one;
+          insurance[1].price = list[0].extend_two;
           that.setData({
-            data: list[0]
+            data: list[0],
+            serviceList: insurance,
+            payfee: list[0].extend_one * 100
           })
         })
       }
@@ -206,9 +239,9 @@ Page({
               })
             }
           })
-          let year=0;
-          if(data[0].extend_year){
-            year=data[0].extend_year
+          let year = 0;
+          if (data[0].extend_year) {
+            year = data[0].extend_year
           }
           that.setData({
             activation: true,
@@ -265,12 +298,12 @@ Page({
       address: e.detail.value
     })
   },
-  inputBrand:function(e){
+  inputBrand: function (e) {
     this.setData({
       brand: e.detail.value
     })
   },
-  inputModel:function(e){
+  inputModel: function (e) {
     this.setData({
       model: e.detail.value
     })
@@ -284,11 +317,34 @@ Page({
   async activation() {
     var that = this;
     if (wx.getStorageSync('userInfo')) {
+      if (that.data.shop == '') {
+        wx.showToast({
+          title: '门店不能为空',
+          icon: 'none'
+        })
+        return
+      }
+      if (that.data.img == '') {
+        wx.showToast({
+          title: '请上传照片',
+          icon: 'none'
+        })
+        return
+      }
+      if (that.data.brand == '') {
+        wx.showToast({
+          title: '请选择车型',
+          icon: 'none'
+        })
+        return
+      }
       wx.showLoading({
         title: '激活中',
       })
-      wx.cloud.database().collection('activition').where({warranty_code:that.data.res_code}).get().then(res=>{
-        if(res.data.length==0){
+      wx.cloud.database().collection('warranty_activation').where({
+        warranty_code: that.data.data.res_code
+      }).get().then(res => {
+        if (res.data.length == 0) {
           if (timer) clearTimeout(timer);
           timer = setTimeout(async res => {
             let arr = []
@@ -297,10 +353,10 @@ Page({
             })
             that.insert(arr);
           }, 500)
-        }else{
+        } else {
           wx.showToast({
             title: '该卡已被激活',
-            icon:'none'
+            icon: 'none'
           })
         }
       })
@@ -329,10 +385,13 @@ Page({
       warranty_card: code,
       warranty_code: that.data.data.res_code,
       warranty_brand: that.data.data.brand_name,
+      warranty_brand_code: that.data.data.res_code.substring(0,1),
       warranty_category: that.data.data.category_name,
+      warranty_category_code: that.data.data.res_code.substring(1,3), 
       warranty_model: that.data.data.model_name,
+      warranty_model_code: that.data.data.res_code.substring(3,5), 
       warranty_shop: that.data.shop,
-      warranty_car: that.data.brand+' '+that.data.model,
+      warranty_car: that.data.brand + ' ' + that.data.model,
       warranty_phone: that.data.phone,
       warranty_area: that.data.area,
       warranty_address: that.data.address,
@@ -366,43 +425,50 @@ Page({
   },
   modify: function () {
     var that = this;
-    wx.showLoading({
-      title: '修改中',
-    })
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(async res => {
-      wx.cloud.callFunction({
-        name: 'recordUpdate',
-        data: {
-          collection: 'warranty_activation',
-          where: {
-            _openid: app.globalData.openid
-          },
-          updateData: {
-            warranty_address: that.data.address,
-            warranty_area: that.data.area,
-            warranty_name: that.data.name,
-            warranty_phone: that.data.phone
-          }
-        }
-      }).then(res => {
-        wx.hideLoading({
-          success: (res) => {},
-        })
-        let warranty = wx.getStorageSync('warranty')
-        warranty.warranty_address = that.data.address
-        warranty.warranty_area = that.data.area
-        warranty.warranty_name = that.data.name
-        warranty.warranty_phone = that.data.phone
-        wx.setStorageSync('warranty', warranty)
-        wx.showToast({
-          title: '修改成功',
-          icon: 'success',
-          duration: 2000
-        })
+    if (wx.getStorageSync('userInfo')) {
+      wx.showLoading({
+        title: '修改中',
       })
-    }, 500)
-
+      let userInfo=wx.getStorageSync('userInfo')
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(async res => {
+        wx.cloud.callFunction({
+          name: 'recordUpdate',
+          data: {
+            collection: 'warranty_activation',
+            where: {
+              _openid: app.globalData.openid
+            },
+            updateData: {
+              warranty_address: that.data.address,
+              warranty_area: that.data.area,
+              warranty_name: that.data.name,
+              warranty_phone: that.data.phone,
+              avatarUrl: userInfo.avatarUrl,
+              nickName: userInfo.nickName
+            }
+          }
+        }).then(res => {
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          let warranty = wx.getStorageSync('warranty')
+          warranty.warranty_address = that.data.address
+          warranty.warranty_area = that.data.area
+          warranty.warranty_name = that.data.name
+          warranty.warranty_phone = that.data.phone
+          wx.setStorageSync('warranty', warranty)
+          wx.showToast({
+            title: '修改成功',
+            icon: 'success',
+            duration: 2000
+          })
+        })
+      }, 500)
+    } else {
+      this.selectComponent("#authorize").showModal("#0178C1");
+      this.retrieval()
+    }
   },
   getPhoneNumber: function (e) {
     var that = this;
@@ -462,48 +528,49 @@ Page({
       phone: e.detail.value
     })
   },
-  toChoose:function(){
-    if(this.data.activation==false){
+  toChoose: function () {
+    if (this.data.activation == false) {
       wx.navigateTo({
         url: './chooseBrand/chooseBrand',
       })
     }
   },
-  payfee:function(){
-    var that=this;
-    if(that.data.activation){
-      var stamp=Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
-      var str=util.getRandomCode(12)
+  payfee: function () {
+    var that = this;
+    if (that.data.activation) {
+      var stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
+      var str = util.getRandomCode(12)
+      let No = "LB" + stamp + util.getRandomCode()
       wx.showLoading({
         title: '支付中',
       })
       wx.cloud.callFunction({
-        name:'payment',
-        data:{
-          str : str,
-          body:"蜂鸟创客（深圳）技术有限公司-延保支付",
-          No : "LB" + stamp +util.getRandomCode(),
-          totalFee : that.data.payfee
+        name: 'payment',
+        data: {
+          str: str,
+          body: "蜂鸟创客（深圳）技术有限公司-延保支付",
+          No: No,
+          totalFee: that.data.payfee
         },
-        success(res){
+        success(res) {
           console.log(res)
-          that.pay(res.result.payment)
+          that.pay(res.result.payment,No,that.data.payfee/100)
           wx.hideLoading()
         },
-        fail(error){
+        fail(error) {
           wx.hideLoading()
           console.log(error)
         },
       })
-    }else{
+    } else {
       wx.showToast({
         title: '该卡还未激活',
-        icon:'none'
+        icon: 'none'
       })
     }
   },
-  pay(payData) {
-    var py=this;
+  pay(payData,number,payfee) {
+    var py = this;
     wx.requestPayment({
       nonceStr: payData.nonceStr,
       package: payData.package,
@@ -512,14 +579,32 @@ Page({
       signType: 'MD5',
       success(res) {
         console.log(res)
-        let year=1
-        if(py.data.payfee==1990){
-          year=2
+        let year = 1
+        if (py.data.payInd == 1) {
+          year = 2
         }
+        wx.cloud.callFunction({
+          name:'recordAdd',
+          data:{
+            collection:'warranty_order',
+            addData:{
+              creation_date: util.formatTime(new Date()),
+              creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
+              order_no: number,
+              openid: wx.getStorageSync('openid'),
+              payfee: payfee,
+              shop: py.data.shop,
+              warranty_code: py.data.data.res_code,
+              brand_code: py.data.data.res_code.substring(0,1),
+              category_code: py.data.data.res_code.substring(1,3),
+              model_code: py.data.data.res_code.substring(3,5),
+            }
+          }
+        })
         py.setData({
-          modalName:null,
-          extend:true,
-          year:year
+          modalName: null,
+          extend: true,
+          year: year
         })
         wx.showToast({
           title: '支付成功',
@@ -527,13 +612,16 @@ Page({
           duration: 2000
         })
         wx.cloud.callFunction({
-          name:'recordUpdate',
-          data:{
-            collection:'warranty_activation',
-            where:{warranty_code:py.data.data.res_code},
-            updateData:{
-              extend:true,
-              extend_year:year
+          name: 'recordUpdate',
+          data: {
+            collection: 'warranty_activation',
+            where: {
+              warranty_code: py.data.data.res_code
+            },
+            updateData: {
+              extend: true,
+              extend_year: year,
+              extend_fee: payfee
             }
           }
         })
@@ -582,34 +670,36 @@ Page({
     if (wx.getStorageSync('chooseBrand')) {
       let brand = wx.getStorageSync('chooseBrand')
       this.setData({
-        brand:brand,
-        modalName:'brandConfirm',
-        z:200
+        brand: brand,
+        modalName: 'brandConfirm',
+        z: 200
       })
       wx.removeStorageSync('chooseBrand')
     }
-    if(!wx.getStorageSync('brandList')){
-      var that=this;
+    if (!wx.getStorageSync('brandList')) {
+      var that = this;
       wx.cloud.callFunction({
-        name:'getRecord',
-        data:{
-          collection:'car_name',
-          where:{},
-          ordername:'id',order:'asc',
-          skip:0
+        name: 'getRecord',
+        data: {
+          collection: 'car_name',
+          where: {},
+          ordername: 'id',
+          order: 'asc',
+          skip: 0
         }
-      }).then(res=>{
-        let data=res.result.data;
+      }).then(res => {
+        let data = res.result.data;
         wx.cloud.callFunction({
-          name:'getRecord',
-          data:{
-            collection:'car_name',
-            where:{},
-            ordername:'id',order:'asc',
-            skip:100
+          name: 'getRecord',
+          data: {
+            collection: 'car_name',
+            where: {},
+            ordername: 'id',
+            order: 'asc',
+            skip: 100
           }
-        }).then(res=>{
-          data=data.concat(res.result.data)
+        }).then(res => {
+          data = data.concat(res.result.data)
           wx.setStorageSync('brandList', data)
         })
       })

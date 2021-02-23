@@ -1,0 +1,8 @@
+.wrapper {
+  margin: auto;
+  width: 100%;
+  white-space: pre-wrap;
+  background: white;
+  padding: 0 40rpx ;
+  padding-bottom: 60rpx;
+}

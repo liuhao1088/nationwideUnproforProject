@@ -76,6 +76,10 @@ Page({
       }
     })
     wx.removeStorageSync('warranty')
+    wx.showShareMenu({
+      withShareTicket:true,
+      menus:['shareAppMessage','shareTimeline']
+    })
     if (wx.getStorageSync('openid')) {
       let openid = wx.getStorageSync('openid')
       that.check(openid)
@@ -134,14 +138,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.removeStorageSync('userInfo')
     if (wx.getStorageSync('warranty')) {
       this.setData({
         activation: true
       })
     }
   },
-
   distinguish: function (result) {
     var isletter = (/[a-z]/i).test(result.substring(0, 1));
     var isnum = /^\d+$/.test(result.substring(5));
@@ -155,30 +157,37 @@ Page({
         title: '识别中',
       })
       wx.cloud.callFunction({
-        name: 'multQuery',
+        name: 'recordQuery',
         data: {
           collection: 'warranty_model',
-          match: {
+          where: {
             brand_code: result.substring(0, 1),
             category_code: result.substring(1, 3),
             model_code: result.substring(3, 5)
           },
-          or: [{}],
-          and: [{}],
-          lookup: {
-            from: 'warranty_brand',
-            localField: 'brand_code',
-            foreignField: 'brand_code',
-            as: 'brand',
+          from: 'warranty_brand',
+          let: {
+            brand_code: '$brand_code',
           },
-          lookup2: {
-            from: 'warranty_category',
-            localField: 'category_code',
-            foreignField: 'category_code',
-            as: 'category',
+          match: ['$brand_code', '$$brand_code'],
+          matchs: ['',''],
+          project: {
+            brand_code: 0
           },
+          as: 'brand',
+          from2: 'warranty_category',
+          let2: {
+            category_code: '$category_code',
+            brand_code: '$brand_code'
+          },
+          match2: ['$category_code', '$$category_code'],
+          matchs2: ['$brand_code', '$$brand_code'],
+          project2: {
+            category_code: 0
+          },
+          as2: 'category',
           sort: {
-            creation_date: -1
+            creation_timestamp: -1
           },
           skip: 0,
           limit: 10
@@ -243,7 +252,17 @@ Page({
             showCancel:false
           })
         }
-      })*/
+      })
+
+      wx.navigateToMiniProgram({
+        appId: 'wxf63dcaf8f95ea541',
+        path: 'pages/index/index',
+        extraData: {},
+        success(res) {
+          // 打开成功
+        }
+      })
+      */
     }
 
 
