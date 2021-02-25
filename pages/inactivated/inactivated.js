@@ -31,7 +31,7 @@ Page({
     name: '',
     phone: '',
     area: '选择所在地区',
-    address: '',
+    salesperson: '',
     activation: false,
     avatarUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/164224/33/3176/1736/6005080bE0d9ade5b/c768fb7219e855f9.png',
     nickName: '用户昵称',
@@ -157,6 +157,22 @@ Page({
       } else {
         code = options.q.substring(options.q.length - 16)
         console.log(code)
+        var isnum = /^\d+$/.test(code.substring(5));
+        var year = parseInt(code.substring(5,9))
+        var month = parseInt(code.substring(9,11))
+        if(!isnum||(year<2021||year>2024)||(month>12||month<1)){
+          wx.showModal({
+            title: '产品信息格式错误',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+                wx.redirectTo({
+                  url: '../index/index',
+                })
+              }
+            }
+          })
+        }
         wx.cloud.callFunction({
           name: 'recordQuery',
           data: {
@@ -258,7 +274,7 @@ Page({
             name: data[0].warranty_name,
             phone: data[0].warranty_phone,
             area: data[0].warranty_area,
-            address: data[0].warranty_address,
+            salesperson: data[0].warranty_salesperson,
             nickName: data[0].nickName,
             avatarUrl: data[0].avatarUrl,
             extend: data[0].extend,
@@ -299,9 +315,9 @@ Page({
       area: e.detail.value
     })
   },
-  inputAddress: function (e) {
+  inputPerson: function (e) {
     this.setData({
-      address: e.detail.value
+      salesperson: e.detail.value
     })
   },
   inputBrand: function (e) {
@@ -400,7 +416,7 @@ Page({
       warranty_car: that.data.brand + ' ' + that.data.model,
       warranty_phone: that.data.phone,
       warranty_area: that.data.area,
-      warranty_address: that.data.address,
+      warranty_salesperson: that.data.salesperson,
       warranty_img: image,
       extend: false
     };
@@ -446,7 +462,7 @@ Page({
               _openid: app.globalData.openid
             },
             updateData: {
-              warranty_address: that.data.address,
+              warranty_salesperson: that.data.salesperson,
               warranty_area: that.data.area,
               warranty_name: that.data.name,
               warranty_phone: that.data.phone,
@@ -459,7 +475,7 @@ Page({
             success: (res) => {},
           })
           let warranty = wx.getStorageSync('warranty')
-          warranty.warranty_address = that.data.address
+          warranty.warranty_salesperson = that.data.salesperson
           warranty.warranty_area = that.data.area
           warranty.warranty_name = that.data.name
           warranty.warranty_phone = that.data.phone
@@ -682,6 +698,34 @@ Page({
       })
       wx.removeStorageSync('chooseBrand')
     }
+    /*wx.request({
+      url: 'http://106.52.140.160:8080/car/name',
+      data:{},
+      success:function(res){
+        console.log(res)
+      },
+      fail:function(err){
+        console.log(err)
+      }
+    })
+    wx.request({
+      url: 'http://106.52.140.160:8080/order/insert',
+      data:{creation_timestamp: 1252222555,
+      order_no: "pt332323",
+      openid: "dsfsafasf",
+      payfee: 19.90,
+      shop: "5",
+      warranty_code: "A010120210300006",
+      brand_code: "A",
+      category_code: "01",
+      model_code: "01"},
+      success:function(res){
+        console.log(res)
+      },
+      fail:function(err){
+        console.log(err)
+      }
+    })*/
     if (!wx.getStorageSync('brandList')) {
       var that = this;
       wx.cloud.callFunction({

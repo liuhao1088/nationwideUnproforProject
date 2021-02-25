@@ -147,7 +147,9 @@ Page({
   distinguish: function (result) {
     var isletter = (/[a-z]/i).test(result.substring(0, 1));
     var isnum = /^\d+$/.test(result.substring(5));
-    if (isletter == false || isnum == false || result.length !== 16) {
+    var year = parseInt(result.substring(5,9))
+    var month = parseInt(result.substring(9,11))
+    if (isletter == false || isnum == false || result.length !== 16 || (year<2021 || year>2024) || (month>12 || month<1)) {
       wx.showModal({
         title: '序列号格式不正确',
         showCancel: false
@@ -197,18 +199,25 @@ Page({
         wx.hideLoading({
           success: (res) => {},
         })
-        list[0].res_code = result;
-        list[0].brand_name = list[0].brand[0].brand_name
-        list[0].category_name = list[0].category[0].category_name
         switch (list.length) {
           case 1:
-            wx.navigateTo({
-              url: '../inactivated/inactivated?data=' + JSON.stringify(list[0]),
-            })
+            if(list[0].brand_code=='B'){
+              wx.showModal({
+                title: '暂无该产品信息',
+                showCancel: false
+              })
+            }else{
+              list[0].res_code = result;
+              list[0].brand_name = list[0].brand[0].brand_name
+              list[0].category_name = list[0].category[0].category_name
+              wx.navigateTo({
+                url: '../inactivated/inactivated?data=' + JSON.stringify(list[0]),
+              })
+            }
             break;
           default:
             wx.showModal({
-              title: '查询错误',
+              title: '暂无该产品信息',
               showCancel: false
             })
         }
