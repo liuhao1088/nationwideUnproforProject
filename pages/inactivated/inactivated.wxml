@@ -7,8 +7,6 @@
   <!-- background: url('https://img13.360buyimg.com/ddimg/jfs/t1/154809/3/19341/123336/603713f5Ea60ba781/3a4a01fdd4faf962.png') no-repeat;background-size: 100% 100%; -->
   <!-- 已激活 -->
   <!-- background: url('https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png') no-repeat;background-size: 100% 100%; -->
-  <view class="header"
-    style="background: url('https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png') no-repeat;background-size: 100% 100%;">
   <view class="header" style="background: url({{activation?'https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png':'https://img13.360buyimg.com/ddimg/jfs/t1/154809/3/19341/123336/603713f5Ea60ba781/3a4a01fdd4faf962.png'}}) no-repeat;background-size: 100% 100%;">
     <view class="user-wrapper">
       <view class="user-wrap">
@@ -18,8 +16,6 @@
         </view>
         <!-- 已激活 -->
         <!-- background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent; -->
-        <view class="name-item"
-          style="background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
         <view class="name-item" style="{{activation?'background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;':''}}">
           {{nickName}}
         </view>
@@ -37,9 +33,6 @@
         </view>
       </view>
       <!-- 已激活 -->
-      <view class="user-name"
-        style="background-image: linear-gradient(90deg,#dabd81 0%,#ddbb69 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-        NO.{{card}}</view>
       <view class="user-name"  style="{{activation?'background-image: linear-gradient(90deg,#dabd81 0%,#ddbb69 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;':''}}">NO.{{card}}</view>
 
       <view class="user-butItem">
