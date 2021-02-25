@@ -1,195 +1,228 @@
 <wxs src="../../utils/util.wxs" module="utils" />
 <authorize id="authorize" />
 <view class="inactivatedContainer column justify-center align-center">
-  <view class="header">
-     <!--未延保-->
-    <image style="border-radius: 20rpx;" wx:if="{{activation==false}}"
-      src="https://img10.360buyimg.com/ddimg/jfs/t1/167164/7/2541/68543/60069d54Eb986aa9f/48309a85dcf797e1.png"
-      mode="widthFix"></image>
-     <!--已延保-->
-    <image style="border-radius: 20rpx;" wx:else
-      src="{{extend?'https://img14.360buyimg.com/ddimg/jfs/t1/171366/33/3443/388891/6006acbeEffa9eaae/be9ea99f0f5bdd96.png':'https://img11.360buyimg.com/ddimg/jfs/t1/164318/14/3741/245107/6006aa19E1cc97d05/89afd59c71cc07a7.png'}}"
-      mode="widthFix"></image>
-    <view class="user-item column justify-center align-center">
-      <view class="user-wrapper">
-        <view class="user-wrap">
-          <view class="img-item column justify-center align-center" style="background-color:{{extend? '#f7dc9c':''}};">
-            <image src="{{avatarUrl}}" style="border-radius: 50%;">
+  <view class="wrap"></view>
+
+  <!-- 未激活 -->
+  <!-- background: url('https://img13.360buyimg.com/ddimg/jfs/t1/154809/3/19341/123336/603713f5Ea60ba781/3a4a01fdd4faf962.png') no-repeat;background-size: 100% 100%; -->
+  <!-- 已激活 -->
+  <!-- background: url('https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png') no-repeat;background-size: 100% 100%; -->
+  <view class="header" style="background: url('https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png') no-repeat;background-size: 100% 100%;">
+    <view class="user-wrapper">
+      <view class="user-wrap">
+        <view class="img-item column justify-center align-center">
+          <image src="{{avatarUrl}}" style="border-radius: 50%;">
+          </image>
+        </view>
+        <!-- 已激活 -->
+        <!-- background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent; -->
+        <view class="name-item" style="background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+          {{nickName}}
+        </view>
+        <view class="logo-item">
+          <view class="logo-img">
+            <!-- 未激活 -->
+            <!-- <image
+              src="https://img10.360buyimg.com/ddimg/jfs/t1/169003/12/7765/5599/60371ba3E35fb3780/752b41cbb4c875d4.png">
+            </image> -->
+            <!-- 已激活 -->
+            <image
+              src="https://img14.360buyimg.com/ddimg/jfs/t1/156457/38/11191/6636/60374773E53cd5afa/e203151a35c55ee6.png">
             </image>
-             <!--已延保-->
-            <view class="user-tag" wx:if="{{extend}}" style=" background-image: linear-gradient(#f7dc9c,#d38e5b,#f7dc9c);color: #fff;">至尊会员</view>
-             <!--未延保-->
-            <view class="user-tag" wx:else>{{activation?'未延保':'待激活'}}</view>
-          </view>
-          <view class="name-item">
-            <text style="margin-left: 10rpx;">{{nickName}}</text>
           </view>
         </view>
+      </view>
+      <!-- 已激活 -->
+      <view class="user-name"  style="background-image: linear-gradient(90deg,#dabd81 0%,#ddbb69 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">NO.{{card}}</view>
 
-        <view class="user-name">NO.{{card}}</view>
-      </view>
-    </view>
-
-    <view class="user-butItem">
-      <!--已延保-->
-      <view class="user-tagItem" wx:if="{{extend}}">
-        <view class="chinese-item" style="color:#f1d08e;">适用范围：中国大陆，非港澳台</view>
-        <view class="english-item" style="color:#f1d08e;">Scope of application: Chinese mainland</view> 
-      </view>
-      <!--未延保-->
-      <view class="user-tagItem" wx:else>
-        <view class="chinese-item" style="color:{{activation?'#a4a4a4':''}};">适用范围：中国大陆，非港澳台</view>
-        <view class="english-item" style="color:{{activation?'#a4a4a4':''}};">Scope of application: Chinese mainland</view>
-      </view>
-      <view class="but" wx:if="{{isOwner}}">
-         <!--已延保-->
-        <button style="width: 100%;font-weight: 400;" wx:if="{{extend}}">已延保{{year}}年</button>
-         <!--未延保-->
-        <button style="width: 100%;font-weight: 400;" wx:else bindtap="getMeal" data-target="meal">购买延保</button>
-      </view>
-    </view>
-
-  </view>
-
-  <view class="title-item">产品信息</view>
-
-  <view class="menu-item">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">产品名称</view>
-      </view>
-      <view class="menu-msgItem">
-        {{data.category_name}} 
-      </view>
-    </view>
-  </view>
-  <view class="menu-item">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">产品型号</view>
-      </view>
-      <view class="menu-msgItem">
-        {{data.model_name}}
-      </view>
-    </view>
-  </view>
-  <view class="menu-item">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">序列号</view>
-      </view>
-      <view class="menu-msgItem">
-        {{data.res_code}}
-      </view>
-    </view>
-  </view>
-  <view class="menu-item">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">保修时间</view>
-      </view>
-      <view class="menu-msgItem">
-        {{utils.sub(data.res_code)}} - {{utils.next(data.res_code,year)}}
-      </view>
-    </view>
-  </view>
-
-  <view class="menu-item">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">购买门店</view>
-      </view>
-      <view class="menu-msgItem" wx:if="{{activation}}">
-        {{shop}}
-      </view>
-      <view class="menu-msgItem" wx:else>
-        <input type="text" value="{{shop}}" bindinput="inputShop" placeholder="请输入购入门店" />
-      </view>
-      <view class="menu-rightItem" style="display:none">
-        <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
-      </view>
-    </view>
-  </view>
-
-  <view class="menu-item">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">装车照片</view>
-      </view>
-      <view class="grid grid-square flex-sub" style="height:100%; padding-left: 60rpx;">
-        <view class="solids" bindtap="ChooseImage" style="display:{{img.length === 0?'block':'none'}};">
-          <text class="cuIcon-cameraadd" style="color: #8799a3;"></text>
+      <view class="user-butItem">
+        <view class="user-tagItem">
+          <view class="chinese-item">适用范围：中国大陆，非港澳台</view>
+          <view class="english-item">Scope of application: Chinese mainland</view>
         </view>
-        <view class="solids" bindtap="ViewImage" style="display:{{img.length === 1?'block':'none'}};">
-          <image wx:for="{{img}}" wx:key="id" src="{{item}}" />
-          <view class="cu-tag bg-red" catchtap="DelImg" wx:if="{{activation==false}}" data-index="{{index}}">
-            <text class="cuIcon-close" style="color:#f92643;"></text>
-          </view>
+        <!-- 已激活 -->
+        <!-- background-image: linear-gradient(90deg, #af7e34 0%, #f6da8a 50%,#af7e34 100%); -->
+        <!-- 未激活 -->
+        <!-- background-image: linear-gradient(90deg, #16b0ff 0%,#0083c6 100%); -->
+        <view class="but" wx:if="{{isOwner}}">
+          <!--已延保-->
+          <button style="width: 100%;font-weight: 400;" wx:if="{{extend}}">已延保{{year}}年</button>
+          <!--未延保-->
+          <button style="width: 100%;font-weight: 400;background-image: linear-gradient(90deg, #af7e34 0%, #f6da8a 50%,#af7e34 100%);" wx:else bindtap="getMeal" data-target="meal">购买延保</button>
         </view>
       </view>
     </view>
   </view>
-  <view class="menu-item" bindtap="toChoose">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">安装车型</view>
-      </view>
-      <view class="menu-msgItem">{{brand==''?'请选择您的汽车车型':brand+' '+model}}</view>
-      <view class="menu-rightItem" wx:if="{{activation==false&&brand==''}}">
-        <text class="iconfont iconweibiaoti34"></text>
-      </view>
-    </view>
-  </view>
 
-  <view class="title-item" wx:if="{{isOwner}}">个人信息</view>
-
-  <view class="menu-item" wx:if="{{isOwner}}">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">车主姓名</view>
-      </view>
-      <view class="menu-msgItem">
-        <input type="text" value="{{name}}" bindinput="inputName" placeholder="请输入您的姓名" />
-      </view>
+  <view class="menu-wrapper">
+    <view class="title-item">
+      <view class="title-tag"></view>
+      产品信息
     </view>
-  </view>
-  <view class="menu-item" wx:if="{{isOwner}}">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">联系电话</view>
-      </view>
-      <view class="menu-msgItem" hidden="{{modalName=='phoneModal'}}">
-        <input type="text" value="{{phone}}" bindinput="inputPhone" bindtap="phoneModal"
-          disabled="{{whetherEmpower=='yes'}}" focus="{{whetherEmpower=='no'}}" bindblur="changeEmpower" placeholder="请输入您的联系电话" />
+    <view class="menu-content">
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">产品名称</view>
+          </view>
+          <view class="menu-msgItem">
+            {{data.category_name}}
+          </view>
+        </view>
       </view>
 
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">产品型号</view>
+          </view>
+          <view class="menu-msgItem">
+            {{data.model_name}}
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">序列号</view>
+          </view>
+          <view class="menu-msgItem">
+            {{data.res_code}}
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">保修时间</view>
+          </view>
+          <view class="menu-msgItem">
+            {{utils.sub(data.res_code)}} - {{utils.next(data.res_code,year)}}
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">装车照片</view>
+          </view>
+          <view class="grid grid-square flex-sub" style="height:100%; padding-left: 60rpx;">
+            <view class="solids" bindtap="ChooseImage" style="display:{{img.length === 0?'block':'none'}};">
+              <text class="cuIcon-cameraadd" style="color: #8799a3;"></text>
+            </view>
+            <view class="solids" bindtap="ViewImage" style="display:{{img.length === 1?'block':'none'}};">
+              <image wx:for="{{img}}" wx:key="id" src="{{item}}" />
+              <view class="cu-tag bg-red" catchtap="DelImg" wx:if="{{activation==false}}" data-index="{{index}}">
+                <text class="cuIcon-close" style="color:#f92643;"></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-item" bindtap="toChoose">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">安装车型</view>
+          </view>
+          <view class="menu-msgItem">{{brand==''?'请选择您的汽车车型':brand+' '+model}}</view>
+          <view class="menu-rightItem" wx:if="{{activation==false&&brand==''}}">
+            <text class="iconfont iconweibiaoti34"></text>
+          </view>
+        </view>
+      </view>
     </view>
-  </view>
-  <view class="menu-item" wx:if="{{isOwner}}">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">所在地区</view>
+
+
+    <view class="title-item" wx:if="{{isOwner}}">
+      <view class="title-tag"></view>
+      个人信息
+    </view>
+    <view class="menu-content">
+      <view class="menu-item" wx:if="{{isOwner}}">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">车主姓名</view>
+          </view>
+          <view class="menu-msgItem">
+            <input type="text" value="{{name}}" bindinput="inputName" placeholder="请输入您的姓名" />
+          </view>
+        </view>
       </view>
-      <view class="menu-msgItem">
-        <picker mode="region" bindchange="bindRegionChange" value="{{area}}" style="color:{{area=='选择所在地区'?'gray':'black'}};">{{area}}</picker>
+      <view class="menu-item" wx:if="{{isOwner}}">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">联系电话</view>
+          </view>
+          <view class="menu-msgItem" hidden="{{modalName=='phoneModal'}}">
+            <input type="text" value="{{phone}}" bindinput="inputPhone" bindtap="phoneModal"
+              disabled="{{whetherEmpower=='yes'}}" focus="{{whetherEmpower=='no'}}" bindblur="changeEmpower"
+              placeholder="请输入您的联系电话" />
+          </view>
+
+        </view>
       </view>
-      <view class="menu-rightItem" style="display:none">
-        <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
+      <view class="menu-item" wx:if="{{isOwner}}">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">所在地区</view>
+          </view>
+          <view class="menu-msgItem">
+            <picker mode="region" bindchange="bindRegionChange" value="{{area}}"
+              style="color:{{area=='选择所在地区'?'gray':'black'}};">{{area}}</picker>
+          </view>
+          <view class="menu-rightItem" style="display:none">
+            <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
+          </view>
+        </view>
       </view>
     </view>
-  </view>
-  <view class="menu-item" bindtap="" wx:if="{{isOwner}}">
-    <view class="menu-wrap">
-      <view class="menu-leftItem">
-        <view class="menu-tagItem">详细地址</view>
+
+    <view class="title-item" wx:if="{{isOwner}}">
+      <view class="title-tag"></view>
+      门店信息
+    </view>
+    <view class="menu-content">
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">购买门店</view>
+          </view>
+          <view class="menu-msgItem" wx:if="{{activation}}">
+            {{shop}}
+          </view>
+          <view class="menu-msgItem" wx:else>
+            <input type="text" value="{{shop}}" bindinput="inputShop" placeholder="请输入购入门店" />
+          </view>
+          <view class="menu-rightItem" style="display:none">
+            <text class="iconfont icondingwei" style="color:  rgba(23, 100, 152);"></text>
+          </view>
+        </view>
       </view>
-      <view class="menu-msgItem">
-        <input type="text" value="{{address}}" bindinput="inputAddress" placeholder="请输入上门维修地址" />
+
+      <view class="menu-item" wx:if="{{isOwner}}">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">销售人员</view>
+          </view>
+          <view class="menu-msgItem">
+            <input type="text" value="{{salesperson}}" bindinput="inputName" placeholder="请输入店员编码" />
+          </view>
+        </view>
       </view>
     </view>
+
+   
+
   </view>
 
-  <view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '66rpx' : '20rpx'}};" wx:if="{{isOwner}}">
+
+
+  <view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '66rpx' : '20rpx'}};"
+    wx:if="{{isOwner}}">
     <button style="width: 80%;line-height: 80rpx;" wx:if="{{activation}}" bindtap="modify">修改信息</button>
     <button style="width: 80%;line-height: 80rpx;" wx:else bindtap="activation">马上激活</button>
   </view>
@@ -221,7 +254,7 @@
             <view class="modal-tag {{item.flag?'tag-class' : ''}}">{{item.tag}}</view>
             <view class="modal-tag {{item.flag?'tag-class' : ''}}">专属卡面、头像框</view>
             <view class="modal-tag {{item.flag?'tag-class' : ''}}">专属客户服务</view>
-            
+
           </view>
 
         </view>
@@ -241,54 +274,55 @@
 
 
 
-<view class="cu-modal {{modalName=='phoneModal'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content">获取手机号</view>
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close" style="color:#f92643;"></text>
+  <view class="cu-modal {{modalName=='phoneModal'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">获取手机号</view>
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close" style="color:#f92643;"></text>
+        </view>
       </view>
-    </view>
-    <view class="padding-xl">
-      <button class='btn1 justify-center' wx:if="{{whetherEmpower=='yes'}}" open-type="getPhoneNumber"
-        bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
-        <image class='btnImg' src='../../images/weixin.png'></image>
-        <view>微信授权手机号</view>
-      </button>
-      <view style="color:gray;margin-top:10px;">或者</view>
-      <view style="color:gray;margin-top:10px;" wx:if="{{whetherEmpower=='yes'}}" bindtap="changeInput">手动填写</view>
-    </view>
+      <view class="padding-xl">
+        <button class='btn1 justify-center' wx:if="{{whetherEmpower=='yes'}}" open-type="getPhoneNumber"
+          bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
+          <image class='btnImg' src='../../images/weixin.png'></image>
+          <view>微信授权手机号</view>
+        </button>
+        <view style="color:gray;margin-top:10px;">或者</view>
+        <view style="color:gray;margin-top:10px;" wx:if="{{whetherEmpower=='yes'}}" bindtap="changeInput">手动填写</view>
+      </view>
 
-  </view>
-</view>
-
-
-<view class="cu-modal {{modalName=='brandConfirm'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
-  <view class="cu-dialog">
-    <view class="cu-bar bg-white justify-end">
-      <view class="content">品牌信息</view>
-      <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close" style="color:#f92643;"></text>
-      </view>
-    </view>
-    <view class="padding-xl">
-      <view class="row align-center" style="margin-bottom:7px;height:20px;">
-        <view style="font-weight:700;">品牌</view><input style="width:80%;margin:0px 10px;" value="{{brand}}"
-          bindinput="inputBrand" placeholder="请输入品牌" />
-      </view>
-      <view class="row align-center" style="margin-bottom:7px;height:20px;">
-        <view style="font-weight:700;">车型</view><input style="width:80%;margin:0px 10px;" value="{{model}}"
-          bindinput="inputModel" placeholder="请输入车型" />
-      </view>
-    </view>
-    <view class="cu-bar bg-white justify-end">
-      <view class="action" style="color: #fff;">
-        <button class="cu-btn margin-left" style="width:180rpx;background-color:#0178C1;color:white;" bindtap="hideModal">确定</button>
-
-      </view>
     </view>
   </view>
-</view>
+
+
+  <view class="cu-modal {{modalName=='brandConfirm'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">品牌信息</view>
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close" style="color:#f92643;"></text>
+        </view>
+      </view>
+      <view class="padding-xl">
+        <view class="row align-center" style="margin-bottom:7px;height:20px;">
+          <view style="font-weight:700;">品牌</view><input style="width:80%;margin:0px 10px;" value="{{brand}}"
+            bindinput="inputBrand" placeholder="请输入品牌" />
+        </view>
+        <view class="row align-center" style="margin-bottom:7px;height:20px;">
+          <view style="font-weight:700;">车型</view><input style="width:80%;margin:0px 10px;" value="{{model}}"
+            bindinput="inputModel" placeholder="请输入车型" />
+        </view>
+      </view>
+      <view class="cu-bar bg-white justify-end">
+        <view class="action" style="color: #fff;">
+          <button class="cu-btn margin-left" style="width:180rpx;background-color:#0178C1;color:white;"
+            bindtap="hideModal">确定</button>
+
+        </view>
+      </view>
+    </view>
+  </view>
 
 
 

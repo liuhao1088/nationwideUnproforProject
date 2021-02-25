@@ -1,5 +1,5 @@
 page {
-  background-color: #f2f2f2;
+  background-color: rgb(221, 221, 221);
 }
 
 image {
@@ -25,10 +25,37 @@ button::after {
 
 .header {
   width: 90%;
-  border: 0rpx solid red;
+  border-radius: 30rpx;
   margin: 20rpx 0;
-  position: relative;
+  padding: 34rpx;
+   box-shadow: 0 15rpx 18rpx 0 rgba(53, 53, 53, 0.1),inset 0px -2rpx 0 0 rgba(173, 173, 173, 0.2);
+   z-index: 100;
 }
+
+.wrap{
+  width: 100%;
+  height: 260rpx;
+  background-color: #fff;
+  position: absolute;
+  top: 0rpx;
+}
+
+.logo-item{
+  flex: 1;
+  border: 0rpx solid red;
+}
+
+.logo-img{
+  height: 130rpx;
+  width: 100rpx;
+  float: right;
+  margin-right: 20rpx;
+}
+
+.menu-wrapper{
+  width: 90%;
+}
+
 
 .user-item {
   height: 70%;
@@ -51,11 +78,10 @@ button::after {
 }
 
 .user-wrap {
-  height: 120rpx;
-  line-height: 120rpx;
   width: 100%;
   border: 0rpx solid black;
   display: flex;
+  margin-bottom: 30rpx;
 }
 
 .user-tag {
@@ -80,7 +106,7 @@ button::after {
   width: 100%;
   line-height: 74rpx;
   font-size: 46rpx;
-  color: rgb(255, 255, 255);
+  color: rgb(63, 62, 62);
   text-shadow: 0px 2rpx 0px rgba(0, 0, 0, 0.4);
   font-family: 'renogare';
 }
@@ -97,75 +123,75 @@ button::after {
   width: 100%;
   height: 60rpx;
   border: 0rpx solid red;
-  padding-left: 40rpx;
-  position: absolute;
-  bottom: 22rpx;
 }
 
 .but {
   height: 100%;
-  width: 180rpx;
+  width: 140rpx;
   float: right;
-  margin-right: 44rpx;
 }
 
 .but button {
   height: 100%;
   line-height: 60rpx;
   border-radius: 30rpx;
-  background-image: linear-gradient(-117deg, rgb(106,157,191) 0%, rgb(43,110,154) 100%);
   color: #fff;
-  font-size: 28rpx;
+  font-size: 24rpx;
   padding: 0;
 }
 
 .chinese-item {
   line-height: 40rpx;
-  font-size: 24rpx;
-  color: rgb(190, 190, 190);
+  color: rgb(140, 140, 140);
+  font-size: 22rpx;
 }
 
 .english-item {
   line-height: 20rpx;
-  font-size: 18rpx;
-  color: rgb(190, 190, 190);
+  font-size: 10rpx;
+  color: rgb(140, 140, 140);
   font-family: 'regular';
 }
 
 .img-item {
-  height: 100%;
-  width: 120rpx;
+  height: 90rpx;
+  width: 90rpx;
   background-color: #fff;
   border-radius: 50%;
-  position: relative;
 }
 
 .img-item image {
-  width: 110rpx;
-  height: 110rpx;
+  width: 80rpx;
+  height: 80rpx;
 }
 
 .name-item {
-  flex: 1;
+  height: 90rpx;
+  line-height: 90rpx;
   border: 0rpx solid red;
-  padding-left: 20rpx;
-  color: #fff;
-  font-size: 40rpx;
+  padding-left: 30rpx;
+  color: rgb(63, 62, 62);
+  font-size: 30rpx;
+  font-weight: bold;
   display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+
 /* 表单 */
+.menu-content{
+  width: 100%;
+  background-color: white;
+  border-radius: 12rpx;
+}
 
 .menu-item {
   width: 100%;
   height: 84rpx;
   line-height: 84rpx;
   border: 0rpx solid red;
-  background-color: #fff;
-
 }
 
 .menu-wrap {
@@ -195,11 +221,20 @@ button::after {
 
 .title-item {
   width: 93%;
-  height: 84rpx;
-  line-height: 84rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   text-align: left;
-  color: rgba(193, 193, 193);
-  font-size: 32rpx;
+  color: rgb(17, 17, 17);
+  font-size: 34rpx;
+  display: flex;
+  margin: 60rpx 0 20rpx 0;
+}
+
+.title-tag{
+  height: 100%;
+  width: 6rpx;
+  background-color: rgb(1, 145, 255);
+  margin-right: 20rpx;
 }
 
 .menu-msgItem {
@@ -220,8 +255,6 @@ button::after {
 .but-item {
   width: 100%;
   height: 120rpx;
-  border-top: 2rpx solid #e8e8e8;
-  background-color: #fff;
   position: fixed;
   bottom: 0;
   z-index: 100;
@@ -229,9 +262,9 @@ button::after {
 
 .but-item button {
   height: 80rpx;
-  border-radius: 10rpx;
+  border-radius: 50rpx;
   text-align: center;
-  background-image: linear-gradient(-117deg, rgb(106,157,191) 0%, rgb(43,110,154) 100%);
+  background-image: linear-gradient(90deg, #16b0ff 0%, #0083c6 100%);
   color: rgba(255, 255, 255, 100);
   font-size: 28rpx;
   padding: 0;
@@ -384,7 +417,7 @@ button::after {
 .btn1 {
   width: 80%;
   margin-top: 20rpx;
-  background-color: #0178C1;
+  background-image: linear-gradient(90deg, #16b0ff 0%, #0083c6 100%);
   color: white;
   border-radius: 98rpx;
   display: flex;
