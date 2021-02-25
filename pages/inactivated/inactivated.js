@@ -67,6 +67,12 @@ Page({
     })
   },
 
+  noticeModal(e){
+    this.setData({
+      modalName: 'notice'
+    })
+  },
+
   ChooseImage() {
     wx.chooseImage({
       count: 1, //默认9
