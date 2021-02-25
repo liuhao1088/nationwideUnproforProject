@@ -324,7 +324,7 @@
     </view>
   </view>
 
-  <view class="cu-modal {{modalName=='notice'?'':'show'}}" catchtouchmove="ture">
+  <view class="cu-modal {{noticeName=='notice'?'':'show'}}" catchtouchmove="ture">
     <view class="cu-dialog notice-dialog">
       <view class="notice-wrap">
         <view class="notice column justify-center align-center">

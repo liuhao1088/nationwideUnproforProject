@@ -69,7 +69,7 @@ Page({
 
   noticeModal(e){
     this.setData({
-      modalName: 'notice'
+      noticeName: 'notice'
     })
   },
 
