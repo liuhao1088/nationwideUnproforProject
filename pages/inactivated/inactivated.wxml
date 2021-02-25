@@ -7,7 +7,7 @@
   <!-- background: url('https://img13.360buyimg.com/ddimg/jfs/t1/154809/3/19341/123336/603713f5Ea60ba781/3a4a01fdd4faf962.png') no-repeat;background-size: 100% 100%; -->
   <!-- 已激活 -->
   <!-- background: url('https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png') no-repeat;background-size: 100% 100%; -->
-  <view class="header" style="background: url('https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png') no-repeat;background-size: 100% 100%;">
+  <view class="header" style="background: url({{activation?'https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png':'https://img13.360buyimg.com/ddimg/jfs/t1/154809/3/19341/123336/603713f5Ea60ba781/3a4a01fdd4faf962.png'}}) no-repeat;background-size: 100% 100%;">
     <view class="user-wrapper">
       <view class="user-wrap">
         <view class="img-item column justify-center align-center">
@@ -16,7 +16,7 @@
         </view>
         <!-- 已激活 -->
         <!-- background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent; -->
-        <view class="name-item" style="background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        <view class="name-item" style="{{activation?'background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;':''}}">
           {{nickName}}
         </view>
         <view class="logo-item">
@@ -27,13 +27,13 @@
             </image> -->
             <!-- 已激活 -->
             <image
-              src="https://img14.360buyimg.com/ddimg/jfs/t1/156457/38/11191/6636/60374773E53cd5afa/e203151a35c55ee6.png">
+              src="{{activation?'https://img14.360buyimg.com/ddimg/jfs/t1/156457/38/11191/6636/60374773E53cd5afa/e203151a35c55ee6.png':'https://img10.360buyimg.com/ddimg/jfs/t1/169003/12/7765/5599/60371ba3E35fb3780/752b41cbb4c875d4.png'}}">
             </image>
           </view>
         </view>
       </view>
       <!-- 已激活 -->
-      <view class="user-name"  style="background-image: linear-gradient(90deg,#dabd81 0%,#ddbb69 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;">NO.{{card}}</view>
+      <view class="user-name"  style="{{activation?'background-image: linear-gradient(90deg,#dabd81 0%,#ddbb69 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;':''}}">NO.{{card}}</view>
 
       <view class="user-butItem">
         <view class="user-tagItem">
@@ -46,9 +46,9 @@
         <!-- background-image: linear-gradient(90deg, #16b0ff 0%,#0083c6 100%); -->
         <view class="but" wx:if="{{isOwner}}">
           <!--已延保-->
-          <button style="width: 100%;font-weight: 400;" wx:if="{{extend}}">已延保{{year}}年</button>
+          <button style="width: 100%;font-weight: 400;background-image: linear-gradient(90deg, #af7e34 0%, #f6da8a 50%,#af7e34 100%);" wx:if="{{extend}}">已延保{{year}}年</button>
           <!--未延保-->
-          <button style="width: 100%;font-weight: 400;background-image: linear-gradient(90deg, #af7e34 0%, #f6da8a 50%,#af7e34 100%);" wx:else bindtap="getMeal" data-target="meal">购买延保</button>
+          <button style="width: 100%;font-weight: 400;background-image: {{activation?'linear-gradient(90deg, #af7e34 0%, #f6da8a 50%,#af7e34 100%)':' linear-gradient(90deg, #16b0ff 0%,#0083c6 100%);'}};" wx:else bindtap="getMeal" data-target="meal">购买延保</button>
         </view>
       </view>
     </view>
@@ -185,7 +185,7 @@
       <view class="title-tag"></view>
       门店信息
     </view>
-    <view class="menu-content">
+    <view class="menu-content" wx:if="{{isOwner}}">
       <view class="menu-item">
         <view class="menu-wrap">
           <view class="menu-leftItem">
@@ -209,7 +209,7 @@
             <view class="menu-tagItem">销售人员</view>
           </view>
           <view class="menu-msgItem">
-            <input type="text" value="{{salesperson}}" bindinput="inputName" placeholder="请输入店员编码" />
+            <input type="text" value="{{salesperson}}" bindinput="inputPerson" placeholder="请输入店员编码" />
           </view>
         </view>
       </view>
