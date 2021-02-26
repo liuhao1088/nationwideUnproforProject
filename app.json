@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/inactivated/inactivated",
+    "pages/salespersonEntry/salespersonEntry",
+    "pages/salesperson/salesperson",
+    
     "pages/activated/activated",
     "pages/index/index",
     "pages/explainRules/explainRules"
