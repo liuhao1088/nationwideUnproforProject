@@ -1,0 +1,90 @@
+<view class="salespersonEntryContainer column justify-center align-center" style="padding-bottom: 40rpx;">
+  <view class="header">
+    <image src="https://img11.360buyimg.com/ddimg/jfs/t1/161541/11/7870/6139/60376a92Ea94ec921/258ca8349327aa65.png">
+    </image>
+  </view>
+
+  <view class="menu-wrapper">
+    <view class="title-item">
+      <view class="title-wrapper">
+        <view class="title-tag"></view>
+        <view class="all-item">订单情况</view>
+      </view>
+    </view>
+    <view class="order-item">
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">姓名</view>
+          </view>
+          <view class="menu-msgItem">
+            <input type="text" value="" bindinput="inputPerson" placeholder="请输入姓名" />
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">性别</view>
+          </view>
+          <view class="menu-msgItem">
+            <view class="sex-item">
+              <view class="sex {{item.flag?'bg':'line'}}" wx:for="{{genderList}}" wx:key="id" bindtap="select" data-index="{{index}}">{{item.sex}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">联系电话</view>
+          </view>
+          <view class="menu-msgItem">
+            <input type="number" value="" bindinput="inputPerson" placeholder="请输入联系电话" />
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">门店地址</view>
+          </view>
+          <view class="menu-msgItem">
+            <input type="text" value="" bindinput="inputPerson" placeholder="请选择门店地址" />
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">门店名称</view>
+          </view>
+          <view class="menu-msgItem">
+            <input type="text" value="" bindinput="inputPerson" placeholder="请输入门店名称" />
+          </view>
+        </view>
+      </view>
+
+      <view class="menu-item">
+        <view class="menu-wrap">
+          <view class="menu-leftItem">
+            <view class="menu-tagItem">工号</view>
+          </view>
+          <view class="menu-msgItem">
+            <input type="number" value="" bindinput="inputPerson" placeholder="选填，输入您的工号" />
+          </view>
+        </view>
+      </view>
+
+
+    </view>
+  </view>
+</view>
+
+<view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '66rpx' : '20rpx'}};">
+    <button style="width: 80%;line-height: 80rpx;" bindtap="modify">修改信息</button>
+  </view>
