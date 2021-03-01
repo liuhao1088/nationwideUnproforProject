@@ -305,17 +305,82 @@ button::after {
 /* 延保套餐 */
 .cu-dialog {
   width: 90%;
+  background-color:unset;
+}
+
+.cu-wrapper{
+  width: 100%;
+  background-color: #fbfbfb;
+  padding-bottom: 52rpx;
 }
 
 .modal-titleItem {
   width: 100%;
-  height: 66rpx;
   line-height: 66rpx;
   border: 0rpx solid red;
   text-align: center;
   font-size: 40rpx;
-  margin-top: 52rpx;
   margin-bottom: 20rpx;
+}
+
+.modal-headerWrapper {
+  width: 100%;
+  height: 650rpx;
+  border: 0rpx solid red;
+}
+
+.modal-header {
+  width: 100%;
+  height: 400rpx;
+  background: url('https://img14.360buyimg.com/ddimg/jfs/t1/158387/14/9222/42884/603cba2cE5abfeb00/38b083626d4c5ae7.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-headerTitle {
+  width: 70%;
+  height: 60rpx;
+  border: 0rpx solid red;
+  margin-top: 80rpx;
+  display: flex;
+}
+
+.header-left {
+  height: 100%;
+  border: 0rpx solid orange;
+}
+
+.header-title {
+  flex: 1;
+  line-height: 60rpx;
+  background-image: linear-gradient(90deg, #dfc590 0%, #d8af65 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 40rpx;
+  font-weight: bold;
+  border: 0rpx solid blue;
+}
+
+.left-item {
+  height: 14rpx;
+  display: flex;
+}
+
+.tool-item {
+  height: 2rpx;
+  width: 56rpx;
+  background-color: #DCB878;
+  margin-top: 6rpx;
+}
+
+.frame-item {
+  height: 14rpx;
+  width: 14rpx;
+  border: 2rpx solid #DCB878;
+  transform: rotate(45deg);
+  margin-left: 12rpx;
+  margin-right: 12rpx;
 }
 
 .modal-titleWrap {
@@ -325,45 +390,73 @@ button::after {
 }
 
 .modal-main {
-  width: 85%;
-  height: 360rpx;
+  height: 440rpx;
   border: 0rpx solid red;
   display: flex;
   justify-content: space-evenly;
   margin: auto;
+  position: relative;
+  top: -200rpx;
 }
 
 .modal-menuItem {
-  width: 240rpx;
+  width: 276rpx;
   height: 100%;
-  border-radius: 30rpx;
+  border-radius: 12rpx;
   background-color: rgba(0, 0, 0, 0.05);
   color: #5b5b5b;
+  position: relative;
 }
 
 .modal-butItem {
   width: 100%;
-  height: 110rpx;
+  height: 124rpx;
   margin-top: 40rpx;
-  display: flex;
-  border-top: 2rpx solid #ECECED;
+  border: 0rpx solid red;
 }
 
 .modal-but {
-  width: 50%;
-  height: 100%;
+  width: 60%;
+  height: 76rpx;
+  border: 0rpx solid black;
 }
 
 .modal-but button {
   height: 100%;
-  line-height: 110rpx;
+  line-height: 76rpx;
   padding: 0;
   font-weight: 400;
+  border-radius: 40rpx;
+  background-image: -moz-linear-gradient(90deg, rgb(239, 185, 91) 0%, rgb(251, 199, 118) 100%);
+  background-image: -webkit-linear-gradient(90deg, rgb(239, 185, 91) 0%, rgb(251, 199, 118) 100%);
+  background-image: -ms-linear-gradient(90deg, rgb(239, 185, 91) 0%, rgb(251, 199, 118) 100%);
+  box-shadow: inset 0px 2px 10px 0px rgba(255, 248, 242, 0.33), inset 0px -4px 0px 0px rgba(170, 74, 4, 0.33);
+  color: #fff;
+}
+
+.rule-item {
+  height: 32rpx;
+  line-height: 32rpx;
+  margin-top: 16rpx;
+  color: rgb(168, 168, 168);
+  font-size: 22rpx;
+}
+
+.down{
+  height: 64rpx;
+  width: 64rpx;
+  line-height: 64rpx;
+  border: 0rpx solid red;
+  margin: auto;
+  margin-top: 50rpx;
+  color: rgba(255,255,255,0.8);
+  
 }
 
 .modal-menuWrap {
   border: 0rpx solid red;
   text-align: center;
+  margin-top: 40rpx;
 }
 
 .modal-iconWrap {
@@ -373,43 +466,56 @@ button::after {
 }
 
 .modal-iconItem {
-  height: 80rpx;
+  height: 116rpx;
   width: 100%;
   line-height: 80rpx;
   border: 0rpx solid black;
+}
+
+.modal-img {
+  height: 100rpx;
+  width: 100rpx;
+  border: 0rpx solid red;
 }
 
 .modal-title {
   width: 100%;
   height: 40rpx;
   line-height: 40rpx;
-  margin-top: 16rpx;
-  font-size: 28rpx;
+  font-size: 36rpx;
 }
 
 .modal-price {
   width: 100%;
   height: 60rpx;
   line-height: 60rpx;
-  font-size: 40rpx;
+  font-size: 68rpx;
   font-weight: bold;
+  margin-top: 50rpx;
 }
 
 .modal-tag {
   width: 100%;
   height: 36rpx;
   line-height: 36rpx;
-  font-size: 22rpx;
-  color: rgba(91, 91, 91, 0.5);
+  color: rgb(174, 174, 174);
+  font-size: 18rpx;
+  position: absolute;
+  bottom: 20rpx;
 }
 
 .menuWrap-class {
-  border: 2rpx solid rgb(23, 100, 152);
-  color: rgb(23, 100, 152);
+  background: url('https://img14.360buyimg.com/ddimg/jfs/t1/161089/26/8635/72799/603ca62dE8da8aef8/8df3a9fc104a84eb.png') no-repeat;
+  background-size: 100% 100%;
+}
+
+.unselected-class {
+  background: url('https://img11.360buyimg.com/ddimg/jfs/t1/153735/19/20121/18523/603ca731E963e96b4/6068102466a97ecb.png') no-repeat;
+  background-size: 100% 100%;
 }
 
 .tag-class {
-  color: rgba(23, 100, 152, 0.6);
+  color: rgb(241, 187, 94);
 }
 
 
@@ -510,7 +616,7 @@ button::after {
   text-align: center;
 }
 
-.noticeBut button{
+.noticeBut button {
   width: 100%;
   height: 100%;
   border-radius: 30rpx;

@@ -10,16 +10,17 @@ Page({
   data: {
     img: [],
     serviceList: [{
-        "icon": "iconaixin--xian",
-        "selectedIcon": "iconaixin--kuai",
+        "icon": "https://img12.360buyimg.com/ddimg/jfs/t1/165485/3/8501/10734/603cab76Ebbbfa772/d3da027466dbbbbc.png",
+        "selectedIcon": " https://img12.360buyimg.com/ddimg/jfs/t1/163943/36/8339/33069/603cab01Ea1ef897b/20732b865c6ab88d.png",
         "title": "尊享体验",
         "price": "9.9",
         "tag": "质保延长1年",
         "flag": true
       },
       {
-        "icon": "iconhuiyuanxianxing",
-        "selectedIcon": "iconhuiyuan",
+        
+        "icon": "https://img14.360buyimg.com/ddimg/jfs/t1/151776/7/20001/13466/603cab92E51061157/0c765fcb4c456874.png",
+        "selectedIcon": "https://img13.360buyimg.com/ddimg/jfs/t1/161549/23/8632/14061/603cab84E152c4b8f/83d6ec25378fbf07.png",
         "title": "至臻体验",
         "price": "19.9",
         "tag": "质保延长2年",

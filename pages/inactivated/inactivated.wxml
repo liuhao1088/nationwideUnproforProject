@@ -7,7 +7,8 @@
   <!-- background: url('https://img13.360buyimg.com/ddimg/jfs/t1/154809/3/19341/123336/603713f5Ea60ba781/3a4a01fdd4faf962.png') no-repeat;background-size: 100% 100%; -->
   <!-- 已激活 -->
   <!-- background: url('https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png') no-repeat;background-size: 100% 100%; -->
-  <view class="header" style="background: url({{activation?'https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png':'https://img13.360buyimg.com/ddimg/jfs/t1/154809/3/19341/123336/603713f5Ea60ba781/3a4a01fdd4faf962.png'}}) no-repeat;background-size: 100% 100%;">
+  <view class="header"
+    style="background: url({{activation?'https://img11.360buyimg.com/ddimg/jfs/t1/171369/27/7859/51577/60374818E34ff76ca/3ce20cd1d8c885f0.png':'https://img13.360buyimg.com/ddimg/jfs/t1/154809/3/19341/123336/603713f5Ea60ba781/3a4a01fdd4faf962.png'}}) no-repeat;background-size: 100% 100%;">
     <view class="user-wrapper">
       <view class="user-wrap">
         <view class="img-item column justify-center align-center">
@@ -16,7 +17,8 @@
         </view>
         <!-- 已激活 -->
         <!-- background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent; -->
-        <view class="name-item" style="{{activation?'background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;':''}}">
+        <view class="name-item"
+          style="{{activation?'background-image: linear-gradient(90deg,#af7e34 0%,#f6da8a 50%,#af7e34 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;':''}}">
           {{nickName}}
         </view>
         <view class="logo-item">
@@ -33,7 +35,9 @@
         </view>
       </view>
       <!-- 已激活 -->
-      <view class="user-name"  style="{{activation?'background-image: linear-gradient(90deg,#dabd81 0%,#ddbb69 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;':''}}">NO.{{card}}</view>
+      <view class="user-name"
+        style="{{activation?'background-image: linear-gradient(90deg,#dabd81 0%,#ddbb69 100%);-webkit-background-clip: text; -webkit-text-fill-color: transparent;':''}}">
+        NO.{{card}}</view>
 
       <view class="user-butItem">
         <view class="user-tagItem">
@@ -46,9 +50,13 @@
         <!-- background-image: linear-gradient(90deg, #16b0ff 0%,#0083c6 100%); -->
         <view class="but" wx:if="{{isOwner}}">
           <!--已延保-->
-          <button style="width: 100%;font-weight: 400;background-image: linear-gradient(90deg, #af7e34 0%, #f6da8a 50%,#af7e34 100%);" wx:if="{{extend}}">已延保{{year}}年</button>
+          <button
+            style="width: 100%;font-weight: 400;background-image: linear-gradient(90deg, #af7e34 0%, #f6da8a 50%,#af7e34 100%);"
+            wx:if="{{extend}}">已延保{{year}}年</button>
           <!--未延保-->
-          <button style="width: 100%;font-weight: 400;background-image: {{activation?'linear-gradient(90deg, #af7e34 0%, #f6da8a 50%,#af7e34 100%)':' linear-gradient(90deg, #16b0ff 0%,#0083c6 100%);'}};" wx:else bindtap="getMeal" data-target="meal">购买延保</button>
+          <button
+            style="width: 100%;font-weight: 400;background-image: {{activation?'linear-gradient(90deg, #af7e34 0%, #f6da8a 50%,#af7e34 100%)':' linear-gradient(90deg, #16b0ff 0%,#0083c6 100%);'}};"
+            wx:else bindtap="getMeal" data-target="meal">购买延保</button>
         </view>
       </view>
     </view>
@@ -215,7 +223,7 @@
       </view>
     </view>
 
-   
+
 
   </view>
 
@@ -230,45 +238,61 @@
   <!-- 延保套餐 -->
   <view class="cu-modal {{modalName=='meal'?'show':''}}" catchtouchmove="ture">
     <view class="cu-dialog">
-      <view class="modal-titleItem column justify-center align-center">
-        <view class="modal-titleWrap">
-          <view>选择延保服务</view>
-          <view class="modal-iconWrap">
-            <text class="iconfont iconwenti" style="margin-left: 10rpx;" bindtap="toExplainRules"></text>
-          </view>
-        </view>
 
-      </view>
-
-      <view class="modal-main">
-        <view class="modal-menuItem  column justify-center align-center {{item.flag?'menuWrap-class' : ''}}"
-          wx:for="{{serviceList}}" wx:key="id" bindtap="select" data-index="{{index}}">
-
-          <view class="modal-menuWrap">
-            <view class="modal-iconItem">
-              <text class="iconfont {{item.flag?item.selectedIcon : item.icon}}" style="font-size: 72rpx;"></text>
+      <view class="cu-wrapper">
+        <view class="modal-titleItem">
+          <view class="modal-headerWrapper">
+            <!-- 头 -->
+            <view class="modal-header">
+              <view class="modal-headerTitle">
+                <view class="header-left column justify-center align-center">
+                  <view class="left-item">
+                    <view class="tool-item"></view>
+                    <view class="frame-item"></view>
+                  </view>
+                </view>
+                <view class="header-title">选择延保服务</view>
+                <view class="header-left column justify-center align-center">
+                  <view class="left-item">
+                    <view class="frame-item"></view>
+                    <view class="tool-item"></view>
+                  </view>
+                </view>
+              </view>
             </view>
 
-            <view class="modal-title">{{item.title}}</view>
-            <view class="modal-price">{{item.price}}元</view>
-            <view class="modal-tag {{item.flag?'tag-class' : ''}}">{{item.tag}}</view>
-            <view class="modal-tag {{item.flag?'tag-class' : ''}}">专属卡面、头像框</view>
-            <view class="modal-tag {{item.flag?'tag-class' : ''}}">专属客户服务</view>
+            <view class="modal-main">
+              <view class="modal-menuItem  {{item.flag?'menuWrap-class' : 'unselected-class'}}" wx:for="{{serviceList}}"
+                wx:key="id" bindtap="select" data-index="{{index}}">
 
+                <view class="modal-menuWrap">
+                  <view class="modal-iconItem column justify-center align-center">
+                    <view class="modal-img">
+                      <image src="{{item.flag?item.selectedIcon : item.icon}}"></image>
+                    </view>
+
+                  </view>
+                  <view class="modal-title {{item.flag?'tag-class' : ''}}">{{item.title}}</view>
+                  <view class="modal-price {{item.flag?'tag-class' : ''}}"><text
+                      style="font-size: 28rpx;">￥</text>{{item.price}}</view>
+                </view>
+                <view class="modal-tag">{{item.tag}},专属客户服务</view>
+              </view>
+            </view>
           </view>
-
-        </view>
-
-      </view>
-
-      <view class="modal-butItem">
-        <view class="modal-but">
-          <button style="width: 100%;" bindtap="hideModal">取消</button>
-        </view>
-        <view class="modal-but" style="border-left: 2rpx solid #ECECED;">
-          <button style="width: 100%;color: rgb(23, 100, 152);" bindtap="payfee">去付款</button>
+          <view class="modal-butItem column justify-center align-center">
+            <view class="modal-but">
+              <button style="width: 100%;">立即开通</button>
+            </view>
+            <view class="rule-item" bindtap="toExplainRules">关于延保说明</view>
+          </view>
         </view>
       </view>
+
+      <view class="down" bindtap="hideModal">
+        <text class="iconfont iconicon-" style="font-size: 64rpx;"></text>
+      </view>
+
     </view>
   </view>
 
@@ -324,34 +348,34 @@
     </view>
   </view>
 
-  <view class="cu-modal {{noticeName=='notice'?'':'show'}}" catchtouchmove="ture">
+  <view class="cu-modal {{noticeName=='notice'?'show':''}}" catchtouchmove="ture">
     <view class="cu-dialog notice-dialog">
       <view class="notice-wrap">
         <view class="notice column justify-center align-center">
           <scroll-view class="scroll-item" scroll-y>
             <view class="rule-title">用户须知</view>
             <view class="main-ruleItem">
-<text class="noticeTitle-item">何为“全国联保”？</text>
-车主在购买产品在保修约定的产品或产品零部件保修期内，由全国范围内品牌合作门店为发生故障的该产品提供修理、置换服务。
+              <text class="noticeTitle-item">何为“全国联保”？</text>
+              车主在购买产品在保修约定的产品或产品零部件保修期内，由全国范围内品牌合作门店为发生故障的该产品提供修理、置换服务。
 
-<text class="noticeTitle-item">保修期限</text>
-自产品原厂保修期结束至次日起开始生效，延保期年限为1-3年。（具体年限以消费者选择购买的时间为准）
+              <text class="noticeTitle-item">保修期限</text>
+              自产品原厂保修期结束至次日起开始生效，延保期年限为1-3年。（具体年限以消费者选择购买的时间为准）
 
-<text class="noticeTitle-item">保修范围</text>
-正常使用或磨损造成的产品或产品零部件性能故障。
-由以下原因产生的产品故障或损坏不属于保修、延保服务范围：
-1.由坠落、挤压、刮擦、腐蚀等外力因素导致的产品故障以及不影响功能使用的外观损坏；
-2.由地震、洪水、泥石流、台风等造成不可抗力导致的性能损坏；
-3.因外部受潮冷凝、昆虫破坏、动物啃咬、人为破坏、误用滥用造成的性能损坏；
-4.由非授权人员维修导致的性能损坏；
-5.保修产品未在保修范围内的的附加配件。
+              <text class="noticeTitle-item">保修范围</text>
+              正常使用或磨损造成的产品或产品零部件性能故障。
+              由以下原因产生的产品故障或损坏不属于保修、延保服务范围：
+              1.由坠落、挤压、刮擦、腐蚀等外力因素导致的产品故障以及不影响功能使用的外观损坏；
+              2.由地震、洪水、泥石流、台风等造成不可抗力导致的性能损坏；
+              3.因外部受潮冷凝、昆虫破坏、动物啃咬、人为破坏、误用滥用造成的性能损坏；
+              4.由非授权人员维修导致的性能损坏；
+              5.保修产品未在保修范围内的的附加配件。
 
-<text class="noticeTitle-item">服务范围</text>
-全国范围（具体以品牌合作售后网点覆盖范围为准）
+              <text class="noticeTitle-item">服务范围</text>
+              全国范围（具体以品牌合作售后网点覆盖范围为准）
 
-<text class="noticeTitle-item">发起服务</text>
-拨打品牌全国售后服务热线或联系品牌授权合作门店自助预约报修。</view>
-</scroll-view>
+              <text class="noticeTitle-item">发起服务</text>
+              拨打品牌全国售后服务热线或联系品牌授权合作门店自助预约报修。</view>
+          </scroll-view>
         </view>
 
       </view>
