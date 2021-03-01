@@ -282,7 +282,7 @@
           </view>
           <view class="modal-butItem column justify-center align-center">
             <view class="modal-but">
-              <button style="width: 100%;">立即开通</button>
+              <button style="width: 100%;" bindtap="payfee">立即开通</button>
             </view>
             <view class="rule-item" bindtap="toExplainRules">关于延保说明</view>
           </view>
