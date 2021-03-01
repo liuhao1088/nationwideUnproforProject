@@ -348,33 +348,33 @@
     </view>
   </view>
 
-  <view class="cu-modal {{noticeName=='notice'?'show':''}}" catchtouchmove="ture">
+  <view class="cu-modal {{noticeName=='notice'?'':'show'}}" catchtouchmove="ture">
     <view class="cu-dialog notice-dialog">
       <view class="notice-wrap">
         <view class="notice column justify-center align-center">
           <scroll-view class="scroll-item" scroll-y>
             <view class="rule-title">用户须知</view>
             <view class="main-ruleItem">
-              <text class="noticeTitle-item">何为“全国联保”？</text>
-              车主在购买产品在保修约定的产品或产品零部件保修期内，由全国范围内品牌合作门店为发生故障的该产品提供修理、置换服务。
+<text class="noticeTitle-item">何为“全国联保”？</text>
+车主在购买产品在保修约定的产品或产品零部件保修期内，由全国范围内品牌合作门店为发生故障的该产品提供修理、置换服务。
 
-              <text class="noticeTitle-item">保修期限</text>
-              自产品原厂保修期结束至次日起开始生效，延保期年限为1-3年。（具体年限以消费者选择购买的时间为准）
+<text class="noticeTitle-item">保修期限</text>
+自产品原厂保修期结束至次日起开始生效，延保期年限为1-3年。（具体年限以消费者选择购买的时间为准）
 
-              <text class="noticeTitle-item">保修范围</text>
-              正常使用或磨损造成的产品或产品零部件性能故障。
-              由以下原因产生的产品故障或损坏不属于保修、延保服务范围：
-              1.由坠落、挤压、刮擦、腐蚀等外力因素导致的产品故障以及不影响功能使用的外观损坏；
-              2.由地震、洪水、泥石流、台风等造成不可抗力导致的性能损坏；
-              3.因外部受潮冷凝、昆虫破坏、动物啃咬、人为破坏、误用滥用造成的性能损坏；
-              4.由非授权人员维修导致的性能损坏；
-              5.保修产品未在保修范围内的的附加配件。
+<text class="noticeTitle-item">保修范围</text>
+正常使用或磨损造成的产品或产品零部件性能故障。
+由以下原因产生的产品故障或损坏不属于保修、延保服务范围：
+1.由坠落、挤压、刮擦、腐蚀等外力因素导致的产品故障以及不影响功能使用的外观损坏；
+2.由地震、洪水、泥石流、台风等造成不可抗力导致的性能损坏；
+3.因外部受潮冷凝、昆虫破坏、动物啃咬、人为破坏、误用滥用造成的性能损坏；
+4.由非授权人员维修导致的性能损坏；
+5.保修产品未在保修范围内的的附加配件。
 
-              <text class="noticeTitle-item">服务范围</text>
-              全国范围（具体以品牌合作售后网点覆盖范围为准）
+<text class="noticeTitle-item">服务范围</text>
+全国范围（具体以品牌合作售后网点覆盖范围为准）
 
-              <text class="noticeTitle-item">发起服务</text>
-              拨打品牌全国售后服务热线或联系品牌授权合作门店自助预约报修。</view>
+<text class="noticeTitle-item">发起服务</text>
+拨打品牌全国售后服务热线或联系品牌授权合作门店自助预约报修。</view>
           </scroll-view>
         </view>
 
