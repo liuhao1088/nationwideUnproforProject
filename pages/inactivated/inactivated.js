@@ -157,6 +157,13 @@ Page({
         }, 200)
       } else {
         code = options.q.substring(options.q.length - 16)
+        let u='';
+        for (let e = 0; e < 5; e++) {
+          u += Math.floor(Math.random() * 10)
+        }
+        /*if(code=='A010120210300000'){
+          code=code.substring(0,11)+u
+        }*/
         console.log(code)
         var isnum = /^\d+$/.test(code.substring(5));
         var year = parseInt(code.substring(5,9))
@@ -368,14 +375,17 @@ Page({
         warranty_code: that.data.data.res_code
       }).get().then(res => {
         if (res.data.length == 0) {
-          if (timer) clearTimeout(timer);
-          timer = setTimeout(async res => {
-            let arr = []
-            if (that.data.img !== []) await util.uploadimg(0, that.data.img, 'entrucking', arr).then(res => {
-              arr = res
-            })
-            that.insert(arr);
-          }, 500)
+          getApp().preventActive(async (res)=>{
+            if(!app.globalData.PageActive){
+              let arr = []
+              if (that.data.img !== []) await util.uploadimg(0, that.data.img, 'entrucking', arr).then(res => {
+                arr = res
+              })
+              that.insert(arr);
+            }
+          })
+          //if (timer) clearTimeout(timer);
+          //timer = setTimeout(async res => {}, 500)
         } else {
           wx.showToast({
             title: '该卡已被激活',
@@ -444,50 +454,59 @@ Page({
         icon: 'success',
         duration: 2000
       })
+      setTimeout(()=>{
+        that.setData({
+          modalName:'meal'
+        })
+      },1000)
     })
   },
   modify: function () {
     var that = this;
     if (wx.getStorageSync('userInfo')) {
-      wx.showLoading({
-        title: '修改中',
+      getApp().preventActive(async (res)=>{
+        if(!app.globalData.PageActive){
+          wx.showLoading({
+            title: '修改中',
+          })
+          let userInfo=wx.getStorageSync('userInfo')
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(async res => {
+            wx.cloud.callFunction({
+              name: 'recordUpdate',
+              data: {
+                collection: 'warranty_activation',
+                where: {
+                  _openid: app.globalData.openid
+                },
+                updateData: {
+                  warranty_salesperson: that.data.salesperson,
+                  warranty_area: that.data.area,
+                  warranty_name: that.data.name,
+                  warranty_phone: that.data.phone,
+                  avatarUrl: userInfo.avatarUrl,
+                  nickName: userInfo.nickName
+                }
+              }
+            }).then(res => {
+              wx.hideLoading({
+                success: (res) => {},
+              })
+              let warranty = wx.getStorageSync('warranty')
+              warranty.warranty_salesperson = that.data.salesperson
+              warranty.warranty_area = that.data.area
+              warranty.warranty_name = that.data.name
+              warranty.warranty_phone = that.data.phone
+              wx.setStorageSync('warranty', warranty)
+              wx.showToast({
+                title: '修改成功',
+                icon: 'success',
+                duration: 2000
+              })
+            })
+          }, 500)
+        }
       })
-      let userInfo=wx.getStorageSync('userInfo')
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(async res => {
-        wx.cloud.callFunction({
-          name: 'recordUpdate',
-          data: {
-            collection: 'warranty_activation',
-            where: {
-              _openid: app.globalData.openid
-            },
-            updateData: {
-              warranty_salesperson: that.data.salesperson,
-              warranty_area: that.data.area,
-              warranty_name: that.data.name,
-              warranty_phone: that.data.phone,
-              avatarUrl: userInfo.avatarUrl,
-              nickName: userInfo.nickName
-            }
-          }
-        }).then(res => {
-          wx.hideLoading({
-            success: (res) => {},
-          })
-          let warranty = wx.getStorageSync('warranty')
-          warranty.warranty_salesperson = that.data.salesperson
-          warranty.warranty_area = that.data.area
-          warranty.warranty_name = that.data.name
-          warranty.warranty_phone = that.data.phone
-          wx.setStorageSync('warranty', warranty)
-          wx.showToast({
-            title: '修改成功',
-            icon: 'success',
-            duration: 2000
-          })
-        })
-      }, 500)
     } else {
       this.selectComponent("#authorize").showModal("#0178C1");
       this.retrieval()
@@ -573,7 +592,7 @@ Page({
           str: str,
           body: "蜂鸟创客（深圳）技术有限公司-延保支付",
           No: No,
-          totalFee: 1,//that.data.payfee
+          totalFee: that.data.payfee
         },
         success(res) {
           console.log(res)
@@ -614,6 +633,7 @@ Page({
               creation_date: util.formatTime(new Date()),
               creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
               order_no: number,
+              salesperson: py.data.salesperson,
               openid: wx.getStorageSync('openid'),
               payfee: payfee,
               shop: py.data.shop,

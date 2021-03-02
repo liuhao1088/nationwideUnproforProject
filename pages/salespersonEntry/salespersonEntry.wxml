@@ -1,3 +1,4 @@
+<authorize id="authorize" />
 <view class="salespersonEntryContainer column justify-center align-center" style="padding-bottom: 40rpx;">
   <view class="header">
     <image src="https://img11.360buyimg.com/ddimg/jfs/t1/161541/11/7870/6139/60376a92Ea94ec921/258ca8349327aa65.png">
@@ -18,7 +19,7 @@
             <view class="menu-tagItem">姓名</view>
           </view>
           <view class="menu-msgItem">
-            <input type="text" value="" bindinput="inputPerson" placeholder="请输入姓名" />
+            <input type="text" value="{{name}}" bindinput="inputName" placeholder="请输入姓名" disabled="{{!join}}" />
           </view>
         </view>
       </view>
@@ -29,10 +30,14 @@
             <view class="menu-tagItem">性别</view>
           </view>
           <view class="menu-msgItem">
-            <view class="sex-item">
+            <view class="sex-item" wx:if="{{join}}">
               <view class="sex {{item.flag?'bg':'line'}}" wx:for="{{genderList}}" wx:key="id" bindtap="select" data-index="{{index}}">{{item.sex}}</view>
             </view>
+            <view class="sex-item" wx:else>
+              <view class="sex bg" style="margin-left:0px;">{{sex}}</view>
+            </view>
           </view>
+          
         </view>
       </view>
 
@@ -41,8 +46,10 @@
           <view class="menu-leftItem">
             <view class="menu-tagItem">联系电话</view>
           </view>
-          <view class="menu-msgItem">
-            <input type="number" value="" bindinput="inputPerson" placeholder="请输入联系电话" />
+          <view class="menu-msgItem" hidden="{{modalName=='phoneModal'}}">
+            <input type="text" value="{{phone}}" bindinput="inputPhone" bindtap="phoneModal"
+              disabled="{{whetherEmpower=='yes'}}" focus="{{whetherEmpower=='no'}}" bindblur="changeEmpower"
+              placeholder="请输入您的联系电话" />
           </view>
         </view>
       </view>
@@ -53,7 +60,8 @@
             <view class="menu-tagItem">门店地址</view>
           </view>
           <view class="menu-msgItem">
-            <input type="text" value="" bindinput="inputPerson" placeholder="请选择门店地址" />
+            <input class="" wx:if="{{!join}}" disabled="true" value="{{address_label}}" style="" bindtap="lookupAddress" />
+            <input type="text" wx:else value="{{address_label}}" bindtap="chooseLocation" placeholder="请选择门店地址" />
           </view>
         </view>
       </view>
@@ -64,7 +72,7 @@
             <view class="menu-tagItem">门店名称</view>
           </view>
           <view class="menu-msgItem">
-            <input type="text" value="" bindinput="inputPerson" placeholder="请输入门店名称" />
+            <input type="text" value="{{shop}}" bindinput="inputShop" placeholder="请输入门店名称" disabled="{{!join}}" />
           </view>
         </view>
       </view>
@@ -75,7 +83,7 @@
             <view class="menu-tagItem">工号</view>
           </view>
           <view class="menu-msgItem">
-            <input type="number" value="" bindinput="inputPerson" placeholder="选填，输入您的工号" />
+            <input type="number" value="{{number}}" bindinput="inputNumber" placeholder="选填，输入您的工号" />
           </view>
         </view>
       </view>
@@ -86,5 +94,60 @@
 </view>
 
 <view class="but-item  column justify-center align-center" style="padding-bottom: {{isIphoneX? '66rpx' : '20rpx'}};">
-    <button style="width: 80%;line-height: 80rpx;" bindtap="modify">修改信息</button>
+    <button style="width: 80%;line-height: 80rpx;" bindtap="submit">{{btn}}</button>
+  </view>
+
+
+  <view class="cu-modal {{modalName=='address'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">地址信息</view>
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close" style="color:#f92643;"></text>
+        </view>
+      </view>
+      <view class="padding-xl">
+        <view class="row align-center" style="margin-bottom:7px;height:20px;">
+          <view style="font-weight:700;">地点</view><input style="width:80%;margin:0px 10px;" value="{{address_name}}"
+            bindinput="inputAddress_name" placeholder="请输入地点" disabled="{{!join}}" />
+        </view>
+        <view class="row align-center" style="margin-bottom:7px;height:20px;">
+          <view style="font-weight:700;">地址</view><input style="width:80%;margin:0px 10px;" value="{{address}}"
+            bindinput="inputAddress" placeholder="请输入地址" disabled="{{!joiin}}" />
+        </view>
+        <view class="row align-center" style="margin-bottom:7px;height:20px;">
+          <view style="font-weight:700;">补充</view><input style="width:80%;margin:0px 10px;" value="{{detail}}"
+            bindinput="inputDetail" placeholder="请输入楼层、门牌" />
+        </view>
+      </view>
+      <view class="cu-bar bg-white justify-end">
+        <view class="action" style="color: #fff;">
+          <button class="cu-btn margin-left" style="width:180rpx;background-color:#0178C1;color:white;"
+            bindtap="hideModal">确定</button>
+
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="cu-modal {{modalName=='phoneModal'?'show':''}}" style="z-index:{{z}}" catchtouchmove="ture">
+    <view class="cu-dialog">
+      <view class="cu-bar bg-white justify-end">
+        <view class="content">获取手机号</view>
+        <view class="action" bindtap="hideModal">
+          <text class="cuIcon-close" style="color:#f92643;"></text>
+        </view>
+      </view>
+      <view class="padding-xl">
+        <button class='btn1 justify-center' open-type="getPhoneNumber"
+          bindgetphonenumber="getPhoneNumber" lang="zh_CN" style="width:80%;">
+          <image class='btnImg' src='../../images/weixin.png'></image>
+          <view>微信授权手机号</view>
+        </button>
+        <view style="color:gray;margin-top:10px;">或者</view>
+        <view style="color:gray;margin-top:10px;" bindtap="changeInput">手动填写</view>
+      </view>
+
+    </view>
   </view>

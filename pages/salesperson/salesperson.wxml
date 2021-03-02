@@ -9,14 +9,14 @@
         <view class="user-wrap">
           <view class="img-item column justify-center align-center">
             <image
-              src="https://img13.360buyimg.com/ddimg/jfs/t1/152782/17/19635/19209/60376e51Eae6f3b4c/5c63a11223894d5d.jpg"
+              src="{{avatarUrl||'https://img13.360buyimg.com/ddimg/jfs/t1/152782/17/19635/19209/60376e51Eae6f3b4c/5c63a11223894d5d.jpg'}}"
               style="border-radius: 50%;">
             </image>
           </view>
 
           <view class="name-item">
-            <view class="name">用户昵称</view>
-            <view class="store">在职门店：AAAA宝安店</view>
+            <view class="name">{{nickName||'用户昵称'}}</view>
+            <view class="store">在职门店：{{shop||'无'}}</view>
           </view>
 
           <view class="modify">
@@ -26,7 +26,7 @@
           </view>
         </view>
 
-        <view class="user-name">156****4985</view>
+        <view class="user-name">{{phone||'***********'}}</view>
         <view class="english-item">Hard work pays off</view>
       </view>
 

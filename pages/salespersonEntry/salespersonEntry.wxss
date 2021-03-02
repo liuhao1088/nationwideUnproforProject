@@ -1,3 +1,4 @@
+@import "../inactivated/inactivated.wxss";
 page {
   background-color: rgb(221, 221, 221);
 }

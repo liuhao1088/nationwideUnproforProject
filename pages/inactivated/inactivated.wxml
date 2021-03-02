@@ -1,6 +1,6 @@
 <wxs src="../../utils/util.wxs" module="utils" />
 <authorize id="authorize" />
-<view class="inactivatedContainer column justify-center align-center">
+<view class="inactivatedContainer column justify-center align-center" bindtap="tt">
   <view class="wrap"></view>
 
   <!-- 未激活 -->
@@ -61,7 +61,7 @@
       </view>
     </view>
   </view>
-
+  
   <view class="menu-wrapper">
     <view class="title-item">
       <view class="title-tag"></view>
@@ -214,10 +214,13 @@
       <view class="menu-item" wx:if="{{isOwner}}">
         <view class="menu-wrap">
           <view class="menu-leftItem">
-            <view class="menu-tagItem">销售人员</view>
+            <view class="menu-tagItem">销售验证</view>
           </view>
-          <view class="menu-msgItem">
-            <input type="text" value="{{salesperson}}" bindinput="inputPerson" placeholder="请输入店员编码" />
+          <view class="menu-msgItem" wx:if="{{activation}}">
+            {{salesperson}}
+          </view>
+          <view class="menu-msgItem" wx:else>
+            <input type="text" value="{{salesperson}}" bindinput="inputPerson" placeholder="请输入店员手机号" />
           </view>
         </view>
       </view>
