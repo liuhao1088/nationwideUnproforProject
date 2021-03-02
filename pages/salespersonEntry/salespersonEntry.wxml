@@ -8,7 +8,7 @@
     <view class="title-item">
       <view class="title-wrapper">
         <view class="title-tag"></view>
-        <view class="all-item">订单情况</view>
+        <view class="all-item">个人信息</view>
       </view>
     </view>
     <view class="order-item">
