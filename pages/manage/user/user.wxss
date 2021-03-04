@@ -1,0 +1,63 @@
+/* pages/manage/user/user.wxss */
+@import "../../../style/icon.wxss";
+@import "/style/original.wxss";
+.viewbox{
+  width:100%;background: white;border-bottom:1px #d9d9d9 solid;padding-top:10px;padding-bottom:10px;position: relative;
+}
+.row{
+  display: flex;flex-direction: row;
+}
+.viewbox-number{
+  font-size: 14px;font-weight: 800;padding-left: 10px;width:90%;padding-bottom:5px;
+}
+.viewbox-remark{
+  font-size: 13px;padding-left: 15px;color:black;padding-bottom: 1px;
+}
+.viewbox-address{
+  font-size: 12px;color:gray;padding-left: 10px;-webkit-line-clamp:1;overflow: hidden;width:90%;height:16px;
+}
+.viewbox-ic{
+  height:15px;width:15px;position: absolute;right:15px;margin-top:5px;
+
+  font-size: 13px;padding-left: 15px;padding-top:3px;color:black;
+}
+.viewbox-address{
+  font-size: 12px;color:gray;padding-left: 10px;-webkit-line-clamp:1;overflow: hidden;width:90%;height:16px;
+}
+.viewbox-icon{
+  height:15px;width:15px;position: absolute;right:15px;margin-top:5px;
+}
+
+.datebox{
+  height:30px;align-items: center;font-size:12px;width:100%;color:white;display: flex;flex-direction: row;
+}
+.til{
+  margin-left: 15px;width:15%;height:30px;
+}
+.pick{
+  margin-left: 10%;height:30px;width:25%;
+}
+
+.bton{
+  width:64%;height:35px;background: #F37336;color:white;font-size: 15px;border-radius: 17.5px;position: absolute;bottom:20px;
+}
+.bottom {
+  z-index: 5;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  display: flex;
+  padding-bottom: env(safe-area-inset-bottom);
+  width: 100%;
+}
+
+.button {
+  height: 45px;
+  width: 90%;
+  border-radius: 5px;
+  color: white;
+  margin: 15px 5%;
+  font-size: 16px;
+}

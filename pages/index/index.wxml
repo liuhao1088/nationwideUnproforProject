@@ -1,5 +1,5 @@
 <authorize id="authorize" />
-<view class="container">
+<view class="container" >
   <!-- 头部 -->
   <view class="wrapper">
     <view class="header">
@@ -86,7 +86,7 @@
         </view>
         <view class="title-item">发起服务</view>
       </view>
-      <view class="rule-main">联系品牌授权合作门店自助预约报修。</view>
+      <view class="rule-main" bindtap="toM">联系品牌授权合作门店自助预约报修。</view>
 
     </view>
 

@@ -12,6 +12,11 @@ Page({
     avatarUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/164224/33/3176/1736/6005080bE0d9ade5b/c768fb7219e855f9.png',
     nickName: '用户昵称'
   },
+  toM:function(){
+    wx.navigateTo({
+      url: '../manage/manage',
+    })
+  },
   getScancode(e) {
     var _this = this;
     // 允许从相机和相册扫码
@@ -143,6 +148,12 @@ Page({
         activation: true
       })
     }
+    /*wx.request({url:'https://www.funiaopark.com/brand?page=1',success:function(res){
+      console.log(res)
+      wx.showModal({
+        title:'请求成功',
+      })
+    },fail:function(res){console.log(res)}})*/
   },
   distinguish: function (result) {
     var isletter = (/[a-z]/i).test(result.substring(0, 1));

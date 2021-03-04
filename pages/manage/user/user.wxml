@@ -1,0 +1,32 @@
+<!--pages/manage/user/user.wxml-->
+<view class="cu-bar bg-black search" style="height:50px;">
+  <view class='search-form radius'>
+    <text style="position:relative;left:20rpx;" class="iconfont iconziyuan searchIcon"></text>
+    <input style="position:relative;left:40rpx;" type="text" placeholder="搜索关键字" confirm-type="search" bindinput='search' value="{{search}}"></input>
+  </view>
+</view>
+<view class="container">
+  <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHev}}px;" class="list"
+    bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad" bindscroll="scroll">
+    <view class='viewbox' bindlongtap='deleteAddr' wx:for="{{list}}" wx:key="*" data-index="{{index}}" bindtap="">
+
+      <view class='row' class="align-center" bindtap="toLookup" data-index="{{index}}">
+        <image src="{{item.avatarUrl}}" style="height:50px;width:50px;margin-left:5%;margin-right:5%" />
+        <view class='column' style="width:50%;">
+          <view class='viewbox-number'>昵称：{{item.nickName}}</view>
+          <view class='viewbox-remark'></view>
+          <view class="viewbox-address"><text decode="{{true}}">类型：{{item.type=='shopkeeper'?'店主':'车主'}} &nbsp;&nbsp;&nbsp;&nbsp;</text></view>
+        </view>
+        <view class='row'>
+        </view>
+      </view>
+      <view class="viewbox-icon column" style="right:40rpx;top:10px;z-index:2;width:100rpx;">
+        <switch class="justify-center" checked="{{item.isChecked}}" data-index="{{index}}" bindchange="changeSwitch"></switch>
+        <view class="justify-center" style="font-size:22rpx;color:gray;margin-top:5px">管理权限</view>
+      </view>
+    </view>
+
+    <view style="height:0px"></view>
+  </scroll-view>
+
+</view>

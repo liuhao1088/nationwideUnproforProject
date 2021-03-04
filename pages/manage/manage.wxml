@@ -1,0 +1,8 @@
+<!--pages/manage/manage.wxml-->
+<view class="container">
+  <view style="height:10px;width:100%;"></view>
+  <view class='form-btn bg-grey' bindtap='toUser'>用户管理</view>
+  <view class='form-btn bg-grey' bindtap='toOrder'>订单管理</view>
+  <view class='form-btn bg-grey' bindtap='toWithdrawal'>提现申请</view>
+  <!--<button class='form-btn bg-grey' open-type="contact" bindcontact="handleContact">客服</button>-->
+</view>

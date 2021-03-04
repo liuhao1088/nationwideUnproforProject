@@ -1,0 +1,60 @@
+<!--pages/manage/user/lookup.wxml-->
+<view class='background'>
+
+  <view class='box row align-center' style="height:100px">
+    <view class='field align-center'>头像</view>
+    <view class="iconlist row" style="margin-top:5px;margin-bottom:5px;">
+
+      <image class="addIcon" src="{{data.avatarUrl}}" bindtap="previewAva" />
+
+    </view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>昵称</view>
+    <view class='input align-center'>{{data.nickName}}</view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>性别</view>
+    <view class='input align-center'>{{data.sex}}</view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>省份</view>
+    <view class='input align-center'>{{data.province}}</view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>城市</view>
+    <view class='input align-center'>{{data.city}}</view>
+  </view>
+  <view class='box row align-center' style="">
+    <view class='field align-center'>手机号</view>
+    <view class='input align-center'>{{data.phone||'无'}}</view>
+    <image style="height:25px;width:25px;position:absolute;right:5%;" bindtap="callPhone"
+      src="../../../images/phone.png" />
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>加入日期</view>
+    <view class='input align-center'>{{data.creation_date}}</view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>openid</view>
+    <view class='input align-center'>{{data._openid}}</view>
+  </view>
+  <view class='box row align-center'>
+    <view class='field align-center'>用户类型</view>
+    <view class='input align-center'>{{data.type=='shopkeeper'?'店主':'车主'}}</view>
+  </view>
+  <view class='box row align-center' wx:if="{{data.type=='shopkeeper'}}">
+    <view class='field align-center'>门店</view>
+    <view class='input align-center'>{{data.shop[data.shop.length-1].shop_name}}</view>
+  </view>
+
+
+  <view style='border-bottom:1px #d9d9d9 solid;width:100%;'>
+    <view class='box row align-center' style="border-bottom:0px">
+      <view class='field align-center'>权限</view>
+      <view class='input align-center'>{{data.authority}}（{{data.authority=='admin'?'管理员':'普通用户'}}）</view>
+    </view>
+  </view>
+  
+
+</view>

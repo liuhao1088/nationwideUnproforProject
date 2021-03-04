@@ -53,7 +53,7 @@ App({
     }
   },
   globalData: {
-    server:'https://www.zhenghs.top',
+    server:'https://www.funiaopark.com',
     PageActive: true,
     openid:'',
     userInfo: null,
