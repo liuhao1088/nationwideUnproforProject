@@ -54,6 +54,7 @@ App({
   },
   globalData: {
     server:'https://www.funiaopark.com',
+    fileSource:'http://www.funiaopark.com/images/warranty/entrucking/',
     PageActive: true,
     openid:'',
     userInfo: null,

@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/salespersonEntry/salespersonEntry",
     "pages/inactivated/inactivated",
+    "pages/inactivated/chooseBrand/chooseBrand",
     "pages/salesperson/salesperson",
     "pages/activated/activated",
     "pages/explainRules/explainRules"

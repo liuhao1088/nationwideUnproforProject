@@ -3,6 +3,14 @@ function sub(data){
   return data.substring(5,9)+'.'+data.substring(9,11)
 }
 
+function replace(data){
+  if(data.length>=10){
+    return data.substring(0,4)+'.'+data.substring(5,7)+'.'+data.substring(8,10)
+  }else{
+    return data.substring(0,4)+'.'+data.substring(5,7)
+  }
+}
+
 function next(data,number){
   var year=data.substring(5,9)
   var nextyear=parseInt(year)+1+number
@@ -20,9 +28,20 @@ function hor(data){
   return res
 }
 
+function link(data){
+  if(data.substring(0,4)=="http"){
+    return data
+  }else{
+    console.log(data)
+    return "http://www.funiaopark.com/images/warranty/entrucking/"+data
+  }
+}
+
 module.exports = {
   sub:sub,
+  replace:replace,
   next:next,
   cn:cn,
-  hor:hor
+  hor:hor,
+  link:link
 }

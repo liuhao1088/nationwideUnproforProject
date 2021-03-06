@@ -1,6 +1,6 @@
 <wxs src="../../utils/util.wxs" module="utils" />
 <authorize id="authorize" />
-<view class="inactivatedContainer column justify-center align-center" bindtap="tt">
+<view class="inactivatedContainer column justify-center align-center">
   <view class="wrap"></view>
 
   <!-- 未激活 -->
@@ -61,7 +61,6 @@
       </view>
     </view>
   </view>
-  
   <view class="menu-wrapper">
     <view class="title-item">
       <view class="title-tag"></view>
@@ -106,8 +105,8 @@
           <view class="menu-leftItem">
             <view class="menu-tagItem">保修时间</view>
           </view>
-          <view class="menu-msgItem">
-            {{utils.sub(data.res_code)}} - {{utils.next(data.res_code,year)}}
+          <view class="menu-msgItem" style="color:{{extend?'green':''}}">
+            {{utils.replace(start_date)}} - {{utils.replace(end_date)}}
           </view>
         </view>
       </view>
@@ -122,7 +121,7 @@
               <text class="cuIcon-cameraadd" style="color: #8799a3;"></text>
             </view>
             <view class="solids" bindtap="ViewImage" style="display:{{img.length === 1?'block':'none'}};">
-              <image wx:for="{{img}}" wx:key="id" src="{{item}}" />
+              <image wx:for="{{img}}" src="{{utils.link(item)}}" data-index="{{index}}" />
               <view class="cu-tag bg-red" catchtap="DelImg" wx:if="{{activation==false}}" data-index="{{index}}">
                 <text class="cuIcon-close" style="color:#f92643;"></text>
               </view>

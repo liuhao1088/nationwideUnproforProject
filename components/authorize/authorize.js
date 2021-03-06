@@ -63,8 +63,12 @@ Component({
                   userInfo._openid=app.globalData.openid;
                   userInfo.creation_date=creation_date;
                   userInfo.creation_timestamp=Date.parse(creation_date.replace(/-/g, '/')) / 1000;
-                  wx.cloud.database().collection('user').where({_openid:userInfo._openid}).get().then(res=>{
+                  util.request('/users/detail',{data:userInfo._openid},"GET").then(res=>{
                     if(res.data.length==0){
+                      util.request('/users/insert',userInfo,'POST').then(res=>{
+                        console.log(res)
+                      })
+                      /*wx.cloud.database().collection('user').where({_openid:userInfo._openid}).get().then(res=>{
                       wx.cloud.callFunction({
                         name:'recordAdd',
                         data:{
@@ -72,8 +76,10 @@ Component({
                           addData:userInfo
                         }
                       })
+                      })*/
                     }
                   })
+                  
                   wx.setStorageSync('userInfo', userInfo)
                   wx.hideLoading()
                   wx.showToast({

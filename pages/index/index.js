@@ -1,5 +1,6 @@
 // pages/video/video.js
 var app = getApp();
+var util= require('../../utils/util');
 let code;
 Page({
 
@@ -66,6 +67,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    console.log(require('../../utils/util').toDate(1612001603,'Y/M/D h:m:s'))
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -107,19 +109,36 @@ Page({
   check: function (openid) {
     var that = this;
     if (!wx.getStorageSync('warranty')) {
-      wx.cloud.database().collection('warranty_activation').where({
-        _openid: openid
-      }).get().then(res => {
-        let data = res.data;
-        console.log(res)
-        if (data.length == 1) {
-          wx.setStorageSync('warranty', data[0])
-          code = data[0].warranty_code;
-          that.setData({
-            activation: true
-          })
-        }
+      util.request('/activation/detail',{
+        data: openid
+      },"GET").then(res=>{
+        let data=res.data;
+          console.log(res)
+          if (data.length == 1) {
+            wx.setStorageSync('warranty', data[0])
+            code = data[0].warranty_code;
+            that.setData({
+              activation: true
+            })
+          }
       })
+      /*wx.request({
+        url: app.globalData.server + '/activation/detail',
+        data:{
+          data: openid
+        },
+        success:function(res){
+          let data=res.data;
+          console.log(res)
+          if (data.length == 1) {
+            wx.setStorageSync('warranty', data[0])
+            code = data[0].warranty_code;
+            that.setData({
+              activation: true
+            })
+          }
+        }
+      })*/
     } else {
       let warranty = wx.getStorageSync('warranty')
       code = warranty.warranty_code;
@@ -148,12 +167,6 @@ Page({
         activation: true
       })
     }
-    /*wx.request({url:'https://www.funiaopark.com/brand?page=1',success:function(res){
-      console.log(res)
-      wx.showModal({
-        title:'请求成功',
-      })
-    },fail:function(res){console.log(res)}})*/
   },
   distinguish: function (result) {
     var isletter = (/[a-z]/i).test(result.substring(0, 1));
@@ -169,74 +182,38 @@ Page({
       wx.showLoading({
         title: '识别中',
       })
-      wx.cloud.callFunction({
-        name: 'recordQuery',
-        data: {
-          collection: 'warranty_model',
-          where: {
-            brand_code: result.substring(0, 1),
-            category_code: result.substring(1, 3),
-            model_code: result.substring(3, 5)
-          },
-          from: 'warranty_brand',
-          let: {
-            brand_code: '$brand_code',
-          },
-          match: ['$brand_code', '$$brand_code'],
-          matchs: ['',''],
-          project: {
-            brand_code: 0
-          },
-          as: 'brand',
-          from2: 'warranty_category',
-          let2: {
-            category_code: '$category_code',
-            brand_code: '$brand_code'
-          },
-          match2: ['$category_code', '$$category_code'],
-          matchs2: ['$brand_code', '$$brand_code'],
-          project2: {
-            category_code: 0
-          },
-          as2: 'category',
-          sort: {
-            creation_timestamp: -1
-          },
-          skip: 0,
-          limit: 10
-        }
-      }).then(res => {
-        let list = res.result.list
-        wx.hideLoading({
-          success: (res) => {},
-        })
-        switch (list.length) {
-          case 1:
-            if(list[0].brand_code=='B'){
+      util.request('/model/detail',{
+        brand_code: result.substring(0,1),
+        category_code:  result.substring(1,3),
+        model_code:  result.substring(3,5)
+      },"GET").then(res=>{
+        console.log(res)
+          let list=res.data;
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          switch (list.length) {
+            case 1:
+              if(list[0].brand_code=='B'){
+                wx.showModal({
+                  title: '暂无该产品信息',
+                  showCancel: false
+                })
+              }else{
+                list[0].res_code = result;
+                wx.navigateTo({
+                  url: '../inactivated/inactivated?data=' + JSON.stringify(list[0]),
+                })
+              }
+              break;
+            default:
               wx.showModal({
                 title: '暂无该产品信息',
                 showCancel: false
               })
-            }else{
-              list[0].res_code = result;
-              list[0].brand_name = list[0].brand[0].brand_name
-              list[0].category_name = list[0].category[0].category_name
-              wx.navigateTo({
-                url: '../inactivated/inactivated?data=' + JSON.stringify(list[0]),
-              })
-            }
-            break;
-          default:
-            wx.showModal({
-              title: '暂无该产品信息',
-              showCancel: false
-            })
-        }
+          }
       })
-      /*wx.showLoading({
-        title: '识别中',
-        })
-        wx.request({
+      /*wx.request({
         url: app.globalData.server+'/model/detail',
         data:{
           brand_code: result.substring(0,1),
@@ -244,23 +221,7 @@ Page({
           model_code:  result.substring(3,5)
         },
         success:function(res){
-          wx.hideLoading({
-            success: (res) => {},
-          })
-          console.log(res)
-          res.data[0].res_code=result;
-          switch(res.data.length){
-            case 1:
-              wx.navigateTo({
-                url: '../inactivated/inactivated?data='+JSON.stringify(res.data[0]) +'&res_code='+result,
-              })
-              break;
-            default:
-              wx.showModal({
-                title:'查询错误',
-                showCancel:false
-              })
-          }
+          
         },
         fail:function(err){
           console.log(err)
@@ -272,20 +233,9 @@ Page({
             showCancel:false
           })
         }
-      })
-
-      wx.navigateToMiniProgram({
-        appId: 'wxf63dcaf8f95ea541',
-        path: 'pages/index/index',
-        extraData: {},
-        success(res) {
-          // 打开成功
-        }
-      })
-      */
+      })*/
+      
     }
-
-
   },
   async retrieval() {
     var that = this;

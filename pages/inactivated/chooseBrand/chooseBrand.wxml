@@ -1,5 +1,5 @@
 <!--miniprogram/pages/toFormWarranty/chooseCar/chooseCar.wxml-->
-<view class="cu-bar bg-black search" style="height:50px;background:black;">
+<view class="cu-bar bg-black search" style="height:50px;background:gray;">
   <view class='search-form radius' style="background:white;">
     <text class="icon-search" style="margin-left:2%;"></text>
     <input type="text" style="margin-left:2%;" placeholder="搜索汽车品牌名称" confirm-type="search" bindinput='search' value="{{search}}"></input>
