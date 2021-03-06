@@ -1,11 +1,10 @@
 {
   "pages": [
-    "pages/inactivated/inactivated",
-    "pages/salespersonEntry/salespersonEntry",
-    "pages/salesperson/salesperson",
-    
-    "pages/activated/activated",
     "pages/index/index",
+    "pages/salespersonEntry/salespersonEntry",
+    "pages/inactivated/inactivated",
+    "pages/salesperson/salesperson",
+    "pages/activated/activated",
     "pages/explainRules/explainRules"
   ],
   "window": {

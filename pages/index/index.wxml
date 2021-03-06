@@ -76,6 +76,14 @@
         <view class="rule-titleTag column justify-center align-center">
           <view class="tag-item"></view>
         </view>
+        <view class="title-item">保修期限</view>
+      </view>
+      <view class="rule-main">自电子质保卡激活后的次日起开始生效，保修期默认年限为1年（365天）。（具体年限以消费者选择购买的时间为准）</view>
+
+      <view class="rule-item">
+        <view class="rule-titleTag column justify-center align-center">
+          <view class="tag-item"></view>
+        </view>
         <view class="title-item">服务范围</view>
       </view>
       <view class="rule-main">全国范围（具体以品牌合作售后网点覆盖范围为准）</view>
