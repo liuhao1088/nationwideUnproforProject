@@ -1,6 +1,7 @@
 // pages/manage/user/user.js
+var util=require('../../../utils/util')
 var ind;
-var skip;
+var page;
 Page({
 
   /**
@@ -26,7 +27,7 @@ Page({
         });
       }
     });
-    skip = 0;
+    page = 1;
     this.setData({
       list: []
     })
@@ -37,23 +38,13 @@ Page({
     that.setData({
       search: e.detail.value
     })
-    skip = 0;
+    page = 1;
     this.setData({
       list: []
     })
     this.loadData()
   },
-  delete: function (e) {
-    var that = this;
-    that.setData({
-      search: ''
-    })
-    skip = 0;
-    this.setData({
-      list: []
-    })
-    this.loadData()
-  },
+
   toLookup: function (e) {
     var that = this;
     ind = parseInt(e.currentTarget.dataset.index)
@@ -72,17 +63,11 @@ Page({
     } else {
       auth = 'primary'
     }
-    wx.cloud.callFunction({
-      name: 'recordUpdate',
-      data: {
-        collection: 'user',
-        where: {
-          _openid: that.data.list[ind]._openid
-        },
-        updateData: {
-          authority: auth
-        }
-      }
+    util.request('/users/update/auth',{
+      openid: that.data.list[ind].openid,
+      authority: auth
+    },'POST').then(res=>{
+
     })
   },
   /**
@@ -103,76 +88,8 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    const db = wx.cloud.database();
-    const _ = db.command;
-    wx.cloud.callFunction({
-      name: 'multQuery',
-      data: {
-        collection: 'user',
-        match: {},
-        or: [{
-          nickName: {
-            $regex: '.*' + that.data.search,
-            $options: 'i'
-          }
-        }, {
-          creation_date: {
-            $regex: '.*' + that.data.search,
-            $options: 'i'
-          }
-        }, {
-          province: {
-            $regex: '.*' + that.data.search,
-            $options: 'i'
-          }
-        }, {
-          city: {
-            $regex: '.*' + that.data.search,
-            $options: 'i'
-          }
-        }, {
-          sex: {
-            $regex: '.*' + that.data.search,
-            $options: 'i'
-          }
-        }, {
-          type: {
-            $regex: '.*' + that.data.search,
-            $options: 'i'
-          }
-        },{
-          phone: {
-            $regex: '.*' + that.data.search,
-            $options: 'i'
-          }
-        },{
-          authority: {
-            $regex: '.*' + that.data.search,
-            $options: 'i'
-          }
-        }],
-        and: [{}],
-        lookup: {
-          from: 'shop',
-          localField: '_openid',
-          foreignField: '_openid',
-          as: 'shop',
-        },
-        lookup2: {
-          from: 'coupon',
-          localField: '_openid',
-          foreignField: '_openid',
-          as: 'coupon',
-        },
-        sort: {
-          creation_date: -1
-        },
-        skip: skip,
-        limit: 20
-      }
-    }).then(res => {
-      console.log(res)
-      let data=res.result.list;
+    util.request('/users',{page:page},'GET').then(res=>{
+      let data=res.data;
       if (data.length == 0) {
         wx.hideLoading()
         wx.hideNavigationBarLoading()
@@ -193,22 +110,18 @@ Page({
           wx.hideNavigationBarLoading()
         }
       }
-    }).catch(error => {
-      wx.hideLoading()
-      wx.hideNavigationBarLoading()
-      wx.showModal({
-        title: '服务器繁忙，请稍后重试',
-      })
     })
 
   },
   bindDownLoad: function () {
     console.log('--下拉刷新--')
     wx.showNavigationBarLoading() //在标题栏中显示加载
-    skip = skip + 20;
+    page=page+1;
     this.loadData()
   },
-
+  scroll:function(){
+    
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

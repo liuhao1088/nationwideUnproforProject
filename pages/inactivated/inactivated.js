@@ -1,7 +1,7 @@
 // pages/inactivated/inactivated.js
 var app = getApp()
 var util = require('../../utils/util.js')
-let now=Date.parse(util.formatTime(new Date))/1000;
+let now=util.getStamp(util.formatTime(new Date()));
 const server = app.globalData.server;
 let timer;
 Page({
@@ -144,6 +144,9 @@ Page({
     if (options) {
       let code;
       console.log(options)
+      let start_date=util.toDate(now,'Y/M',86400)
+      let end_date=util.toDate(now,'Y/M',31536000+86400)
+      console.log(start_date,end_date)
       if (options.data) {
         let data = JSON.parse(options.data)
         code = data.res_code;
@@ -154,6 +157,8 @@ Page({
         setTimeout(() => {
           this.setData({
             data: data,
+            start_date:start_date,
+            end_date:end_date,
             serviceList: insurance,
             payfee: data.extend_one * 100
           })
@@ -208,8 +213,6 @@ Page({
             let insurance = that.data.serviceList;
             insurance[0].price = list[0].extend_one;
             insurance[1].price = list[0].extend_two;
-            let start_date=util.toDate(now,'Y/M',86400)
-            let end_date=util.toDate(now,'Y/M',31536000+86400)
             that.setData({
               data: list[0],
               start_date:start_date,
@@ -262,6 +265,7 @@ Page({
               phone: data[0].warranty_phone,
               area: data[0].warranty_area,
               salesperson: data[0].warranty_salesperson,
+              sale_openid: data[0].sale_openid,
               nickName: data[0].nickName,
               avatarUrl: data[0].avatarUrl,
               extend: data[0].extend,
@@ -417,78 +421,76 @@ Page({
     wx.showLoading({
       title: '激活中',
     })
-    wx.cloud.database().collection('warranty_sale').where({
-      phone: that.data.salesperson
-    }).get().then(res => {
+    util.request('/sales/detail',{phone: that.data.salesperson},'GET').then(res=>{
       let openid='nothing'
       if (res.data.length > 0) {
-        openid = res.data[0]._openid;
+        openid = res.data[0].openid;
       }
       let code = ''
-        for (let e = 0; e < 10; e++) {
-          code += Math.floor(Math.random() * 10)
-        }
-        let start=util.toDate(now,'Y/M/D',86400)
-        let end=util.toDate(now,'Y/M/D',31536000+86400)
-        let userInfo = wx.getStorageSync('userInfo')
-        let info = {
-          creation_date: util.formatTime(new Date()),
-          creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
-          openid: app.globalData.openid,
-          nickName: userInfo.nickName,
-          avatarUrl: userInfo.avatarUrl,
-          warranty_name: that.data.name,
-          warranty_card: code,
-          warranty_code: that.data.data.res_code,
-          warranty_brand: that.data.data.brand_name,
-          warranty_brand_code: that.data.data.res_code.substring(0, 1),
-          warranty_category: that.data.data.category_name,
-          warranty_category_code: that.data.data.res_code.substring(1, 3),
-          warranty_model: that.data.data.model_name,
-          warranty_model_code: that.data.data.res_code.substring(3, 5),
-          warranty_shop: that.data.shop,
-          warranty_car: that.data.brand + ' ' + that.data.model,
-          warranty_phone: that.data.phone,
-          warranty_area: that.data.area,
-          warranty_salesperson: that.data.salesperson,
-          sale_openid: openid,
-          warranty_img: image,
-          start_date:start,
-          end_date:end,
-          extend: 0
-        };
-        util.request('/activation/insert',info,"POST").then(res=>{
-          console.log(res)
-            wx.hideLoading({
-              success: (res) => {},
+      for (let e = 0; e < 10; e++) {
+        code += Math.floor(Math.random() * 10)
+      }
+      let start=util.toDate(now,'Y/M/D',86400)
+      let end=util.toDate(now,'Y/M/D',31536000+86400)
+      let userInfo = wx.getStorageSync('userInfo')
+      let info = {
+        creation_date: util.formatTime(new Date()),
+        creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
+        openid: app.globalData.openid,
+        nickName: userInfo.nickName,
+        avatarUrl: userInfo.avatarUrl,
+        warranty_name: that.data.name,
+        warranty_card: code,
+        warranty_code: that.data.data.res_code,
+        warranty_brand: that.data.data.brand_name,
+        warranty_brand_code: that.data.data.res_code.substring(0, 1),
+        warranty_category: that.data.data.category_name,
+        warranty_category_code: that.data.data.res_code.substring(1, 3),
+        warranty_model: that.data.data.model_name,
+        warranty_model_code: that.data.data.res_code.substring(3, 5),
+        warranty_shop: that.data.shop,
+        warranty_car: that.data.brand + ' ' + that.data.model,
+        warranty_phone: that.data.phone,
+        warranty_area: that.data.area,
+        warranty_salesperson: that.data.salesperson,
+        sale_openid: openid,
+        warranty_img: image,
+        start_date:start,
+        end_date:end,
+        extend: 0
+      };
+      util.request('/activation/insert',info,"POST").then(res=>{
+        console.log(res)
+          wx.hideLoading({
+            success: (res) => {},
+          })
+          wx.setStorageSync('warranty', info)
+          wx.setStorageSync('distinguish', that.data.data)
+          that.setData({
+            activation: true,
+            start_date:start,
+            end_date:end,
+            card: code.substring(0, 3) + " " + code.substring(3, 6) + " " + code.substring(6),
+            nickName: userInfo.nickName,
+            avatarUrl: userInfo.avatarUrl,
+            sale_openid: openid
+          })
+          wx.showToast({
+            title: '激活成功',
+            icon: 'success',
+            duration: 2000
+          })
+          if (wx.pageScrollTo) {
+            wx.pageScrollTo({
+              scrollTop: 0
             })
-            wx.setStorageSync('warranty', info)
-            wx.setStorageSync('distinguish', that.data.data)
+          }
+          setTimeout(() => {
             that.setData({
-              activation: true,
-              start_date:start,
-              end_date:end,
-              card: code.substring(0, 3) + " " + code.substring(3, 6) + " " + code.substring(6),
-              nickName: userInfo.nickName,
-              avatarUrl: userInfo.avatarUrl
+              modalName: 'meal'
             })
-            wx.showToast({
-              title: '激活成功',
-              icon: 'success',
-              duration: 2000
-            })
-            if (wx.pageScrollTo) {
-              wx.pageScrollTo({
-                scrollTop: 0
-              })
-            }
-            setTimeout(() => {
-              that.setData({
-                modalName: 'meal'
-              })
-            }, 1000)
-        })
-        
+          }, 1000)
+      })
     })
 
   },
@@ -602,7 +604,7 @@ Page({
   payfee: function () {
     var that = this;
     if (that.data.activation) {
-      var stamp = Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000;
+      var stamp = util.getStamp(util.formatTime(new Date())) ;
       var str = util.getRandomCode(12)
       let No = "LB" + stamp + util.getRandomCode()
       wx.showLoading({
@@ -647,33 +649,28 @@ Page({
         if (py.data.payInd == 1) {
           year = 2
         }
-        wx.cloud.database().collection('warranty_sale').where({
-          phone: py.data.salesperson
-        }).get().then(res => {
-          let openid='nothing'
-          if (res.data.length > 0) {
-            openid = res.data[0]._openid;
-          }
-          const info={
-            creation_date: util.formatTime(new Date()),
-            creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
-            order_no: number,
-            salesperson: py.data.salesperson,
-            openid: wx.getStorageSync('openid'),
-            payfee: payfee,
-            shop: py.data.shop,
-            warranty_code: py.data.data.res_code,
-            sale_openid: openid,
-            brand_code: py.data.data.res_code.substring(0, 1),
-            category_code: py.data.data.res_code.substring(1, 3),
-            model_code: py.data.data.res_code.substring(3, 5),
-          };
-          util.request('/order/insert',info,"POST").then(res=>{
-            console.log(res)
-          })
-        })
-        let endstamp=Date.parse(py.data.end_date)/1000;
+        let sale_openid = py.data.sale_openid;
+        const info={
+          creation_date: util.formatTime(new Date()),
+          creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
+          order_no: number,
+          salesperson: py.data.salesperson,
+          openid: wx.getStorageSync('openid'),
+          payfee: payfee,
+          shop: py.data.shop,
+          warranty_code: py.data.data.res_code,
+          sale_openid: sale_openid,
+          brand_code: py.data.data.res_code.substring(0, 1),
+          category_code: py.data.data.res_code.substring(1, 3),
+          model_code: py.data.data.res_code.substring(3, 5),
+        };
+        util.request('/order/insert',info,"POST").then(res=>{
+          console.log(res)
+        })  
+        let endstamp=Date.parse(py.data.end_date.replace(/-/g, '/')) / 1000;
+        console.log(endstamp,py.data.end_date)
         let end=util.toDate(endstamp,'Y/M/D',31536000*year)
+        console.log(end)
         py.setData({
           modalName: null,
           extend: 1,
@@ -698,6 +695,13 @@ Page({
           end_date:end,
           warranty_code: py.data.data.res_code
         },"POST").then(res=>{
+
+        })
+        util.request('/sales/update/income',{
+          openid:sale_openid,
+          type:'income',
+          income:payfee
+        },'POST').then(res=>{
 
         })
       },

@@ -1,4 +1,5 @@
 var app = getApp()
+var util = require('../../utils/util')
 Page({
 
   /**
@@ -171,20 +172,12 @@ Page({
         if(!app.globalData.PageActive){
           switch(that.data.btn){
             case '修改信息':
-              wx.cloud.callFunction({
-                name:'recordUpdate',
-                data:{
-                  collection:'warranty_sale',
-                  where:{
-                    _openid:app.globalData.openid
-                  },
-                  updateData:{
-                    phone:that.data.phone,
-                    number:that.data.number,
-                    detail:that.data.detail
-                  }
-                }
-              }).then(res=>{
+              util.request('/sales/update',{
+                phone:that.data.phone,
+                number:that.data.number,
+                detail:that.data.detail,
+                openid:app.globalData.openid
+              },'POST').then(res=>{
                 wx.hideLoading()
                 wx.showToast({
                   title: '提交成功',
@@ -200,25 +193,20 @@ Page({
               break;
             default:
               let addressJson=wx.getStorageSync('addressJson')
-              wx.cloud.callFunction({
-                name:'recordAdd',
-                data:{
-                  collection:'warranty_sale',
-                  addData:{
-                    name:that.data.name,
-                    _openid:app.globalData.openid,
-                    sex:that.data.sex,
-                    phone:that.data.phone,
-                    shop:that.data.shop,
-                    address:that.data.address,
-                    address_name:that.data.address_name,
-                    detail:that.data.detail,
-                    lon:addressJson.longitude,
-                    lat:addressJson.latitude,
-                    number:that.data.number
-                  }
-                }
-              }).then(res=>{
+              util.request('/sales/insert',{
+                name:that.data.name,
+                openid:app.globalData.openid,
+                sex:that.data.sex,
+                phone:that.data.phone,
+                shop:that.data.shop,
+                address:that.data.address,
+                address_name:that.data.address_name,
+                detail:that.data.detail,
+                lon:addressJson.longitude,
+                lat:addressJson.latitude,
+                number:that.data.number,
+                creation_timestamp: Date.parse(util.formatTime(new Date()).replace(/-/g, '/')) / 1000,
+              },'POST').then(res=>{
                 wx.hideLoading()
                 wx.showToast({
                   title: '注册成功',
@@ -231,6 +219,7 @@ Page({
                   })
                 },2000)
               })
+              
           }
         }
       })

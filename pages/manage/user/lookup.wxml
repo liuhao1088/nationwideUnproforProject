@@ -37,7 +37,7 @@
   </view>
   <view class='box row align-center'>
     <view class='field align-center'>openid</view>
-    <view class='input align-center'>{{data._openid}}</view>
+    <view class='input align-center'>{{data.openid}}</view>
   </view>
   <view class='box row align-center'>
     <view class='field align-center'>用户类型</view>

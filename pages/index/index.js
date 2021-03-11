@@ -13,11 +13,6 @@ Page({
     avatarUrl: 'https://img10.360buyimg.com/ddimg/jfs/t1/164224/33/3176/1736/6005080bE0d9ade5b/c768fb7219e855f9.png',
     nickName: '用户昵称'
   },
-  toM:function(){
-    wx.navigateTo({
-      url: '../manage/manage',
-    })
-  },
   getScancode(e) {
     var _this = this;
     // 允许从相机和相册扫码
@@ -67,7 +62,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    console.log(require('../../utils/util').toDate(1612001603,'Y/M/D h:m:s'))
+    console.log(require('../../utils/util').toDate(1612001603,'Y/M/D h:m:s',0))
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
@@ -122,23 +117,7 @@ Page({
             })
           }
       })
-      /*wx.request({
-        url: app.globalData.server + '/activation/detail',
-        data:{
-          data: openid
-        },
-        success:function(res){
-          let data=res.data;
-          console.log(res)
-          if (data.length == 1) {
-            wx.setStorageSync('warranty', data[0])
-            code = data[0].warranty_code;
-            that.setData({
-              activation: true
-            })
-          }
-        }
-      })*/
+      
     } else {
       let warranty = wx.getStorageSync('warranty')
       code = warranty.warranty_code;
@@ -213,27 +192,6 @@ Page({
               })
           }
       })
-      /*wx.request({
-        url: app.globalData.server+'/model/detail',
-        data:{
-          brand_code: result.substring(0,1),
-          category_code:  result.substring(1,3),
-          model_code:  result.substring(3,5)
-        },
-        success:function(res){
-          
-        },
-        fail:function(err){
-          console.log(err)
-          wx.hideLoading({
-            success: (res) => {},
-          })
-          wx.showModal({
-            title:'网络繁忙，请稍后重试',
-            showCancel:false
-          })
-        }
-      })*/
       
     }
   },
@@ -251,6 +209,21 @@ Page({
         }, 900);
       }
     }, 1000);
+  },
+  toManage:function(){
+    if(app.globalData.openid!==''){
+      util.request('/users/detail',{openid:app.globalData.openid},'GET').then(res=>{
+        console.log(res)
+        if(res.data.length>0){
+          switch(res.data[0].authority){
+            case 'admin':
+              wx.navigateTo({
+                url: '../manage/manage',
+              })
+          }
+        }
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面隐藏

@@ -37,6 +37,13 @@ function toDate(number, format, next) {
   return format;
 }
 
+function getStamp(data){
+  var arr = data.split(/[- :]/);
+  let nndate = new Date(arr[0], arr[1] - 1, arr[2], arr[3], arr[4], arr[5]);
+  nndate=Date.parse(nndate)/1000;
+  return nndate;
+}
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : `0${n}`
@@ -128,6 +135,7 @@ module.exports = {
   formatTime,
   formatDate,
   toDate,
+  getStamp,
   getRandomCode,
   uploadimg,
   request

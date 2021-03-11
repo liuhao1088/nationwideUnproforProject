@@ -1,4 +1,5 @@
 // pages/salesperson/salesperson.js
+var util=require('../../utils/util')
 Page({
 
   /**
@@ -20,14 +21,43 @@ Page({
    */
   onLoad: function (options) {
     wx.hideHomeButton();
-    if(!wx.getStorageSync('userInfo')){
-      let type="regisiter";
-      wx.redirectTo({
-        url: '../salespersonEntry/salespersonEntry?type='+type,
+    var that=this;
+    if(wx.getStorageSync('openid')){
+      let openid=wx.getStorageSync('openid')
+      that.seek(openid)
+    }else{
+      wx.cloud.callFunction({
+        name:'login',
+      }).then(res=>{
+        let openid=res.result.openid;
+        that.seek(openid)
       })
     }
+    
   },
-
+  
+  seek:function(openid){
+    var that=this;
+    util.request('/sales/detail',{openid:openid},'GET').then(res=>{
+      console.log(res)
+      let data=res.data;
+      if(data.length==0){
+        let type="regisiter";
+        wx.redirectTo({
+          url: '../salespersonEntry/salespersonEntry?type='+type,
+        })
+      }else{
+        let userInfo=wx.getStorageSync('userInfo')
+        that.setData({
+          nickName:userInfo.nickName,
+          data:data[0],
+          avatarUrl:userInfo.avatarUrl,
+          shop:data[0].shop,
+          phone:data[0].phone.substring(0,3)+'****'+data[0].phone.substring(7)
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -40,33 +70,11 @@ Page({
    */
   onShow: function () {
     var that=this;
-    if(wx.getStorageSync('userInfo')){
-      if(wx.getStorageSync('openid')){
-        let openid=wx.getStorageSync('openid')
-        that.getInfo(openid)
-      }else{
-        wx.cloud.callFunction({
-          name:'login',
-        }).then(res=>{
-          let openid=res.result.openid;
-          that.getInfo(openid)
-        })
-      }
-    }
+    
+      
   },
   getInfo(openid){
-    var that=this;
-    wx.cloud.database().collection('warranty_sale').where({_openid:openid}).get().then(res=>{
-      let data=res.data[0]
-      let userInfo=wx.getStorageSync('userInfo')
-      that.setData({
-        nickName:userInfo.nickName,
-        data:data,
-        avatarUrl:userInfo.avatarUrl,
-        shop:data.shop,
-        phone:data.phone.substring(0,3)+'****'+data.phone.substring(7)
-      })
-    })
+
   },
   /**
    * 生命周期函数--监听页面隐藏

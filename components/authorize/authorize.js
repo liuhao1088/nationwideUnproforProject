@@ -48,9 +48,9 @@ Component({
         var that = this;
         wx.showLoading({
           title: '登录中...',
-        })        
+        })
         this.hideModal();
-        var app=getApp()
+        var app = getApp()
         wx.getSetting({
           success: res => {
             console.log(res)
@@ -59,34 +59,37 @@ Component({
               wx.getUserInfo({
                 success: res => {
                   let userInfo = res.userInfo;
-                  let creation_date=util.formatTime(new Date())
-                  userInfo._openid=app.globalData.openid;
-                  userInfo.creation_date=creation_date;
-                  userInfo.creation_timestamp=Date.parse(creation_date.replace(/-/g, '/')) / 1000;
-                  util.request('/users/detail',{data:userInfo._openid},"GET").then(res=>{
-                    if(res.data.length==0){
-                      util.request('/users/insert',userInfo,'POST').then(res=>{
+                  let creation_date = util.formatTime(new Date())
+                  userInfo._openid = app.globalData.openid;
+                  userInfo.creation_date = creation_date;
+                  userInfo.creation_timestamp = Date.parse(creation_date.replace(/-/g, '/')) / 1000;
+                  util.request('/users/detail', {
+                    openid: userInfo._openid
+                  }, "GET").then(res => {
+                    console.log(res)
+                    if (res.data.length == 0) {
+                      util.request('/users/insert', userInfo, 'POST').then(res => {
                         console.log(res)
                       })
-                      /*wx.cloud.database().collection('user').where({_openid:userInfo._openid}).get().then(res=>{
-                      wx.cloud.callFunction({
-                        name:'recordAdd',
-                        data:{
-                          collection:'user',
-                          addData:userInfo
-                        }
-                      })
-                      })*/
+                    } else {
+                      if (res.data[0].avatarUrl !== userInfo.avatarUrl || res.data[0].nickName !== userInfo.nickName) {
+                        util.request('/users/update/info', {
+                          nickName: userInfo.nickName,
+                          avatarUrl: userInfo.avatarUrl,
+                          openid: userInfo._openid
+                        }, 'POST').then(res => {
+                          console.log(res)
+                        })
+                      }
                     }
                   })
-                  
                   wx.setStorageSync('userInfo', userInfo)
                   wx.hideLoading()
                   wx.showToast({
                     title: '登录成功',
                     icon: "success",
                     duration: 1500
-                  })           
+                  })
                 }
               })
             } else {
